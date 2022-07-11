@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Salesperson Salary Acknowledgement</title>
+
+
+<!-- CSS -->
+<style>
+hr{
+        background-color:#404040;
+    }
+body{
+    font-size:14px;
+}
+.myTable { 
+  width: 100%;
+  text-align: center;
+  background-color: #a1ddbf;
+  border-collapse: collapse;
+
+  }
+.myTable th { 
+  background-color: #26734d;
+  color: white; 
+  }
+.myTable td, 
+.myTable th { 
+  padding: 5px;
+  border: 1px solid white;
+  width:190px;
+
+  }
+  #address{
+    margin-right:530px;
+    }
+</style>
+
+</head>
+<body>
+    
+    <header>
+        <div align="center" style="padding-top:20px">
+                <img src="C:\Users\Rahul\Desktop\maruti8\marutiecommerce\myshop\static\All\Admin Panel\assets\img\logo.png">
+                <div style="padding-top:12px">
+                <b style="font-size:24px">Maruti E-Commerce Platform</b>
+                </div>
+        </div>
+        <div align="right">
+            <p>Date: {{date}}</p>
+        </div>  
+    
+    </header>
+    <hr/>
+
+     <div>
+        <p>
+        
+            <b>Salesperson Id : </b>{{transaction.salesperson_salesperson_id.id}}
+        </p>
+    </div>
+        <b>{{transaction.salesperson_salesperson_id.user_user_id.first_name}} {{transaction.salesperson_salesperson_id.user_user_id.last_name}}</b><br/>
+        <div id="address">
+            {{transaction.salesperson_salesperson_id.salesperson_address}}
+        </div>
+
+<h2 align="center" style = "font-size:24px">Salary</h2>
+<table class="myTable" align="center">
+	<tr>
+		<th scope="col">No</th>
+        <th scope="col">Month</th>
+        <th scope="col">Payment Method</th>
+        <th scope="col">Working Days</th>
+        <th scope="col">Amount ( Rs. )</th>
+	</tr>
+        <tr>
+            <td>1</td>
+            <td>{{ month }}</td>
+            <td>{{transaction.payment_method_payment_method_id.payment_method_name}}</td>
+            <td>{{working_days}}</td>
+            <td>{{transaction.amount}}</td>
+        </tr>
+        <tr>
+            <td colspan=4 style="text-align:right"><h4>Total Amount</h4></td>
+            <td><b>{{transaction.amount}}</b></td>
+        </tr>
+        <tr>
+            <td colspan=5 style="text-align:left"><p style="font-size:16px;">Total amount in words : <b>{{amt_word}}</b></p></td>
+            
+        </tr>
+</table>
+
+<div style="text-align:center;padding:5px;background-color:#ccebff;margin-top:30px;vertical-align: baseline;">
+   <b> Thank You</b>
+</div>
+
+</body>
+</html>

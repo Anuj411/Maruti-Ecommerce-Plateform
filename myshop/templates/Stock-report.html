@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Stock Report</title>
+
+<!-- CSS -->
+<style>
+hr{
+        background-color:#404040;
+    }
+body{
+    font-size:14px;
+}
+.myTable { 
+  width: 100%;
+  text-align: center;
+  background-color: #ffb3b3;
+  border-collapse: collapse;
+
+  }
+.myTable th { 
+  background-color: #800000;
+  color: white; 
+  }
+.myTable td, 
+.myTable th { 
+  padding: 5px;
+  border: 1px solid white;
+  max-width:190px;
+
+  }
+#address{
+    margin-right:530px;
+}
+</style>
+
+</head>
+<body>
+    
+    <header>
+        <div align="center" style="padding-top:20px">
+                <img src="C:\Users\Rahul\Desktop\maruti8\marutiecommerce\myshop\static\All\Admin Panel\assets\img\logo.png">
+                <div style="padding-top:12px">
+                <b style="font-size:24px">Maruti E-Commerce Platform</b>
+                </div>
+        </div>
+        <div align="right">
+            <p>Date: {{date}}</p>
+        </div>  
+    
+    </header>
+    <hr/>
+
+<h2 align="center" style = "font-size:24px"> Stock Report </h2>
+<table class="myTable" align="center">
+	<tr>
+		<th style="width:7%">No</th>
+        <th>Product Details</th>
+        <th style="width:9%">Product Id</th>
+        <th style="width:10%">Status</th>
+        <th style="width:12%">Listing Price</th>
+        <th style="width:12%">Final Price</th>
+        <th style="width:10%">Stock</th>
+        <th style="width:13%">Category</th>
+	</tr>
+    {% for prod in products %}
+
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td><b>{{prod.product_name}}</b><br>{{prod.product_short_description}}</td>
+            <td>{{prod.id}}</td>
+            {% if prod.status == 0 %}
+                <td>Inactive</td>
+            {% elif prod.status == 1 %}
+                <td>Active</td>
+            {% elif prod.status == 2 %}
+                <td>Block</td>
+            {% else %}
+                <td>Unblock</td>
+            {% endif %}
+            <td>{{prod.product_mrp}}</td>
+            <td>{{prod.product_selling_price}}</td>
+            {% if prod.qty_product > 0 %}
+                <td>{{prod.qty_product}}</td>
+            {% else %}
+                <td style="color:red">Out Of Stock</td>
+            {% endif %}
+            <td>{{prod.categoryHasBrand_id.category_category_id}}</td>
+        </tr>
+        
+    {% endfor %}   
+</table>
+
+</body>
+</html>

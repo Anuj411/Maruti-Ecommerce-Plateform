@@ -1,0 +1,342 @@
+{% extends 'Admin-Header-Footer.html' %}
+
+{% load static %}
+
+{% block css %}
+  <title>Maruti E-Commerce Plateform - Manage Product</title>
+  <script type="text/javascript" src="{% static 'All/Admin Panel/assets/js/jquery-1.10.2.js' %}"></script>
+  <script type="text/javascript">
+      function alertmsg(){
+          {% if msg %}
+            alert('{{msg}}');
+          {% endif %}
+      }
+
+      $(function() {
+        $(".table").tablesorter();
+      });
+
+      $(document).ready(function(){
+
+        // for isactive
+        var switchid;
+
+        {% for product,img in products %}
+          switchid = "#switch"+{{forloop.counter}};
+          $(switchid).change(function() {
+            console.log(switchid)
+            $.ajax({
+            type:"GET",
+                url: "{% url 'activeprod' %}",
+                data: {
+                  'id': {{product.id}},
+                  'isactive': this.checked
+                },
+                dataType: 'json',
+                success: function (data) {
+                  console.log(data);
+              }
+            });
+          });
+        {% endfor %}
+      });
+    </script>
+{% endblock %}
+
+{% block content %}
+<body onload="alertmsg()">
+    <!-- Header -->
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body pt-5">
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Total Product</h5>
+                      <span class="h2 font-weight-bold mb-0">{{tot_prod}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                        <i class="fa fa-users"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Active Products</h5>
+                      <span class="h2 font-weight-bold mb-0">{{tot_active}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                        <i class="fa fa-user"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Inactive Products</h5>
+                      <span class="h2 font-weight-bold mb-0">{{tot_inactive}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                        <i class="fa fa-user"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Block Products</h5>
+                      <span class="h2 font-weight-bold mb-0">{{tot_block}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                        <i class="fa fa-user"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Unblock Products</h5>
+                      <span class="h2 font-weight-bold mb-0">{{tot_unblock}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                        <i class="fa fa-user"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              
+            </div>
+   
+          </div>
+        </div>
+      </div>
+    </div>
+     <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h1 class="mb-0 text-primary" style="text-align: center;">Manage Product</h1>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="prodid">Product Id</th>
+                    <th scope="col" class="sort" data-sort="proimg">Image</th>
+                    <th scope="col" class="sort" data-sort="prodname">Product Name</th>
+                    <th scope="col" class="sort" data-sort="desc">Short Description</th>
+                    <th scope="col" class="sort" data-sort="mrp">MRP</th>
+                    <th scope="col" class="sort" data-sort="qty">Qty</th>
+                    <th scope="col" class="sort" data-sort="price">Selling Price</th>
+                    <th scope="col" class="sort" data-sort="date">Add Date</th>
+                    <th scope="col" class="sort" data-sort="sname">Seller Name</th>
+                    <th scope="col" class="sort" data-sort="Try">Try & Buy</th>
+                    <th scope="col" class="sort" data-sort="view">View Details</th>
+                    <th scope="col" class="sort" data-sort="Status">Status</th>
+                    <th scope="col" class="sort" data-sort="Remove">Remove</th>
+                  </tr>
+                </thead>
+                <tbody class="list txt1">
+                {% for prod,img in products %}
+                
+                  <tr>
+                    <th scope="row">
+                      <div>
+                        {{prod.id}}
+                      </div>
+                    </th>
+                    <td>
+                        <img src="/media/{{img}}" height="100px" width="130px" />
+                    </td>
+                    <td>
+                      <div class="avatar-group">
+                        {{prod.product_name}}
+                      </div>
+                    </td>
+                    <td>
+                      {% if prod.product_short_description|length > 30 %}
+                      {{prod.product_short_description|slice:30}}...
+                      {% else %}
+                      {{prod.product_short_description}}
+                      {% endif %}
+                    </td>
+                    <td>
+                        {{prod.product_mrp}}
+                    </td>
+                    <td>
+                      {% if prod.qty_product %}
+                        {{prod.qty_product}}
+                      {% else %}
+                        0
+                      {% endif %}
+                    </td>
+                    <td>
+                      {{prod.product_selling_price}}
+                    </td>
+                    <td>
+                      {{prod.product_add_date}}
+                    </td>
+                    <td>
+                      {{prod.seller_seller_id.user_user_id.first_name}} {{prod.seller_seller_id.user_user_id.last_name}}
+                    </td>
+                    <td>
+                      {% if prod.try_and_buy %}
+                      YES
+                      {% else %}
+                      NO
+                      {% endif %}
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-info" onclick="location.href='{% url 'adminviewprod' pid=prod.id %}'">View</button>
+                    </td>
+                    <td>
+                      {% with y=forloop.counter|stringformat:"s" %}
+                      {% with switchid="switch"|add:y %}
+                      <div class="d-flex align-items-center">
+                        {% if prod.status == 2 %}
+                        <input type="checkbox" id={{ switchid }} class="checkbox" />
+                        <label for={{ switchid }} class="toggle">
+                        {% else %}
+                        <input type="checkbox" id={{ switchid }} class="checkbox" checked/>
+                        <label for={{ switchid }} class="toggle">
+                        {% endif %}
+                      </div>
+                      {% endwith %}
+                      {% endwith %}
+                    </td>
+                    <td class="text-right">
+                        <button type="button" onclick="myFunction({{prod.id}})" class="btn btn-danger">Remove</button>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+              {% if products.has_other_pages %}
+              <nav aria-label="...">
+                <ul class="pagination justify-content-end mb-0">
+                {% if products.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ products.previous_page_number }}" tabindex="-1">
+                      <i class="fas fa-angle-left"></i>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                        <i class="fas fa-angle-left"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% for i in products.paginator.page_range %}
+                  {% if products.number == i %}
+                  <li class="page-item active">
+                    <a class="page-link" href="#">{{ i }}<span class="sr-only">(current)</span></a>
+                  </li>
+                  {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                  </li>
+                  {% endif %}
+                {% endfor %}
+                {% if products.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ products.next_page_number }}">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% endif %}
+                </ul>
+              </nav>
+            {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+ </body>
+ {% endblock %}
+
+{% block js %}
+
+<script>
+  function myFunction(id)
+      {
+        alert("This product cannot be remove because product is in order !");
+        if (confirm("Are you sure want to remove?")) {
+          var x = "/adminside/removeproduct/"+id;
+          location.href=x;
+        } else {
+        }
+      }
+</script>
+
+{% endblock %}

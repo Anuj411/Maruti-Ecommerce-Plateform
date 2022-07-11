@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="All/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="All/Seller Add Items/sizemodal/sizemodal.css">
+    <style type="text/css">
+            fieldset.scheduler-border {
+                border: 1px groove #ddd !important;
+                padding: 0 1.4em 1.4em 1.4em !important;
+                margin: 0 0 1.5em 0 !important;
+                -webkit-box-shadow: 0px 0px 0px 0px #000;
+                box-shadow: 0px 0px 0px 0px #000;
+            }
+
+            legend.scheduler-border {
+                font-size: 1.2em !important;
+                font-weight: bold !important;
+                text-align: left !important;
+                width: inherit;
+                /* Or auto */
+                padding: 0 10px;
+                /* To give a bit of padding on the left and right */
+                border-bottom: none;
+            }
+
+            .mrgnSizebtn {
+                margin-top: 34px;
+                margin-left: 30px;
+            }
+
+            .btns:hover {
+                color: white;
+            }
+
+            .mrgnProDes {
+                margin-right: 300px;
+            }
+
+            /*  .mrgnMRP{
+          margin-right: 150px;
+        } */
+    </style>
+    <script type="text/javascript">
+        function isNumberKey(evt, id) {
+            try {
+                var charCode = (evt.which) ? evt.which : event.keyCode;
+
+                if (charCode == 46) {
+                    var txt = document.getElementById(id).value;
+                    if (!(txt.indexOf(".") > -1)) {
+
+                        return true;
+                    }
+                }
+                if (charCode > 31 && (charCode < 48 || charCode > 57))
+                    return false;
+
+                return true;
+            } catch (w) {
+                alert(w);
+            }
+        }
+        function forQuantity(evt, id) {
+            try {
+                var charCode = (evt.which) ? evt.which : event.keyCode;
+
+                if (charCode > 31 && (charCode < 48 || charCode > 57))
+                    return false;
+
+                return true;
+            } catch (w) {
+                alert(w);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <form>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Product Details</legend>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="validationServer01" class="font-weight-bold">Product Name : </label>
+                    <input type="text" class="form-control" id="validationServer01" placeholder="Enter Product Name Here . . . " required>
+                </div>
+                <div class="col-md-7 mb-3 ml-5">
+                    <label for="validationServer02" class="font-weight-bold">Short Description : </label>
+                    <input type="text" class="form-control" id="validationServer02" placeholder="Enter short description of your product Exa: main functionality etc . . ." required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-1 mb-3">
+                    <label for="validationServer03" class="font-weight-bold" id="sizeFootwear">Size</label>
+                    <input type="number" class="form-control" id="validationServer03" step="0.5" min="5" max="48" required>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <!-- Trigger/Open The Modal -->
+                    <a id="myBtn" class="btn btn-outline-secondary mrgnSizebtn">View Size Chart</a>
+                    <!-- The Modal -->
+                    <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <div>
+                                <button type="button" class="close">Close</button>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                            <tr style="text-align: center;">
+                                                <th scope="col">&nbsp; # &nbsp;&nbsp;</th>
+                                                <th scope="col">UK/India &nbsp;&nbsp;</th>
+                                                <th scope="col">Length (in cm) &nbsp;&nbsp;&nbsp;</th>
+                                                <th scope="col">Euro &nbsp;&nbsp;&nbsp;</th>
+                                                <th scope="col">US</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: center;">
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>5</td>
+                                                <td>24</td>
+                                                <td>38.5</td>
+                                                <td>6</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>5.5</td>
+                                                <td>24.5</td>
+                                                <td>39</td>
+                                                <td>6.5</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">3</th>
+                                                <td>6</td>
+                                                <td>25</td>
+                                                <td>40</td>
+                                                <td>7</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">4</th>
+                                                <td>6.5</td>
+                                                <td>25.5</td>
+                                                <td>40.5</td>
+                                                <td>7.5</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">5</th>
+                                                <td>7</td>
+                                                <td>26</td>
+                                                <td>41</td>
+                                                <td>8</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">6</th>
+                                                <td>7.5</td>
+                                                <td>26.5</td>
+                                                <td>42</td>
+                                                <td>8.5</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">7</th>
+                                                <td>8</td>
+                                                <td>27</td>
+                                                <td>42.5</td>
+                                                <td>9</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">8</th>
+                                                <td>8.5</td>
+                                                <td>27.5</td>
+                                                <td>43</td>
+                                                <td>9.5</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">9</th>
+                                                <td>9</td>
+                                                <td>28</td>
+                                                <td>43</td>
+                                                <td>10</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">10</th>
+                                                <td>9.5</td>
+                                                <td>28.5</td>
+                                                <td>44.5</td>
+                                                <td>10.5</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">11</th>
+                                                <td>10</td>
+                                                <td>29</td>
+                                                <td>45</td>
+                                                <td>11</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">12</th>
+                                                <td>10.5</td>
+                                                <td>29.5</td>
+                                                <td>45.5</td>
+                                                <td>11.5</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">13</th>
+                                                <td>11</td>
+                                                <td>30</td>
+                                                <td>46</td>
+                                                <td>12</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">14</th>
+                                                <td>11.5</td>
+                                                <td>30.5</td>
+                                                <td>47</td>
+                                                <td>12.5</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">15</th>
+                                                <td>12</td>
+                                                <td>31</td>
+                                                <td>47.5</td>
+                                                <td>13</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">16</th>
+                                                <td>12.5</td>
+                                                <td>31.5</td>
+                                                <td>48</td>
+                                                <td>13.5</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-lg-4 mt-5 ml-5">
+                                    <h4>Not sure about your shoe size? </h4>
+                                    <p>Follow these simple steps to figure it out:</p>
+                                    <ol>
+                                        <li> Place your foot on a blank sheet of paper</li>
+                                        <li> Make one marking at your longest toe and one marking at the backside of your heel</li>
+                                        <li> Measure (in centimetres) the length of your foot between these two markings</li>
+                                        <li> Compare the value to our measurement chart to know your shoe size</li>
+                                    </ol>
+                                    <center>
+                                        <img src="assets/img/shoes-size.png" alt="shoe size" class="mt-5">
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="validationServer05" class="font-weight-bold">MRP : </label>
+                    <input id="inputMRP" onkeypress="return isNumberKey(event,this.id)" type="text" name="txtChar" class="decimal form-control" placeholder="&#8377;" required>
+                    <!--  <input type="text" class="form-control" id="validationServer05" required onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode == 46))" /> -->
+                </div>
+                <div class="col-md-2 mb-3 ml-5">
+                    <label for="validationServer05" class="font-weight-bold">Selling Price : </label>
+                    <input id="inputSellPrice" onkeypress="return isNumberKey(event,this.id)" type="text" name="txtChar" class="decimal form-control" placeholder="&#8377;" required>
+                </div>
+                <div class="col-md-2 mb-3 ml-5">
+                    <label for="validationServer05" class="font-weight-bold">Quantity (Stock) : </label>
+                    <input id="inputSellPrice" onkeypress="return forQuantity(event,this.id)" type="text" name="txtChar" class="decimal form-control" placeholder="Enter Quantity In Numbers" required>
+                </div>
+            </div>
+            <div class="col-md-10 mb-3 mrgnProDes">
+                <label for="validationServer05" class="font-weight-bold">Product Specifications : </label>
+                <input id="inputSellPrice" onkeypress="return forQuantity(event,this.id)" type="text" name="txtChar" class="decimal form-control" placeholder="Enter Quantity In Numbers" required>
+            </div>
+
+            <div class="form-group">
+                <div class="form-check">
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit form</button>
+        </fieldset>
+    </form>
+
+    <script type="text/javascript" src="All/Seller Add Items/sizemodal/sizemodal.js"></script>
+    <script src="All/Seller Add Items/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="All/Seller Add Items/assets/js/numberInput.js"></script>
+    <script type="text/javascript" src="All/Seller Add Items/assets/js/numberInput.js"></script>
+</body>
+
+</html>

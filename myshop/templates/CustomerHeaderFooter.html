@@ -1,0 +1,457 @@
+<html>
+{% load static %}
+<head>
+	<title> </title>
+	<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+	<!-- notifications dependencies -->
+	<!-- <link rel="stylesheet" href="Notification.css"> -->
+	<!-- <script type="text/javascript" src="Notification.js"></script> -->
+
+
+	<!-- Header css -->
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Bootstrap/css/bootstrap.css' %} ">
+	<link href="{% static 'All/Header/head/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css' %} " rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Header/head/plugins/OwlCarousel2-2.2.1/owl.carousel.css' %} ">
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Header/head/plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %} ">
+	<link rel="stylesheet" href="{% static 'All/Seller Dash board/desc/vendor/fontawesome-free/css/all.css' %} ">
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Header/head/plugins/OwlCarousel2-2.2.1/animate.css' %} ">
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Header/head/plugins/slick-1.8.0/slick.css' %} ">
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Header/head/styles/main_styles.css' %} ">
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Header/head/styles/responsive.css' %} ">
+	<!--Footer Css Styles -->
+	<!-- <link rel="stylesheet" href="footer/css/bootstrap.min.css" type="text/css" /> -->
+	<link rel="stylesheet" href="{% static 'All/Header/footer/css/font-awesome.min.css' %} " type="text/css">
+	<link rel="stylesheet" href="{% static 'All/Header/footer/css/nice-select.css' %} " type="text/css">
+	<link rel="stylesheet" href="{% static 'All/Header/footer/css/owl.carousel.min.css' %} " type="text/css">
+	<link rel="stylesheet" href="{% static 'All/Header/footer/css/magnific-popup.css' %} " type="text/css">
+	<link rel="stylesheet" href="{% static 'All/Header/footer/css/slicknav.min.css' %} " type="text/css">
+	<link rel="stylesheet" href="{% static 'All/Header/footer/css/style.css' %} " type="text/css">
+	<style type="text/css">
+	.homeicon {
+		margin-right: 10px;
+		margin-bottom: 6px;
+	}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+	
+		$(document).ready(function(){
+
+	//	$("#deals").mouseenter(function () {
+			
+      //	var username = $(this).val();
+	//	console.log("hello");
+	
+
+
+
+			$.ajax({
+			type:"GET",
+			url: "{% url 'deals' %}",
+			data: {
+				
+			},
+			dataType: 'json',
+			success: function (data) {
+				
+				var value = data.is_taken 
+			value.forEach(function(val){
+				    $('#showdeals').append('<li><a href="#">'+val+'</a></li>')
+				console.log(val)
+			})
+        
+
+			}
+			});
+		//});
+	});
+
+	$(document).ready(function(){
+
+			$.ajax({
+			type:"GET",
+			url: "{% url 'showtryandbuy' %}",
+			data: {
+				
+			},
+			dataType: 'json',
+			success: function (data) {
+				 
+				var value = data.is_taken 
+				var idi = data.id
+			value.forEach(function(val,index){
+				    $('#tryprod').append('<li><a href="/customer/prodview/'+idi[index]+'">'+val+'</a></li>')
+				console.log(val)
+			})
+        
+
+			}
+			});
+		//});
+	});
+
+	{% comment %} $(document).ready(function(){ 
+
+			$.ajax({
+			type:"GET",
+			url: "{% url 'bestseller' %}",
+			data: {
+				
+			},
+			dataType: 'json',
+			success: function (data) {
+				 
+				var value = data.is_taken 
+				var idi = data.id
+				//var idi = data.id
+			value.forEach(function(val,index){
+				    $('#bestselling').append('<li><a href="/customer/prodview/'+idi[index]+'">'+val+'</a></li>')
+				console.log(val)
+			})
+        
+
+			}
+			});
+		//});
+	}); {% endcomment %}
+
+	{% comment %} $(document).ready(function(){
+
+	
+			$.ajax({
+			type:"GET",
+			url: "{% url 'showwish' %}",
+			data: {
+				
+			},
+			dataType: 'json',
+			success: function (data) {
+				
+				var value = data.is_taken 
+			value.forEach(function(val){
+				    $('#showdeals').append('<li><a href="#">'+val+'</a></li>')
+				console.log(val)
+			})
+        
+
+			}
+			});
+		//});
+	}); {% endcomment %}
+
+
+	</script>
+	
+	{% block css %}
+	{% endblock css %}
+
+	
+</head>
+
+<body>
+		
+	
+		<!-- HEader -->
+		<div class="super_container">
+			<!-- Header -->
+			<header class="header">
+				<!-- Top Bar -->
+				<div class="top_bar">
+					<div class="container">
+						<div class="row">
+							<div class="col d-flex flex-row">
+								<div class="top_bar_contact_item">
+									<div class="top_bar_icon"><img src="{% static 'All/Header/head/images/mail.png' %} " alt=""></div><a href="mailto:fastsales@gmail.com">support.maruti@gmail.com</a></div>
+								<div class="top_bar_content ml-auto">
+									<div class="top_bar_menu">
+									</div>
+									{% if user.is_authenticated %}
+										
+										{% if user.customer.customer_mobile_num %}
+										<div class="top_bar_user">
+												
+											<div><a href="{% url 'logout' %}"> Logout</a></div>
+										</div>
+
+										
+											
+										{% else %}
+										<div class="top_bar_user">
+											<div class="user_icon"><img src="{% static 'All/Header/head/images/user.png' %} " alt=""></div>
+											<div><a href="{% url 'signup' %}">Register</a></div>
+											<div><a href="{% url 'signin' %}">Sign in</a></div>
+										</div>
+										{% endif %}	
+
+
+                                    {% else %}
+									<div class="top_bar_user">
+										<div class="user_icon"><img src="{% static 'All/Header/head/images/user.png' %} " alt=""></div>
+										<div><a href="{% url 'signup' %}">Register</a></div>
+										<div><a href="{% url 'signin' %}">Sign in</a></div>
+									</div>
+									{% endif %}	
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Header Main -->
+				<div class="header_main">
+					<div class="container">
+						<div class="row">
+							<!-- Logo -->
+							<div class="col-lg-3 col-sm-3 col-3 order-1">
+								<div class="logo_container">
+									<div class="logo"><a href="{% url 'customerdash' %}">M A R U T I</a></div>
+								</div>
+							</div>
+							<!-- Search -->
+							<div class="col-lg-4 col-12 order-lg-2 order-3 text-lg-left text-right">
+								<div class="header_search">
+									<div class="header_search_content">
+										<div class="header_search_form_container">
+											<form id="headersearchproduct" method="GET" action="{% url 'search' %}" enctype="multipart/form-data">
+											<input form="headersearchproduct"  name="searchbox" type="text" required="required" class="header_search_input" placeholder="Search for products...">
+											<input form="headersearchproduct" type="submit" name="ctl00$Button1" value="Search" id="Button1" class=" header_search_button"> </div>
+											</form>
+									</div>
+								</div>
+							</div>
+							<!-- Wishlist -->
+							<div class="col-lg-5 col-9 order-lg-3 order-2 text-lg-left text-right">
+								<div class="wishlist_cart d-flex flex-row align-items-center">
+									<div class="col-lg-4 wishlist d-flex flex-row align-items-center justify-content-end">
+										<a href="#">
+											<div class="wishlist_icon"><img src="{% static 'All/Header/head/images/heart.png' %}" alt=""></div>
+										</a>
+										<div class="wishlist_content">
+											<div class="wishlist_text"><a href="{% url 'customerwish' %}">Wishlist</a></div>
+											<div class="wishlist_count">{{user.customer.wishlist_set.count}}</div>
+										</div>
+									</div>
+									<!-- Cart -->
+									<div class="col-lg-3 cart mr-4">
+										<div class="cart_container d-flex flex-row align-items-center justify-content-end">
+											<a href="#">
+												<div class="cart_icon"> <img src="{% static 'All/Header/head/images/cart.png' %} " alt=""></a>
+											<div class="cart_count"><span>{{user.customer.cart_set.count}}</span></div>
+											</div>
+											<div class="cart_content">
+												<div class="cart_text"><a href="{% url 'showcart' %}">Cart</a></div>
+												<div class="cart_price">₹85</div>
+											</div>
+										</div>
+									</div>
+									{% if user.is_authenticated %}
+									<div class="col-lg-5 cart">
+										<div class="cart_container d-flex flex-row align-items-center justify-content-end">
+											<div class="cart_icon"> <img src="/media/{{user.customer.profile_image}} " height="70px" width="40px" alt="" class="rounded-circle"> </div>
+											<div class="cart_content">
+												<div class="">{{user.username}}</div>
+												<div class="cart_price"><a href="{% url 'profile' %}">Edit</a> </div>
+											</div>
+										</div>
+									</div>
+									{% else %}
+									
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Main Navigation -->
+				<center>
+					<nav class="main_nav">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="main_nav_content ">
+										<!-- Main Nav Menu -->
+										<div class="main_nav_menu">
+											<ul class="standard_dropdown main_nav_dropdown">
+												<a href="#"><img src="{% static 'All/Header/head/images/place.png' %} " class="homeicon"> </a>
+												<li><a href="{% url 'customerdash' %}">Home<i class="fas fa-chevron-down"></i></a></li>
+												<li class="hassubs" id="deals"> <a href="#" >Today's Deals<i class="fas fa-chevron-down"></i></a>
+													<ul id="showdeals">
+														{% comment %} <li id="showdeals"> <a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
+															<ul>
+																<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+																<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+																<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+															</ul>
+														</li>
+														<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+														<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+														<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li> {% endcomment %}
+													</ul>
+												</li>
+												<li class="hassubs"> <a href="#">TRY & BUY<i class="fas fa-chevron-down"></i></a>
+													<ul id="tryprod">
+														{% comment %} <li> <a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
+															<ul>
+																<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+																<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+																<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+															</ul>
+														</li>
+														<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+														<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
+														<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li> {% endcomment %}
+													</ul>
+												</li>
+												<li class="hassubs"><a href="#">Best Sellers<i class="fas fa-chevron-down"></i></a>
+													<ul id="bestselling">
+													</ul>
+													{% comment %} <ul>
+														<li><a href="shop.html">Shop<i class="fas fa-chevron-down"></i></a></li>
+														<li><a href="product.html">Product<i class="fas fa-chevron-down"></i></a></li>
+														<li><a href="blog.html">Blog<i class="fas fa-chevron-down"></i></a></li>
+														<li><a href="blog_single.html">Blog Post<i class="fas fa-chevron-down"></i></a></li>
+														<li><a href="regular.html">Regular Post<i class="fas fa-chevron-down"></i></a></li>
+														<li><a href="cart.html">Cart<i class="fas fa-chevron-down"></i></a></li>
+														<li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
+													</ul> {% endcomment %}
+												</li>
+												{% comment %} <li><a href="blog.html">Offers<i class="fas fa-chevron-down"></i></a></li> {% endcomment %}
+												<li><a href="{% url 'newreleases' %}">New Releases<i class="fas fa-chevron-down"></i></a></li>
+												<li><a href="{% url 'orderlist' %}">My Orders<i class="fas fa-chevron-down"></i></a></li>
+											</ul>
+										</div>
+										<!-- Menu Trigger -->
+										<div class="menu_trigger_container ml-auto">
+											<div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
+												<div class="menu_burger">
+													<div class="menu_trigger_text">menu</div>
+													<div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</nav>
+				</center>
+			</header>
+			<!-- Banner -->
+			<!-- <div class="banner">
+				<div class="banner_background" style="background-image:url(head/images/banner_background.jpg)"></div>
+				<div class="container fill_height">
+					<div class="row fill_height">
+						<div class="banner_product_image"><img src="head/images/banner_product.png" alt=""></div>
+						<div class="col-lg-5 offset-lg-4 fill_height">
+							<div class="banner_content">
+								<h4 class="banner_text">New Generation Of Shopping With Slica</h4>
+								<div class="banner_price"><span>₹53000</span>₹46000</div>
+								<div class="banner_product_name">Jaldi Karo Le jaao</div>
+								<div class="button banner_button"><a href="#">Shop Now</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> -->
+			{% block body %}
+			
+			{% endblock  %}
+
+
+			<!-- Footer  -->
+			<section>
+				<footer>
+					<div class="container">
+						<div class="footer-widget">
+							<div class="row">
+								<div class="col-lg-3 col-sm-6">
+									<div class="single-footer-widget">
+										<h4>About us</h4>
+										<ul>
+											<li>About Us</li>
+											<li>Community</li>
+											<li>Jobs</li>
+											<li>Shipping</li>
+											<li>Contact Us</li>
+										</ul>
+									</div>
+								</div>
+								<div class="col-lg-3 col-sm-6">
+									<div class="single-footer-widget">
+										<h4>Customer Care</h4>
+										<ul>
+											<li>Search</li>
+											<li>Privacy Policy</li>
+											<li>2019 Lookbook</li>
+											<li>Shipping &amp; Delivery</li>
+											<li>Gallery</li>
+										</ul>
+									</div>
+								</div>
+								<div class="col-lg-3 col-sm-6">
+									<div class="single-footer-widget">
+										<h4>Our Services</h4>
+										<ul>
+											<li>Free Shipping</li>
+											<li>Free Returnes</li>
+											<li>Our Franchising</li>
+											<li>Terms and conditions</li>
+											<li>Privacy Policy</li>
+										</ul>
+									</div>
+								</div>
+								<div class="col-lg-3 col-sm-6">
+									<div class="single-footer-widget">
+										<h4>Information</h4>
+										<ul>
+											<a href="">
+												<li>Payment methods</li>
+											</a>
+											<li>Times and shipping costs</li>
+											<li>Product Returns</li>
+											<li>Shipping methods</li>
+											<li>Conformity of the products</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="social-links-warp">
+						<div class="container">
+							<div class="social-links"> <a href="https://www.instagram.com" class="instagram"><i class="fa fa-instagram"></i><span>instagram</span></a> <a href="https://www.pinterest.com" class="pinterest"><i class="fa fa-pinterest"></i><span>pinterest</span></a> <a href="https://www.facebook.com" class="facebook"><i class="fa fa-facebook"></i><span>facebook</span></a> <a href="https://www.twitter.com" class="twitter"><i class="fa fa-twitter"></i><span>twitter</span></a> <a href="https://www.youtube.com" class="youtube"><i class="fa fa-youtube"></i><span>youtube</span></a> <a href="https://www.tumblr.com" class="tumblr"><i class="fa fa-tumblr-square"></i><span>tumblr</span></a> </div>
+						</div>
+					</div>
+				</footer>
+			</section>
+			<!-- Footer Section End -->
+			<!-- HEader Plugins -->
+			<script src="{% static 'All/Header/head/js/jquery-3.3.1.min.js' %} "></script>
+			<script src="{% static 'All/Header/head/styles/bootstrap4/popper.js' %} "></script>
+			<script src="{% static 'All/Header/head/styles/bootstrap4/bootstrap.min.js' %} "></script>
+			<script src="{% static 'All/Header/head/plugins/greensock/TweenMax.min.js' %} "></script>
+			<script src="{% static 'All/Header/head/plugins/greensock/TimelineMax.min.js' %} "></script>
+			<script src="{% static 'All/Header/head/plugins/scrollmagic/ScrollMagic.min.js' %} "></script>
+			<script src="{% static 'All/Header/head/plugins/greensock/animation.gsap.min.js' %} "></script>
+			<script src="{% static 'All/Header/head/plugins/greensock/ScrollToPlugin.min.js' %} "></script>
+			<script src="{% static 'All/Header/head/plugins/OwlCarousel2-2.2.1/owl.carousel.js' %} "></script>
+			<script src="{% static 'All/Header/head/plugins/slick-1.8.0/slick.js' %} "></script>
+			<script src="{% static 'All/Header/head/plugins/easing/easing.js' %} "></script>
+			<script src="{% static 'All/Header/head/js/custom.js' %} "></script>
+			<!-- Footer js Plugins -->
+			<script src="{% static 'All/Header/footer/js/jquery-3.3.1.min.js' %} "></script>
+			<script src="{% static 'All/Header/footer/js/bootstrap.min.js' %} "></script>
+			<script src="{% static 'All/Header/footer/js/jquery.magnific-popup.min.js' %} "></script>
+			<script src="{% static 'All/Header/footer/js/jquery.slicknav.js' %} "></script>
+			<script src="{% static 'All/Header/footer/js/owl.carousel.min.js' %} "></script>
+			<script src="{% static 'All/Header/footer/js/jquery.nice-select.min.js' %} "></script>
+			<script src="{% static 'All/Header/footer/js/mixitup.min.js' %} "></script>
+			<script src="{% static 'All/Header/footer/js/main.js' %} "></script>
+			{% block endjs %}
+			{% endblock  %}
+
+		</div>
+	
+</body>
+
+</html>

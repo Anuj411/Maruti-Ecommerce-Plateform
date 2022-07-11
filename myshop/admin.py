@@ -1,0 +1,41 @@
+
+from django.contrib import admin
+from . import models as m
+
+admin.site.register(m.State)
+admin.site.register(m.City)
+
+
+# Register your models here.
+admin.site.register(m.Offer)
+admin.site.register(m.Order)
+admin.site.register(m.OrderDetails)
+admin.site.register(m.PaymentIntention)
+admin.site.register(m.PaymentMethod)
+admin.site.register(m.PaymentTransaction)
+admin.site.register(m.Product)
+admin.site.register(m.ProductHasFeature)
+admin.site.register(m.ProductImage)
+admin.site.register(m.ProductReplace)
+admin.site.register(m.ProductReturn)
+admin.site.register(m.ProductReviews)
+admin.site.register(m.Salesperson)
+admin.site.register(m.SalespersonAttendance)
+admin.site.register(m.Seller)
+admin.site.register(m.Brand)
+admin.site.register(m.Cart)
+# admin.site.register(m.city)
+admin.site.register(m.Company)
+# admin.site.register(m.Category)
+admin.site.register(m.CategoryMain)
+admin.site.register(m.CategorySub)
+admin.site.register(m.CategoryMid)
+admin.site.register(m.Customer)
+admin.site.register(m.Delivery)
+admin.site.register(m.Feature)
+admin.site.register(m.Feedback)
+admin.site.register(m.Size)
+admin.site.register(m.CategoryHasBrand)
+admin.site.register(m.wishlist)
+admin.site.register(m.Subscription)
+admin.site.register(m.sellersubscription)

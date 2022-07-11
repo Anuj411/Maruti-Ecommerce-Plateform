@@ -1,0 +1,190 @@
+{% extends 'Admin-Header-Footer.html' %}
+
+{% load static %}
+{% block css %}
+	<title> View Product </title>
+    <script type="text/javascript" src="{% static 'All/Admin Panel/assets/js/jquery-1.10.2.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <!-- Header -->
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body pt-5">
+          
+        </div>
+      </div>
+    </div>
+     <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-1">
+              <h1 class="mb-0 text-primary" style="text-align: center;">Product Details</h1>
+            </div>
+            <div class="container-fluid">
+            <div class="row my-4">
+                <div class="col-5">
+                    <div class="text-center mt-6">
+                        <img style="border:9px solid black" src="/media/{{img}}" class="rounded" height="300px" width="300px">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="my-3 text-center"><h2>Product Information</h2></div>
+                    <!-- Light table -->
+                    <div class="table-responsive">
+                    <table class="table align-items-center table-stripped table-bordered">
+                        <tbody class="list">
+                        <tr>
+                            <th style="width:40%">
+                                <div class="media align-items-center">
+                                    ID
+                                </div>
+                            </th>
+                            <td>
+                                {{product.id}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="media align-items-center">
+                                    Add Date
+                                </div>
+                            </th>
+                            <td>
+                                {{product.product_add_date}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Product Name
+                            </div>
+                            </th>
+                            <td>
+                                <span class="text-capitalize">{{product.product_name}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Short Description
+                            </div>
+                            </th>
+                            <td style="white-space:pre-wrap; word-wrap:break-word;">
+                                <div class="text-left">{{product.product_short_description}}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Specification
+                            </div>
+                            </th>
+                            <td style="white-space:pre-wrap; word-wrap:break-word;">
+                                <div class="text-left">{{product.product_specification}}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                MRP
+                            </div>
+                            </th>
+                            <td>
+                                {{product.product_mrp}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Qty.
+                            </div>
+                            </th>
+                            <td>
+                                {% if product.qty_product %}
+                                {{ product.qty_product }}
+                                {% else %}
+                                <span class="text-danger">Out of stock</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Selling Price
+                            </div>
+                            </th>
+                            <td>
+                                {{product.product_selling_price}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Try & Buy
+                            </div>
+                            </th>
+                            <td>
+                                {% if product.try_and_buy %}
+                                    Yes
+                                {% else %}
+                                    No
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Active
+                            </div>
+                            </th>
+                            <td>
+                                {% if product.status == 3 %}
+                                    Yes
+                                {% else %}
+                                    No
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Seller Name
+                            </div>
+                            </th>
+                            <td>
+                                <span class="text-capitalize">{{product.seller_seller_id.user_user_id.first_name}} {{product.seller_seller_id.user_user_id.last_name}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Brand Name
+                            </div>
+                            </th>
+                            <td>
+                                {{ product.categoryHasBrand_id.brand_brand_id.brand_name }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            </div>
+                <div class="text-center my-5"><input onclick="window.history.back();" type="button" value="Back" class="btn btn-info" /></div>
+                </div>
+            </div>            
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+{% endblock %}
+{% block js %}
+{% endblock js %}

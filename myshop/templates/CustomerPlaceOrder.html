@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+<script>
+{% if msg %}
+alert("{{msg}}");
+{% endif %}
+</script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="{% static 'All/Place Order/PlaceOrder.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'All/Bootstrap/css/bootstrap.css' %}">
+  <script type="text/javascript" src="{% static 'All/Validation/Validations.js' %}"></script>
+
+  <script>
+
+  // --------------------------------------- Edit Details --------------------------------------- //
+
+  function editName(){
+    document.getElementById("cusName").readOnly=false;
+    document.getElementById("cusMob").readOnly=false;
+    document.getElementById("cusName").focus();
+    document.getElementById("chngBtn").style.visibility="hidden";
+    document.getElementById("saveBtn").style.visibility ="visible";
+  }
+
+  function saveName(){
+    document.getElementById("cusName").readOnly=true;
+    document.getElementById("cusMob").readOnly=true;
+    document.getElementById("chngBtn").style.visibility="visible";
+    document.getElementById("saveBtn").style.visibility ="hidden";
+  }
+
+
+
+  // --------------------------------------- qty btn--------------------------------------- //
+  function btnChange() {
+  //document.getElementById('qtyEdit').setAttribute("value", "Save");
+  document.getElementById('qtyprice').readOnly=false; 
+  var val1 = document.getElementById('sellingpricepro').value;
+  var val2 = document.getElementById('qty').value;
+  //alert(parseInt(val1)*parseInt(val2));
+  document.getElementById('qtyprice').setAttribute("value",parseInt(val1)*parseInt(val2) );
+  document.getElementById('sellingprice').innerHTML = parseInt(val1)*parseInt(val2) ;
+  document.getElementById('sel_qty').innerHTML = val2;
+
+  var v1 = document.getElementById('sellingprice').innerHTML;
+  if ({{tryandbuy}} == 1){
+    
+  
+    var v3 = document.getElementById('fix_chrg').innerHTML;
+    if({{pro.product_selling_price}}<1000){
+      var v2 = document.getElementById('Shipping').innerHTML;
+      document.getElementById('gtotal').innerHTML = parseInt(v1)+parseInt(v2)+parseInt(v3);
+      document.getElementById('hiddengtotal').value = parseInt(v1)+parseInt(v2)+parseInt(v3);  
+    }
+    else{
+      document.getElementById('gtotal').innerHTML = parseInt(v1)+parseInt(v3);
+      document.getElementById('hiddengtotal').value = parseInt(v1)+parseInt(v3);
+    }
+    
+  }
+  else{
+    
+    if({{pro.product_selling_price}}<1000){
+      var v2 = document.getElementById('Shipping').innerHTML;
+      console.log('1');
+      document.getElementById('gtotal').innerHTML = parseInt(v1)+parseInt(v2);
+      document.getElementById('hiddengtotal').value = parseInt(v1)+parseInt(v2);
+      console.log('2');  
+    }
+    else{
+      console.log('3');
+      document.getElementById('gtotal').innerHTML = parseInt(v1);
+      document.getElementById('hiddengtotal').value = parseInt(v1);
+      console.log('4');
+    }
+    
+  }
+  
+
+  document.getElementById('qtyprice').readOnly=true;
+}
+  </script>
+<script type="text/javascript">
+function minmax(value, min) 
+{
+    if(parseInt(value) < min || isNaN(parseInt(value))) 
+        return min; 
+   else if(parseInt(value) > max) 
+        return max; 
+    else return value;
+}
+</script>
+</head>
+
+<body onload="btnChange()">
+  <div class="container">
+    <div class="title">
+      <h3>Place Order</h3> </div>
+    <!-- ------------------- Details --------------------- -->
+    <form method="POST" id="placeorderForm" enctype="multipart/form-data" action="{% url 'placeorder' pid=pro.id tryandbuy=tryandbuy %}">
+    {% csrf_token %}
+      <div class="row">
+        <div class="col-md-8">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12 mt-3">
+                <div class="card border-primary">
+                  <div class="card-horizontal">
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Details</h5>
+                      <div class="row">
+                        <div class="col-md-6">
+                        
+                          <h6>Name:</h6>
+                          <input type="text" readonly="true" name="name" value="{{user.first_name}} {{user.last_name}}" placeholder="Your Name" id='cusName' >
+                        </div>
+                        <div class="col-md-6">
+                          <h6>Mobile No:</h6>
+                          <input type="text" readonly="true" placeholder="Mobile Number" maxlength="10" name="mob" value="{{cus.customer_mobile_num}}" id='cusMob'  onkeypress="return isNumber(event)">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 ">
+                          <div class="">
+                            <input type="button" name="Change" id="chngBtn" value="Change" class="btn btn-outline-primary btn-sm" onclick="editName()">
+                          </div>
+                        </div>
+                        <center>
+                          <div class="">
+                            <input type="button" name="Save" id="saveBtn" style="visibility:hidden;" value="Save" class="btn btn-outline-primary btn-sm" onclick="isEnteredMob(),saveName()">
+                          </div>
+                
+                        </center> 
+
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- ------------------------Delivery Address  ----------------------------- -->
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12 mt-3">
+                <div class="card border-primary">
+                  <div class="card-horizontal">
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Delivery Address</h5>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h6>Flat,House no.</h6>
+                          <input type="text" required name="flat" placeholder="Flat, House no., Building, Company, Apartment" value="" id='flat' >
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h6>Area</h6>
+                          <input type="text" required name="area" placeholder="Area, Colony, Street, Sector, Village" value="" id='area' >
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h6>Landmark</h6>
+                          <input type="text" required name="landmark" placeholder="Landmark, e.g. near Apollo Hospital" value="" id='landmark' >
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h6>Pincode:</h6>
+                          <input type="text" required name="pin" maxlength="6" value="382330" placeholder="Pincode" id='pincode'  onkeypress="return isNumber(event)">
+                        </div>
+                        <div class="col-md-4">
+                          <h6>City</h6>
+                          <input type="text" required name="city" placeholder="City" value="{{cus.city_city_id.city_name}}" id='city' >
+                        </div>
+                        <div class="col-md-4">
+                          <h6>State</h6>
+                          <input type="text" required name="state" placeholder="State" value="{{cus.city_city_id.state_state_id.state_name}}" id='state' >
+                          {% comment %} <h6>State</h6>
+                          <select
+                      onchange="print_city('state', this.selectedIndex);"
+                      id="sts"
+                      name="stt"
+                      class="form-control col-lg-4 dropg"
+                      required
+                    ></select>
+                        </div>
+                        <div class="col-md-4">
+                          <h6>City</h6>
+                          <select
+                      id="state"
+                      class="form-control col-lg-4 dropg"
+                      required
+                      name="city"
+                    ></select>
+                    <script language="javascript">
+                      print_state("sts");
+                    </script> {% endcomment %}
+                        </div>
+                      </div>
+                      
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ----------------------Order Summary---------------------- -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12 mt-3">
+                <div class="card border-primary">
+                  <div class="card-horizontal">
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Order Summary</h5>
+                      <div class="row">
+                        <div class="col-md-2"> <img src="/media/{{proimg.image}}" height="150px" width="120px" alt="" class="">
+                          <div class="def-number-input number-input safari_only mb-0 w-100">
+                            <!-- <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                            <input class="quantity" min="0" name="quantity" value="1" type="number">
+                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button> -->
+                          </div>
+                        </div>
+                        <div class="col-md-7">
+                          <p> {{pro.product_name}}<br/>{{pro.categoryHasBrand_id.brand_brand_id.brand_name}}
+                            <br> Size : M
+                            <br/>
+                            <input type="text" name="pprice" value="{{pro.product_selling_price}}" hidden>
+                            <input type="text" id="sellingpricepro" value="{{pro.product_selling_price}}" hidden>
+                            <input type="text" name="qty" id='qty' value="1" maxlength="1" placeholder=""  style="width: 15%;" onchange="btnChange()" onkeypress="return isNumber(event)" onkeyup="this.value = minmax(this.value, 1, 9)"> =
+                            <input type="text" name="price" id='qtyprice' value="{{pro.product_selling_price}}" placeholder=""  style="width: 30%;" readonly>
+                            {% comment %} <input type="button" name="" id='qtyEdit' class="btn btn-outline-primary btn-sm" value="Edit" style="width: 20%;" onclick="editQty()"> </p> {% endcomment %}
+                        </div>
+                      </div>
+                    </div>
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- ==================================== TRY & BUY ==================================== -->
+             {% if tryandbuy is 1 %}
+              <div class="col-lg-12 mt-3">
+                <div class="card border-primary">
+                  <div class="card-horizontal">
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">TRY & BUY </h5>
+                      <div class="container mb-3">
+                    
+                      <h6>Schudule Your Order</h6>
+                      <span>Choose Date and time when you want your products for try and buy.</span>
+                      <div class="row">
+                      <div class="col-5">   
+                       <input type="datetime-local" name="visitdate" class="mt-2"></div>
+                       {% comment %} <div class="col-2">
+                       <button type="button" class="btn btn-outline-primary btn-sm mt-2"> Save</button>
+                     </div> {% endcomment %}
+                       </div>
+                     </div>
+                       <div class="container">
+                      <h6>You need to pay fix charge {% if pro.product_selling_price > 0 and pro.product_selling_price < 1000  %}₹50 {% elif pro.product_selling_price > 1000 and pro.product_selling_price < 5000 %} ₹150{% elif pro.product_selling_price > 5000 and pro.product_selling_price < 10000 %}₹300 {% endif %} for try & buy.
+                      </h6>
+                      <div>
+                            <input type="radio" name="tryandbuy" id='tpaytmBtn' value="tpaytm" onclick="PaymentViatPaytm()" required> Paytm
+                          </div>
+                          <div class="container ml-3 mt-2" style="display: none;" id="tpaytmDiv">
+                          <div class="row">
+                            <div class="col-9">
+                              <input type="text" class="form-text" name="tmob" id="tmobNum" value="" placeholder="Enter Your Paytm Mobile Number" maxlength="10" onkeypress="return isNumber(event)">
+                            </div>
+                            <div class="col-3 mt-2">
+                              <button type="button" class="btn btn-outline-primary btn-sm" onclick="isEntered()"> Send OTP</button>  
+                            </div>
+                          </div>
+                          <div class="row" id="totpDiv" style="display: none;">
+                            <div class="col-4">
+                              <input type="text" class="form-text" name="totp" value="" placeholder="Enter OTP" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-3 mt-1">
+                              <button type="button" class="btn btn-outline-primary btn-sm"> Validate </button>  
+                            </div>
+                          </div>
+                            </div>
+
+                            <div>
+                            <input type="radio" name="tryandbuy" value="tcredit" id='tcCardBtn' onclick="PaymentViatCCard()" required> Credit Card
+                             <span>
+                                <img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt="" width="50">
+                            </span>
+                            <div class="container ml-3 mt-2 p-2" style="display: none;" id="tcCardDiv">
+                          <div class="row">
+                            <div class="col-9">
+                              <input type="text" class="form-text" name="tcdetails" id="tcDetails" value="" placeholder="Enter Your Card Details" maxlength="16" onkeypress="return isNumber(event)">
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-5">
+                              <input type="month" class="form-text" name="tcdate" value="" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-4">
+                              <input type="text" class="form-text" maxlength="3" id='tccvv' name="tcvv" value="" placeholder="Enter CVV" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-3 mt-1">
+                              <button type="button" class="btn btn-outline-primary btn-sm"> Send OTP </button>  
+                            </div>
+                          </div>
+                            </div> 
+
+
+                            <div>
+                            <input type="radio" name="tryandbuy" value="tdebit" id='tdCardBtn' onclick="PaymentViatDCard()" required> Debit Card
+                             <span>
+                                <img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt="" width="50">
+                            </span>
+                            <div class="container ml-3 mt-2 p-2" style="display: none;" id="tdCardDiv">
+                          <div class="row">
+                            <div class="col-9">
+                              <input type="text" class="form-text" name="tddetails" id="tdDetails" value="" placeholder="Enter Your Card Details" maxlength="16" onkeypress="return isNumber(event)">
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-5">
+                              <input type="month" class="form-text" name="tddate" value="" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-4">
+                              <input type="text" class="form-text" maxlength="3" id='tdcvv' name="tdcvv" value="" placeholder="Enter CVV" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-3 mt-1">
+                              <button type="button" class="btn btn-outline-primary btn-sm"> Send OTP </button>  
+                            </div>
+                          </div>
+                            </div> 
+                          </div>
+                        </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %} 
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12 mt-3 mb-4">
+                <div class="card border-primary">
+                  <div class="card-horizontal">
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Payment</h5>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div>
+                            <input type="radio" name="orderpay" value="cod" id='codBtn' onclick="PaymentViaPaytm()" required checked> 
+                            Cash On Delivery 
+                          </div>
+                          <div>
+                            <input type="radio" name="orderpay" id='paytmBtn' value="paytm" onclick="PaymentViaPaytm()"> Paytm
+                          </div>
+                          <div class="container ml-3 mt-2" style="display: none;" id="paytmDiv">
+                          <div class="row">
+                            <div class="col-9">
+                              <input type="text" class="form-text" name="paymob" id="mobNum" value="" placeholder="Enter Your Paytm Mobile Number" maxlength="10" onkeypress="return isNumber(event)">
+                            </div>
+                            <div class="col-3 mt-2">
+                              <button type="button" class="btn btn-outline-primary btn-sm" onclick="isEntered()"> Send OTP</button>  
+                            </div>
+                          </div>
+                          <div class="row" id="otpDiv" style="display: none;">
+                            <div class="col-4">
+                              <input type="text" class="form-text" name="otp" value="" placeholder="Enter OTP" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-3 mt-1">
+                              <button type="button" class="btn btn-outline-primary btn-sm"> Validate </button>  
+                            </div>
+                          </div>
+                            </div>
+                          <div>
+                            <input type="radio" required name="orderpay" value="cc" id='cCardBtn' onclick="PaymentViaCCard()"> Credit Card
+                             <span>
+                                <img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt="" width="50">
+                            </span>
+                            <div class="container ml-3 mt-2 p-2" style="display: none;" id="cCardDiv">
+                          <div class="row">
+                            <div class="col-9">
+                              <input type="text" class="form-text" name="ccdetails" id="cDetails" value="" placeholder="Enter Your Card Details" maxlength="16" onkeypress="return isNumber(event)">
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-5">
+                              <input type="month" class="form-text" name="ccdate" value="" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-4">
+                              <input type="text" class="form-text" maxlength="3" id='ccvv' name="crecvv" value="" placeholder="Enter CVV" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-3 mt-1">
+                              <button type="button" class="btn btn-outline-primary btn-sm"> Send OTP </button>  
+                            </div>
+                          </div>
+                            </div> 
+                          </div>
+                          <div>
+                            <input type="radio" required name="orderpay" value="dbcard" id='dCardBtn' onclick="PaymentViaDCard()"> Debit Card
+                             <span>
+                                <img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt="" width="50">
+                            </span>
+                            <div class="container ml-3 mt-2 p-2" style="display: none;" id="dCardDiv">
+                          <div class="row">
+                            <div class="col-9">
+                              <input type="text" class="form-text" name="dbdetais" id="dDetails" value="" placeholder="Enter Your Card Details" maxlength="16" onkeypress="return isNumber(event)">
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-5">
+                              <input type="month" class="form-text" name="dbdate" value="" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-4">
+                              <input type="text" class="form-text" maxlength="3" id='dcvv' name="dbcvv" value="" placeholder="Enter CVV" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-3 mt-1">
+                              <button type="button" class="btn btn-outline-primary btn-sm"> Send OTP </button>  
+                            </div>
+                          </div>
+                            </div> 
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="Yorder">
+            <table>
+              <tr>
+                <th colspan="2">Your order</th>
+              </tr>
+              <tr>
+                <td>{{pro.product_name}} x <span id="sel_qty">1</span> ( Qty )</td>
+                <td class="text-dark"><span id="sellingprice">{{pro.product_selling_price}}</span></td>
+              </tr>
+              <tr>
+                
+                {% if pro.product_selling_price < 1000 %}
+                <td>Shipping</td>
+                <td class="text-dark" >₹<span id="Shipping">60</span></td>
+                {% endif %}
+              </tr>
+                {% if tryandbuy is 1 %}
+                  <tr>
+                  <td>Fix Charge</td>
+                {% if pro.product_selling_price > 0 and pro.product_selling_price < 1000  %}
+                <td class="text-dark" >₹<span id="fix_chrg">50</span></td> 
+                {% elif pro.product_selling_price > 1000 and pro.product_selling_price < 5000 %} 
+                <td class="text-dark" >₹<span id="fix_chrg">150</span></td>
+                {% elif pro.product_selling_price > 5000 and pro.product_selling_price < 10000 %}
+                <td class="text-dark" >₹<span id="fix_chrg">300</span></td>
+                {% endif %}
+                </tr>
+                {% endif %}
+              <tr>
+                <td>Grand Total</td>
+                <td class="text-dark font-weight-bold">₹<span id="gtotal"></span></td>
+                <input type="text" name="hiddengtotal" id="hiddengtotal" hidden >
+              </tr>
+            </table>
+            <br>
+            <button type="submit" class="btn btn-primary">Place Order</button>
+          </div>
+          <!-- order -->
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- <script type="text/javascript" src="test2.js"></script> -->
+  <!-- MDB Ecommerce JavaScript -->
+  <!-- <script type="text/javascript" src="test3.js"></script> -->
+</body>
+
+</html>

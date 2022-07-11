@@ -1,0 +1,261 @@
+{% extends 'CustomerHeaderFooter.html' %} {% load static %} 
+
+<head>
+{% block css %}
+
+<title>Profile</title>
+<link
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+  rel="stylesheet"
+/>
+
+<script>
+{% if msg %}
+alert("{{msg}}");
+{% endif %}
+function matchPassword() {
+  var pw1 = document.getElementById("pass").value;
+  var pw2 = document.getElementById("re_pass").value;
+  console.log(pw1)
+  console.log(pw2)
+
+  if (pw1 != pw2) {
+    alert("Re-type password is not same");
+    return false;
+  }
+  else {
+
+    return true;
+  }
+}
+
+</script>
+<script type="text/javascript" src="{% static 'All/Validation/Validations.js' %}"></script>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'All/Bootstrap/css/bootstrap.css' %}"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'All/My Profile/css/style.css' %}"
+/>
+<style>
+textarea{
+	resize:none;
+}
+</style>
+
+{% endblock css %}
+</head>
+ {% block body %}
+
+<form name="CustomerProfile"
+  method="post"
+  action="{% url 'profile' %}"
+  id="ctl01"
+  enctype="multipart/form-data"
+  onsubmit = "return matchPassword()"
+>
+  {% csrf_token %}
+  <center>
+  <div class="container">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-body">
+          <div class="e-profile">
+            <div class="row">
+              <div class="col-4 mb-3">
+                <div class="profile-img">
+                  <img
+                    style="height: 150.19px"
+                    src="/media/{{user.customer.profile_image}}"
+                    alt=""
+                  />
+                  <div class="file btn btn-lg btn-primary">
+                    Change Photo <input name="propic" type="file" />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col d-flex flex-column flex-sm-row justify-content-between mb-3"
+              >
+                <div class="text-center text-sm-left mb-2 mb-sm-0">
+                  <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">
+                    {{user.username}}
+                  </h4>
+                  <div class="text-muted">
+                    <small>Last login : {{user.last_login}}</small>
+                  </div>
+                </div>
+                <div class="text-center text-sm-right">
+                  <span class="badge badge-secondary">Customer</span>
+                  <div class="text-muted">
+                    <small>Joined {{user.date_joined}}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="" class="active nav-link">Profile</a>
+              </li>
+            </ul>
+            <div class="tab-content pt-3">
+              <div class="tab-pane active">
+                <div class="form">
+
+            <!-- First Name, Last Name & Email  -->
+
+                <div class="row">
+                  <div class="col">
+                    <div class="row">
+                      <label>First Name</label>
+                    </div>
+                    <div class="row">
+                      <div class="form-group">
+                        <input
+                              name="fname"
+                              type="text"
+                              class="form-control"
+                              onkeypress="return isAlpha(event)"
+                              value="{{user.first_name}}"
+                              placeholder="First Name"
+                            />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                  <div class="row">
+                      <label>Last Name</label>
+                    </div>
+                    <div class="row">
+                      <div class="form-group">
+                        <input
+                              name="lname"
+                              type="text"
+                              class="form-control"
+                              onkeypress="return isAlpha(event)"
+                              value="{{user.last_name}}"
+                              placeholder="Last Name"
+                            />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="row">
+                      <label>Email</label>
+                    </div>
+                    <div class="row">
+                      <div class="form-group">
+                        <input
+                              name="email"
+                              type="text"
+                              class="form-control"
+                              value="{{user.email}}"
+                              placeholder="user@example.com"
+                            />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                  <!-- Home Address -->
+                    <div class="row">
+                      <label>Home Address</label>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-group w-75">
+                          <textarea type="text" resize="none"
+                              class="form-control"
+                              name="addr"
+                              rows="3"
+                              placeholder="Your Address">{{user.customer.customer_address}}</textarea>
+                        </div>
+                    </div>
+                
+                
+                <!-- Change Password -->
+                  <div class="row">
+                    <div class="col-12 col-sm-6 mb-3">
+                      <div class="mb-2"><b>Change Password</b></div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label>Current Password</label>
+                            <input
+                              name="cupass"
+                              type="password"
+                              class="form-control"
+                              placeholder="••••••"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label>New Password</label>
+                            <input
+                              name="newpass"
+                              id="pass"
+                              type="password"
+                              class="form-control"
+                              placeholder="••••••"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label
+                              >Confirm
+                              <span class="d-none d-xl-inline"
+                                >Password</span
+                              ></label
+                            >
+                            <input
+                              name="confpass"
+                              id="re_pass"
+                              type="password"
+                              class="form-control"
+                              placeholder="••••••"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Save Changes Button -->
+                  <div class="row">
+                    <div class="col d-flex justify-content-end">
+                      <input
+                        type="submit"
+                        name="Button1"
+                        value="Save Changes"
+                        id="Button1"
+                        class="btn btn-primary"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </center
+</form>
+
+{% endblock %}

@@ -1,0 +1,627 @@
+{% extends 'Admin-Header-Footer.html' %}
+
+{% load static %}
+
+{% block css %}
+  <title>Maruti E-Commerce Plateform - sales</title>
+  <script type="text/javascript" src="{% static 'All/Admin Panel/assets/js/jquery-1.10.2.js' %}"></script>
+
+  <script>
+    $(function() {
+      $(".table").tablesorter();
+    });
+
+    function assignduty(){
+        document.getElementById('notassigned').style.display="none";
+        document.getElementById('assigned').style.display="block";
+        document.getElementById('allsales').style.display="none";
+      }
+    function notassignduty(){
+        document.getElementById('assigned').style.display="none";
+        document.getElementById('notassigned').style.display="block";
+        document.getElementById('allsales').style.display="none";
+      }
+    function allsales(){
+        document.getElementById('assigned').style.display="none";
+        document.getElementById('notassigned').style.display="none";
+        document.getElementById('allsales').style.display="block";
+      }
+  </script>
+{% endblock %}
+
+{% block content %}
+<body onload="allsales()">
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body pt-5">
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <a href="#" onclick="allsales()">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Total Orders</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ total_order }}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                        <i class="	fas fa-shopping-bag"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+                </a>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Try & Buy Orders</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ total_try_buy }}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                        <i class="fas fa-exchange-alt"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Normal Orders</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ total_normal }}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                        <i class="fas fa-cart-plus"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Cancelled Orders</h5>
+                      <span class="h2 font-weight-bold mb-0">
+                      {{ cancel_order }}
+                      </span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                        <i class="fa fa-times"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <a href="#" onclick="assignduty()">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Assigned Orders</h5>
+                      <span class="h2 font-weight-bold mb-0">
+                      {{ total_assigned_ord }}
+                      </span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                        <i class="fa fa-check-circle"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+                </a>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <a href="#" onclick="notassignduty()">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Not Assigned Orders</h5>
+                      <span class="h2 font-weight-bold mb-0">
+                      {{ total_notassigned_ord }}
+                      </span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                        <i class="fa fa-times"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+                </a>
+              </div>
+            </div>
+             <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Return Orders</h5>
+                      <span class="h2 font-weight-bold mb-0">
+                      {{ tot_ret_prod }}
+                      </span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                        <i class="fas fa-redo-alt"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Completed Orders</h5>
+                      <span class="h2 font-weight-bold mb-0">
+                      {{ tot_comp_ord }}
+                      </span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                        <i class="fas fa-redo-alt"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+                        
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+
+      <!-- All sales table -->
+      <div class="row" id="allsales">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h1 class="mb-0 text-primary" style="text-align: center;">Sales
+              {% if orders is None %}
+              <button type="button" class="btn btn-outline-primary float-right">Generate</button></h1>
+              {% endif %}
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="orderid">Order Id</th>
+                    <th scope="col" class="sort" data-sort="orderdate">Order Date</th>
+                    <th scope="col" class="sort" data-sort="totalproduct">Total Products</th>
+                    <th scope="col" class="sort" data-sort="trybuy">Try & Buy</th>
+                    <th scope="col" class="sort" data-sort="city">City</th>
+                    <th scope="col" class="sort" data-sort="orderstatus">Order Status</th>
+                    <th scope="col" class="sort" data-sort="totalamt">Total Amount( &#8377; )</th>
+                    <th scope="col" class="sort" data-sort="customerid">Customer Id</th>
+                  </tr>
+                </thead>
+                <tbody class="list txt1">
+                  {% for order,try_buy,city,prod in orders %}
+                  <tr>
+                    <th scope="row">
+                      <div>
+                        {{ order.id }}
+                      </div>
+                    </th>
+                    <td>
+                      <div class="avatar-group">
+                        {{ order.order_date }}
+                      </div>
+                    </td>
+                    <td>
+                      {{ prod }}
+                    </td>
+                    <td>
+                      {% if try_buy %}
+                      YES
+                      {% else %}
+                      NO
+                      {% endif %}
+                    </td>
+                    <td>
+                      {{ city }}
+                    </td>
+                    <td>
+                      <span class="badge badge-dot">
+                        {% if order.order_status == "completed" %}
+                          <i class="bg-success"></i>
+                        {% elif order.order_status == "pending" %}
+                          <i class="bg-info"></i>
+                        {% elif order.order_status == "returned" %}
+                          <i class="bg-yellow"></i>
+                        {% else %}
+                          <i class="bg-danger"></i>
+                        {% endif %}
+                        <span class="status">{{ order.order_status }}</span>
+                      </span>
+                    </td>
+                    <td>
+                      {{ order.total_amount }}
+                    </td>
+                    <td>
+                      <div>
+                        {{ order.customer_customer_id.id }}
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+              {% if orders.has_other_pages %}
+              <nav aria-label="...">
+                <ul class="pagination justify-content-end mb-0">
+                {% if orders.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ orders.previous_page_number }}" tabindex="-1">
+                      <i class="fas fa-angle-left"></i>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                        <i class="fas fa-angle-left"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% for i in orders.paginator.page_range %}
+                  {% if orders.number == i %}
+                  <li class="page-item active">
+                    <a class="page-link" href="#">{{ i }}<span class="sr-only">(current)</span></a>
+                  </li>
+                  {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                  </li>
+                  {% endif %}
+                {% endfor %}
+                {% if orders.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ orders.next_page_number }}">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% endif %}
+                </ul>
+              </nav>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Assigned table -->
+      <div class="row" id="assigned">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h1 class="mb-0 text-primary" style="text-align: center;">Sales</h1>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="orderid">Order Id</th>
+                    <th scope="col" class="sort" data-sort="orderdate">Order Date</th>
+                    <th scope="col" class="sort" data-sort="totalproduct">Total Products</th>
+                    <th scope="col" class="sort" data-sort="trybuy">Try & Buy</th>
+                    <th scope="col" class="sort" data-sort="city">City</th>
+                    <th scope="col" class="sort" data-sort="orderstatus">Order Status</th>
+                    <th scope="col" class="sort" data-sort="totalamt">Total Amount( &#8377; )</th>
+                    <th scope="col" class="sort" data-sort="customerid">Customer Id</th>
+                  </tr>
+                </thead>
+                <tbody class="list txt1">
+                  {% for order,try_buy,city,prod in assigned_ords %}
+                  <tr>
+                    <th scope="row">
+                      <div>
+                        {{ order.id }}
+                      </div>
+                    </th>
+                    <td>
+                      <div class="avatar-group">
+                        {{ order.order_date }}
+                      </div>
+                    </td>
+                    <td>
+                      {{ prod }}
+                    </td>
+                    <td>
+                      {% if try_buy %}
+                      YES
+                      {% else %}
+                      NO
+                      {% endif %}
+                    </td>
+                    <td>
+                      {{ city }}
+                    </td>
+                    <td>
+                      <span class="badge badge-dot">
+                        {% if order.order_status == "completed" %}
+                          <i class="bg-success"></i>
+                        {% elif order.order_status == "pending" %}
+                          <i class="bg-info"></i>
+                        {% elif order.order_status == "returned" %}
+                          <i class="bg-yellow"></i>
+                        {% else %}
+                          <i class="bg-danger"></i>
+                        {% endif %}
+                        <span class="status">{{ order.order_status }}</span>
+                      </span>
+                    </td>
+                    <td>
+                      {{ order.total_amount }}
+                    </td>
+                    <td>
+                      <div>
+                        {{ order.customer_customer_id.id }}
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+              {% if assigned_ords.has_other_pages %}
+              <nav aria-label="...">
+                <ul class="pagination justify-content-end mb-0">
+                {% if assigned_ords.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ assigned_ords.previous_page_number }}" tabindex="-1">
+                      <i class="fas fa-angle-left"></i>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                        <i class="fas fa-angle-left"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% for i in assigned_ords.paginator.page_range %}
+                  {% if assigned_ords.number == i %}
+                  <li class="page-item active">
+                    <a class="page-link" href="#">{{ i }}<span class="sr-only">(current)</span></a>
+                  </li>
+                  {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                  </li>
+                  {% endif %}
+                {% endfor %}
+                {% if assigned_ords.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ assigned_ords.next_page_number }}">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% endif %}
+                </ul>
+              </nav>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Notassigned table -->
+      <div class="row" id="notassigned">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h1 class="mb-0 text-primary" style="text-align: center;">Sales</h1>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="orderid">Order Id</th>
+                    <th scope="col" class="sort" data-sort="orderdate">Order Date</th>
+                    <th scope="col" class="sort" data-sort="totalproduct">Total Products</th>
+                    <th scope="col" class="sort" data-sort="trybuy">Try & Buy</th>
+                    <th scope="col" class="sort" data-sort="city">City</th>
+                    <th scope="col" class="sort" data-sort="orderstatus">Order Status</th>
+                    <th scope="col" class="sort" data-sort="totalamt">Total Amount( &#8377; )</th>
+                    <th scope="col" class="sort" data-sort="customerid">Customer Id</th>
+                  </tr>
+                </thead>
+                <tbody class="list txt1">
+                  {% for order,try_buy,city,prod in notassigned_ords %}
+                  <tr>
+                    <th scope="row">
+                      <div>
+                        {{ order.id }}
+                      </div>
+                    </th>
+                    <td>
+                      <div class="avatar-group">
+                        {{ order.order_date }}
+                      </div>
+                    </td>
+                    <td>
+                      {{ prod }}
+                    </td>
+                    <td>
+                      {% if try_buy %}
+                      YES
+                      {% else %}
+                      NO
+                      {% endif %}
+                    </td>
+                    <td>
+                      {{ city }}
+                    </td>
+                    <td>
+                      <span class="badge badge-dot">
+                        {% if order.order_status == "completed" %}
+                          <i class="bg-success"></i>
+                        {% elif order.order_status == "pending" %}
+                          <i class="bg-info"></i>
+                        {% elif order.order_status == "returned" %}
+                          <i class="bg-yellow"></i>
+                        {% elif order.order_status == "cancelled" %}
+                          <i class="bg-danger"></i>
+                        {% else %}
+                          -
+                        {% endif %}
+                        <span class="status">{{ order.order_status }}</span>
+                      </span>
+                    </td>
+                    <td>
+                      {{ order.total_amount }}
+                    </td>
+                    <td>
+                      <div>
+                        {{ order.customer_customer_id.id }}
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+              {% if notassigned_ords.has_other_pages %}
+              <nav aria-label="...">
+                <ul class="pagination justify-content-end mb-0">
+                {% if notassigned_ords.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ notassigned_ords.previous_page_number }}" tabindex="-1">
+                      <i class="fas fa-angle-left"></i>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                        <i class="fas fa-angle-left"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% for i in notassigned_ords.paginator.page_range %}
+                  {% if notassigned_ords.number == i %}
+                  <li class="page-item active">
+                    <a class="page-link" href="#">{{ i }}<span class="sr-only">(current)</span></a>
+                  </li>
+                  {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                  </li>
+                  {% endif %}
+                {% endfor %}
+                {% if notassigned_ords.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ notassigned_ords.next_page_number }}">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% endif %}
+                </ul>
+              </nav>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+
+</body>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

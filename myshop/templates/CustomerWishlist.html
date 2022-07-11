@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'All/Bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'All/Wishlist/wishlist.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <script src="{% static 'All/Bootstrap/js/jquery-3.4.1.min.js' %}"></script>
+    <!-- Bootstrap tooltips -->
+    <script src="{% static 'All/Seller Dash Board/assets/js/popper.min.js' %}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'All/Seller Dash Board/assets/js/bootstrap.min.js' %}"></script>
+    <link href="{% static 'All/Header/head/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css' %}" rel="stylesheet" type="text/css">
+    
+</head>
+
+<body>
+    <div class="breadcumb-area ptb--100 ptb_md--100 ptb_sm--100  bg_image bg_image--3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-primary text-center mt-3">
+                        <h2 class="font--40 mb--0">Wishlist</h2> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-wrapper">
+        <!-- Cart Page Start -->
+        <div class="wishlist_area " data-bg-color="#ffffff" style="background-color: rgb(255, 255, 255);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <form action="#">
+                            <div class="cart-table table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="pro-thumbnail">Image</th>
+                                            <th class="pro-title">Product</th>
+                                            <th class="pro-price">Price</th>
+                                            {% comment %} <th class="pro-quantity">Quantity</th> {% endcomment %}
+                                            <th class="pro-remove">Remove</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       {% for w,i in wish %}
+                                            <tr>
+                                                <td class="pro-thumbnail">
+                                                    <a href="#"><img src="/media/{{i.image}}" alt="Product"></a>
+                                                </td>
+                                                <td class="pro-title"><a href="#">{{w.product_product_id.product_name}}</a></td>
+                                                <td class="pro-price"><span>${{w.product_product_id.product_selling_price}}</span></td>
+                                                {% comment %} <td class="pro-quantity">
+                                                    <div class="pro-qty">
+                                                        <input type="number" value="1" class="w-100" min="1"> </div>
+                                                </td> {% endcomment %}
+                                                <td class="pro-remove"><a href="{% url 'removewish' pid=w.product_product_id.id %}"><i  class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                                <td>
+                                                    <button type="button" onclick="location.href='{% url 'cart' pid=w.product_product_id.id %}'" class="btn btn-primary">Add to cart</button>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        {% comment %} <tr>
+                                            <td class="pro-thumbnail">
+                                                <a href="#"><img src="assets/images/shoes.jpg" alt="Product"></a>
+                                            </td>
+                                            <td class="pro-title"><a href="#">Matchbox’ Fit Jeans</a></td>
+                                            <td class="pro-price"><span>$275.00</span></td>
+                                            <td class="pro-quantity">
+                                                <div class="pro-qty">
+                                                    <input type="number" value="1" class="w-100" min="1">
+                                                </div>
+                                            </td>
+                                            <td class="pro-remove"><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary">Add to cart
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pro-thumbnail">
+                                                <a href="#"><img src="assets/images/shoes.jpg" alt="Product"></a>
+                                            </td>
+                                            <td class="pro-title"><a href="#">Variable product</a></td>
+                                            <td class="pro-price"><span>$295.00</span></td>
+                                            <td class="pro-quantity">
+                                                <div class="pro-qty">
+                                                    <input type="number" value="1" class="w-100" min="1">
+                                                </div>
+                                            </td>
+                                            <td class="pro-remove"><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary">Add to cart</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pro-thumbnail">
+                                                <a href="#"><img src="assets/images/shoes.jpg" alt="Product"></a>
+                                            </td>
+                                            <td class="pro-title"><a href="#">Open Front Cardigan</a></td>
+                                            <td class="pro-price"><span>$110.00</span></td>
+                                            <td class="pro-quantity">
+                                                <div class="pro-qty">
+                                                    <input type="number" value="1" class="w-100" min="1">
+                                                </div>
+                                            </td>
+                                            <td class="pro-remove"><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary">Add to cart
+                                                </button>
+                                            </td>
+                                        </tr> {% endcomment %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Cart Page End -->
+    </div>
+</body>
+
+</html>

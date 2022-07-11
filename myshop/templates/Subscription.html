@@ -1,0 +1,235 @@
+{% extends 'Navbar.html' %}
+<html>
+{% load static %}
+<head>
+{% block css %}
+	<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+	{% comment %} <meta charset="utf-8"> {% endcomment %}
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	{% comment %} <meta http-equiv="X-UA-Compatible" content="ie=edge"> {% endcomment %}
+	<title> Subscription </title>
+	<!--navbar CSS here -->
+	{% comment %} <link rel="stylesheet" href="{% static 'All/Bootstrap/css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'All/Seller Dash Board/assets/css/flaticon.css' %}">
+	<link rel="stylesheet" href="{% static 'All/Seller Dash Board/assets/css/style.css' %}"> {% endcomment %}
+	<link rel="stylesheet" href="{% static 'All/SellerNewDash/css/style.css' %}">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+	<link rel="stylesheet" href="{% static 'All/SellerSubscriptionPlan/css/subscription.css' %}">
+	<style type="text/css">
+		.cls{
+			padding-top: 6%;
+		}
+	</style>
+  {% endblock css %}
+	</head> 
+
+<body>
+{% block body %}
+	
+<hr>
+<div class="row ml-1 mt-3 pt-2">
+
+	<div class="col-sm-2">
+		
+	
+	<div>
+			<div id="wrapper">
+				<nav class="navbar" id="sidebar">
+					<ul class="nav sidebar-nav">
+						<div class="sidebar-header">
+							<div class=""> 
+								<div class="text-center">
+									<img src="/media/{{user.seller.profile_image}}" class="rounded" alt="..." height="80px" width="80px">
+									<p>{{user.first_name}}  {{user.last_name}}</p>
+								</div>
+							</div>
+						</div>
+						<li class="mt-2"><a name="#dashboard" href="{% url 'dashboard' %}">Dashboard</a></li>
+						<li class="mt-2"><a name="#myproducts" href="{% url 'sellermyproduct' typep=0 %}">My Products</a></li>
+						<li class="mt-2"><a name="#myorders" href="{% url 'sellerorder' ord=0 %}">My Orders</a></li>
+						<li class="mt-2"><a name="#mypayments" href="{% url 'sellertransaction' cred=0 %}">My Payments</a></li>
+						<li class="mt-2"><a name="#myprofile" href="{% url 'subscribed' %}">Subscription</a></li>
+						<li class="mt-2"><a name="#subscription" href="{% url 'sellerprofile' %}">My Profile</a></li>
+						<li class="mt-2"><a name="#reports" href="Report.html">Reports</a></li>
+						<li class="mt-2"><a name="#help" href="Help.html">Help</a></li>
+						<li class="mt-2"><a name="#contact" href="Contact.html">Contact Us</a></li>
+					</ul>
+				</nav>
+				<!-- /#sidebar-wrapper -->
+			</div>
+	</div>
+	</div>
+
+
+				<div class="col cls">				
+				<div class="container">
+					<form method="post" id="sellersubscription">
+						<div>
+							<div class="container" style="border-left: 1px solid lightgrey;">
+								<main>
+    <header class="pricing-table-header">
+      <div class="container" style="display: inline-block;">
+        <!-- <h5 class="text-center">PRICING PLAN</h5> -->
+        <!-- <h1 class="text-center pricing-table-title">Pricing Table</h1> -->
+          <div class="list-group list-group-horizontal pricing-plans-tab" role="tablist">
+              <a class="list-group-item list-group-item-action active" id="monthly-plans-tab" data-toggle="list" href="#monthly-plans" role="tab" aria-controls="monthly-plans" aria-selected="true">Monthly Plans</a>
+              <a class="list-group-item list-group-item-action" id="annual-plans-tab" data-toggle="list" href="#annual-plans" role="tab" aria-controls="annual-plans" aria-selected="false">Annual Plans</a>
+          </div>
+
+      </div>
+    </header>
+    <div class="container" style="display: inline-block;">
+      <div class="tab-content pricing-tab-content" id="pills-tabContent">
+        <div class="tab-pane show active" id="monthly-plans" role="tabpanel" aria-labelledby="monthly-plans-tab">
+          <div class="row mt-3">
+            <div class="col-md-4">
+              <div class="card pricing-card text-center shadow border-0">
+                <div class="card-header">
+                  <h5 class="pricing-plan-title">Basic</h5>
+                  <h3 class="pricing-plan-cost">₹300.00/Month</h3>
+                </div>
+                <div class="card-body">
+                  <ul class="pricing-plan-features">
+                    <li>Annual Plan fee</li>
+                    <li>Monthly plan fee</li>
+                    <li>Seat Minimum</li>
+                    <li>Phone support</li>
+                    <li>Group messaging</li>
+                    <li>Chat</li>
+                  </ul>
+                  <a href="{% url 'getsubscription' plan="bm" %}" class="btn btn-primary pricing-plan-purchase-btn">Choose Plan</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card pricing-card text-center shadow border-0">
+                <div class="card-header">
+                  <h5 class="pricing-plan-title">Business</h5>
+                  <h3 class="pricing-plan-cost">₹600.00/Month</h3>
+                </div>
+                <div class="card-body">
+                  <ul class="pricing-plan-features">
+                    <li>Annual Plan fee</li>
+                    <li>Monthly plan fee</li>
+                    <li>Seat Minimum</li>
+                    <li>Phone support</li>
+                    <li>Group messaging</li>
+                    <li>Chat</li>
+                  </ul>
+                  <a href="{% url 'getsubscription' plan="bum" %}" class="btn btn-primary pricing-plan-purchase-btn">Choose Plan</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card pricing-card text-center shadow border-0">
+                <div class="card-header">
+                  <h5 class="pricing-plan-title">Enterprise</h5>
+                  <h3 class="pricing-plan-cost">₹900.00/Month</h3>
+                </div>
+                <div class="card-body">
+                  <ul class="pricing-plan-features">
+                    <li>Annual Plan fee</li>
+                    <li>Monthly plan fee</li>
+                    <li>Seat Minimum</li>
+                    <li>Phone support</li>
+                    <li>Group messaging</li>
+                    <li>Chat</li>
+                  </ul>
+                  <a href="{% url 'getsubscription' plan="em" %}" class="btn btn-primary pricing-plan-purchase-btn">Choose Plan</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="annual-plans" role="tabpanel" aria-labelledby="annual-plans-tab">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card pricing-card text-center shadow border-0">
+                <div class="card-header">
+                  <h5 class="pricing-plan-title">Basic</h5>
+                  <h3 class="pricing-plan-cost">₹900.00/Year</h3>
+                </div>
+                <div class="card-body">
+                  <ul class="pricing-plan-features">
+                    <li>Annual Plan fee</li>
+                    <li>Monthly plan fee</li>
+                    <li>Seat Minimum</li>
+                    <li>Phone support</li>
+                    <li>Group messaging</li>
+                    <li>Chat</li>
+                  </ul>
+                  <a href="{% url 'getsubscription' plan="ba" %}" class="btn btn-primary pricing-plan-purchase-btn">Choose Plan</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4"> 
+              <div class="card pricing-card text-center shadow border-0">
+                <div class="card-header">
+                  <h5 class="pricing-plan-title">Business</h5>
+                  <h3 class="pricing-plan-cost">₹1800.00/Year</h3>
+                </div>
+                <div class="card-body">
+                  <ul class="pricing-plan-features">
+                    <li>Annual Plan fee</li>
+                    <li>Monthly plan fee</li>
+                    <li>Seat Minimum</li>
+                    <li>Phone support</li>
+                    <li>Group messaging</li>
+                    <li>Chat</li>
+                  </ul>
+                  <a href="{% url 'getsubscription' plan="bua" %}" class="btn btn-primary pricing-plan-purchase-btn">Choose Plan</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card pricing-card text-center shadow border-0">
+                <div class="card-header">
+                  <h5 class="pricing-plan-title">Enterprise</h5>
+                  <h3 class="pricing-plan-cost">₹2700.00/Year</h3>
+                </div>
+                <div class="card-body">
+                  <ul class="pricing-plan-features">
+                    <li>Annual Plan fee</li>
+                    <li>Monthly plan fee</li>
+                    <li>Seat Minimum</li>
+                    <li>Phone support</li>
+                    <li>Group messaging</li>
+                    <li>Chat</li>
+                  </ul>
+                  <a href="{% url 'getsubscription' plan="ea" %}" class="btn btn-primary pricing-plan-purchase-btn">Choose Plan</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+  </main>
+
+							</div>
+						</div>
+					</form>
+				</div>
+				</div>
+
+{% endblock body %}
+{% block js %}
+
+
+	<!--navbar JS here -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	{% comment %} <script src="{% static 'All/Seller Dash Board/assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+	<!--navbar Jquery, Popper, Bootstrap -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/popper.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/bootstrap.min.js' %}"></script>
+	<!--navbar Jquery Mobile Menu -->
+	<!--navbar Jquery Plugins, main Jquery -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/plugins.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/main.js' %}"></script> {% endcomment %}
+{% endblock js %} 
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+Footwear
+	Sports Shoes
+	Casual Shoes
+	Formal Shoes
+	Sandals & Floaters
+	Flip- Flops
+	Loafers
+	Boots
+	Running Shoes
+	Sneakers
+Men's Grooming
+	Deodorants
+	Perfumes
+	Beard Care & Grooming
+	Shaving & Aftershave
+	Sexual Wellness
+Clothing
+Top wear
+	T-Shirts
+	Formal Shirts
+	Casual Shirts
+Bottom wear
+	Jeans
+	Casual Trousers
+	Formal Trousers
+	Track pants
+	Shorts
+	Cargos
+	Three Fourths
+Suits, Blazers & Waistcoats
+Ties, Socks, Caps & More
+Fabrics
+Winter Wear
+	Sweatshirts
+	Jackets
+	Sweater
+	Tracksuits
+Ethnic wear
+	Kurta
+	Ethnic Sets
+	Sherwanis
+	Ethnic Pyjama
+	Dhoti
+	Lungi
+Innerwear & Loungewear
+	Briefs & Trunks
+	Vests
+	Boxers
+	Pyjamas and Lounge Pants
+	Thermals
+	Night Suits
+	Raincoats & Windcheaters
+Watches
+	Fastrack
+	Casio
+	Titan
+	Fossil
+	Sonata
+Accessories
+	Backpacks
+	Wallets
+	Belts
+	Sunglasses
+	Luggage & Travel
+	Frames
+	Jewellery
+Sports & Fitness Store
+Smart Watches
+Smart Bands
+Personal Care Appliances
+	Trimmers
+	Shavers
+	Grooming Kits
+Featured
+	Watches Store
+	Footwear Club
+	Bags & Wallet
+	T-Shirt Store
+	Adidas
+	Beardo
+	Reebok
+	Skechers
+	Nike

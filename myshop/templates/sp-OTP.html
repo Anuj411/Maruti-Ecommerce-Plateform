@@ -1,0 +1,56 @@
+{% load static %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+{% if msg %}
+
+<script>
+function alertmsg(){
+    alert('{{msg}}');
+}
+</script>
+
+{% endif %} 
+
+	<title> OTP PAGE </title>
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Forgot Password/css/ForgotPassDesign.css' %} ">
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Bootstrap/css/bootstrap.css' %} ">
+</head>
+
+<body onload="alertmsg()">
+	<form method="post" action="{% url 'forgetpassword' by=by stat='verify'  %}" method="POST" id="form1">
+	{% csrf_token %}
+		<center>
+			<div class="container mt-5 ">
+				<div class="row justify-content-center">
+					<div class="col-lg-5 col-md-10">
+						<div class="forgot">
+							<div>
+								<h4 class="text-uppercase text-center">OTP verification</h4> </div>
+							<div class="card mt-4">
+								<div class="card-body">
+									<div class="form-group">
+									<input type='text' value={{user}} name='user' hidden>
+										<label for="otp-pass">Enter your OTP:</label>
+										<input name="otp" type="text" id="otp_pass" class="form-control" style="width: 200px;" required=""> 
+										<small class="form-text text-muted">Enter OTP which is sent to your email address {{user}} during the registration.
+		                    	
+		                    	    </small> <small class="form-text text-muted">Then You'll reset your password.</small> </div>
+								</div>
+								<div class="card-footer">
+									<input type="submit" name="Button1" value="Reset Password" id="Button1" class="btn btn-outline-primary">
+									{% if by == 'seller' %}
+
+						<button class="btn btn-primary" onclick="location.href='{% url 'sellersignin' %}'" type="button" >Cancel</button> 
+						{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</center>
+	</form>
+</body>
+
+</html>

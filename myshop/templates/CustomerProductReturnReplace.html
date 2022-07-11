@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="{% static 'All/Bootstrap/css/bootstrap.css' %}">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+	<script src="{% static 'All/Seller Dash Board/desc/vendor/jquery/jquery.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/popper.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/bootstrap.min.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'All/Product Return Replace/ProductReturnReplace.css' %}">
+</head>
+<script>
+	alert("Product returned is Confirmed");
+</script>
+
+<body>
+
+	<form method="POST" action="{% url 'returnprod' odid=oid.id %}">
+	{% csrf_token %}
+	<!-- ============================ COMPONENT DELIVERY  ================================= -->
+	<div class="container">
+		<div class="bg-white text-center text-primary">
+			<h3> Product Return</h3> </div>
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<!-- product -->
+					<div class="product-content product-wrap ">
+						<div class="row">
+							<div class="col-md-3 col-sm-12 col-xs-12">
+								<div class="product-image mt-2"> <img src="/media/{{pimg.image}}" alt="194x228" height="200px" width="190px">
+									<!-- <span class="tag2 hot">
+							HOT
+						</span> --></div>
+								<div class="product-deatil">
+									<h5>
+							<a href="#">
+								{{oid.product_product_id.product_name}} <span>Return Till 30/06/2021</span>
+								<span>Colour : White & Blue</span>
+								<span>Size : M</span>
+							</a>
+						</h5>
+									<p class="price-container"> <span>{{oid.orderdetails_order_id.total_amount}}</span> </p> <span class="tag1"></span> </div>
+							</div>
+							<div class="col">
+								<div class="">
+									<label for="cars"><b>Why are you returning this?</b></label>
+								</div>
+								<div class="">
+									<select name="reasonprod" id="reason">
+										<option>Size is too small</option>
+										<option >Size is too large</option>
+										<option >Both product and shipping box damaged</option>
+										<option >Others</option>
+									</select>
+								</div>
+								<div class="col mt-3">
+									<div class="row">
+										<label><b> Comments ( Optional ) : </b></label>
+									</div>
+									<div class="row">
+										<textarea name="reason2" class="w-75" style="resize: none; height: 100px"></textarea>
+									</div>
+									<div class="row">
+										<label>200 words ( Maximum )</label>
+									</div>
+								</div>
+								<div class="mt-3">
+									<div class="col-md-8">
+										<p><b>NOTE:</b> We aren’t able to offer policy exceptions in response to comments. Do not include personal information as these comments may be shared with external service providers to identify product defects.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- end product -->
+						<div class="row">
+							<div class="container">
+								<div class="col-md-12">
+									<ul>
+										<li><b>Refund to your original payment method
+Estimated refund timing: 3-5 business days after we receive the item.</b>
+											<br>
+										</li>
+										<p style="font-size: 15px;">
+											<input type="checkbox" required name="" value=""> I agree to return all items in original condition, with MRP tags attached, user manual, warranty cards, and original accessories in manufacturer packaging.</p>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bg-white text-center text-primary">
+			<h3> How will you mail your return?</h3> 
+		</div>
+		<div class="container">
+			<div class="product-content product-wrap ">
+			<table class="table">
+                  <tbody>
+                  	<tr>
+              		<td>Pickup Address</td> 
+           			<td colspan="2">{{oid.orderdetails_order_id.delivery_address}},{{oid.customer_delivery_area}}<a href="#">Change Address</a></td>
+           		</tr>
+                    <tr scope="row">
+                      <td scope="col" class="font-weight-bold">Pickup Charge</td>
+                      <td scope="col">₹ 0.00</td>
+                    </tr>
+                    {% comment %} <tr scope='row'>
+                      <td scope="col" class="font-weight-bold">Pickup Date</td>
+                      <td scope="col"><input type="date" name="" value="" placeholder=""></td>
+                    </tr> {% endcomment %}
+                    <tr scope='row'>
+                      <td scope="col" class="font-weight-bold">Total Refund Amount</td>
+                      <td scope="col">₹ 1410.00</td>
+                    </tr>
+                    <tr scope='row'>
+                      <td scope="col" class="font-weight-bold">Return Till</td>
+                      <td scope="col">30/06/2021</td>
+                    </tr>
+                    <tr scope='row'>
+                    	<td><b>NOTE:</b></td>
+                      <td scope="col" colspan="2" class="font-weight-bold">Your package will be picked up by a courier service. Please return the item and packaging in its original condition to avoid pickup cancellation by courier service.<a href="#">More Details</a></td>
+                    </tr>
+                    <tr>
+                    	<td colspan="2" class="text-center"><input type="submit" class="btn btn-warning" name="" value="Confirm Your Return"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+		</div>
+	</div>
+	<!-- ============================ COMPONENT DELIVERY END.// ================================= -->
+	</form>
+</body>
+
+</html>

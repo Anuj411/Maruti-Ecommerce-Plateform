@@ -1,0 +1,88 @@
+
+{% extends 'Admin-Header-Footer.html' %}
+
+{% load static %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Forgot Password/css/ForgotPassDesign.css' %} ">
+	<title>Maruti E-Commerce Plateform - Change Password</title>
+	<script type="text/javascript" src="{% static 'All/Admin Panel/assets/js/jquery-1.10.2.js' %}"></script>
+	
+    {% if msg %}
+	<script>
+      function alertmsg(){
+        alert('{{msg}}');
+      }
+  	</script>
+    {% endif %}
+
+{% endblock %}
+  
+{% block content %}
+<body onload="alertmsg();">
+	<form method="post" action="{% url 'adminchangepass' %}" id="form1">
+	{% csrf_token %}
+		<center>
+        <div class="header bg-primary pb-6">
+            <div class="container-fluid">
+                <div class="header-body pt-5">
+                
+                </div>
+            </div>
+        </div>
+			<div class="container mt--6">
+				<div class="row justify-content-center">
+					<div class="col-lg-5 col-md-10">
+						<div class="forgot">
+							<div>
+								<h4 class="text-uppercase text-center">Change Password</h4>
+								<hr> </div>
+								
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label>Current Password</label>
+										<input id="chngepass" type="password" class="form-control" name="changepass" style="width: 200px;" placeholder="******" required>
+                                        <span id="changepass" class="text-danger"></span>
+                                     </div>
+                                        
+								</div>
+							</div>
+							
+							
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label>New Password</label>
+										<input id="pass" type="password" class="form-control" name="pass" style="width: 200px;" placeholder="******" required>
+                                        
+                                     </div>
+                                        
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label>Confirm <span class="d-none d-xl-inline">Password</span></label>
+										<input id="confirmpass" name="confirmpass" type="password" class="form-control" style="width: 200px;" placeholder="******" required>
+										<span id="validpass" class="text-danger"></span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<input type="submit" name="hideshow" value="Reset Password" onclick="return matchPassword()" id="hideshow" class="btn btn-primary"> </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</center>
+	</form>
+</body>
+{% endblock  %}
+
+{% block js %}
+  
+<script src="{% static 'All/Admin Panel/assets/js/password-val.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,491 @@
+{% extends 'Navbar.html' %}
+<html>
+{% load static %}
+
+<head>
+{% block css %}
+	<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+	{% comment %} <meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge"> {% endcomment %}
+	<title> Add Products </title>
+ 	<link rel="stylesheet" type="text/css" href="{% static 'All/Seller Add Items/assets/css/ToggleActive.css' %}">
+ 	<!--navbar CSS here -->
+	{% comment %} <link rel="stylesheet" href="{% static 'All/Bootstrap/css/bootstrap.min.css' %} ">
+	<link rel="stylesheet" href="{% static 'All/Seller Dash Board/assets/css/flaticon.css' %} ">
+	<link rel="stylesheet" href="{% static 'All/Seller Dash Board/assets/css/style.css' %} "> {% endcomment %}
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Seller Add Items/assets/css/imageselect.css' %}">
+	<script type="text/javascript" src="{% static 'All/Seller Add Items/scripts/jquery-1.10.2.js' %}"></script>
+	<style type="text/css">
+	.no_click {
+		pointer-events: none;
+	}
+	
+	.mrgninstr {
+		margin-left: 430px;
+	}
+	
+	.borderImage {
+		border: 1px solid #007bff;
+		height: 450px;
+		margin-left: 30px;
+		margin-right: 10px;
+	}
+	
+	.hrs {
+		border: 1px solid #007bff;
+		margin-left: 30px;
+		margin-right: 10px;
+	}
+	</style>
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Seller Add Items/assets/css/progress.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Seller Add Items/Add Product Css/addproduct.css' %} ">
+	<!--Single product Dropdown css file -->
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Seller Add Items/assets/css/tmp.css' %}">
+	<script type="text/javascript" src="{% static 'All/Seller Add Items/assets/js/category dropdown/tmprahul.js' %}"></script>
+	<style>
+	.the-legend {
+		border-style: none;
+		border-width: 0;
+		font-size: 14px;
+		line-height: 20px;
+		margin-bottom: 0;
+		width: auto;
+		padding: 0 10px;
+		border: 1px solid #e0e0e0;
+	}
+	
+	.the-fieldset {
+		border: 1px solid #0e8ce4;
+		padding: 10px;
+	}function getstate() {
+      //document.getElementByValue('sts').
+      //document.getElementById('sts').options[0].text  = "{{sp.city_city_id.state_state_id.state_name}}";
+
+      Array.from(document.querySelector("#sts").options).forEach(function(option_element) {
+      
+        if(option_element.value == "{{sp.city_city_id.state_state_id.state_name}}" ){
+          option_element.selected='selected';
+
+          print_city('state', document.getElementById("sts").selectedIndex);
+          }
+      });
+    }
+	
+	.tmp {
+		resize: none;
+	}
+	</style>
+	<script>
+
+		function getstate() {
+      //document.getElementByValue('sts').
+      //document.getElementById('sts').options[0].text  = "{{sp.city_city_id.state_state_id.state_name}}";
+
+      Array.from(document.querySelector("#size").options).forEach(function(option_element) {
+      //console.log({{selectedsize}});
+        if(option_element.value == "{{selectedsize}}" ){
+          option_element.selected='selected';
+
+          //print_city('state', document.getElementById("sts").selectedIndex);
+          }
+      });
+    }
+
+	function brand() {
+      //document.getElementByValue('sts').
+      //document.getElementById('sts').options[0].text  = "{{sp.city_city_id.state_state_id.state_name}}";
+
+      Array.from(document.querySelector("#DropDownList4").options).forEach(function(option_element) {
+      //console.log({{selectedsize}});
+        if(option_element.value == "{{brandname}}" ){
+          option_element.selected='selected';
+
+          //print_city('state', document.getElementById("sts").selectedIndex);
+          }
+      });
+    }
+
+	{% if msg %}
+	alert("{{msg} }");
+	{% endif %}
+
+	</script>
+	{% endblock css %}
+</head>
+
+<body onload="getstate();brand();">
+{% block body %}
+	{% comment %} <header>
+		<!-- Header Start -->
+		<div class="header-area">
+			<div class="main-header header-sticky">
+				<div class="container-fluid">
+					<div class="menu-wrapper">
+						<!-- Logo -->
+						<div class="logo">
+							<a href="{% url 'welcome' %}"><img src="{% static 'All/Seller Dash Board/assets/img/logo/logo.png' %}" alt=""></a>
+						</div>
+						<!-- Main-menu -->
+						<div class="main-menu d-none d-lg-block">
+							<nav>
+								<ul id="navigation">
+									<li><a href="{% url 'welcome' %}">Home</a></li>
+									<li><a href="#">Sell Product</a>
+										<ul class="submenu">
+											<li><a href="{% url 'addproduct' %}">Add New Product</a></li>
+											<li><a href="{% url 'sellermyproduct' %}">My Products</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Orders</a>
+										<ul class="submenu">
+											<li><a href="#">Active</a></li>
+											<li><a href="#">Return</a></li>
+											<li><a href="#">Cancellations</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Payments</a>
+										<ul class="submenu">
+											<li><a href="#">Transactions</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Reports</a> </li>
+									<li><a href="#">Help</a></li>
+								</ul>
+							</nav>
+						</div>
+						<!-- Header Right -->
+						<div class="header-right">
+							<ul>
+								<li><a href="#" class="flaticon-user text-body"><span class="mrglogin">Login / Sign Up</span> </a> </li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+	</header> {% endcomment %}
+	<div>
+		<!--<body>-->
+		{% comment %} <form method="post" action="SellerMyProducts.html" id="search_form"> {% endcomment %}
+			<div id="CategoryAddPanel" class="mt-4">
+				<div class="container">
+					<div class="form-group">
+						<fieldset class="the-fieldset" style="display:block;">
+							<legend class="the-legend" align="center">
+								<h3 class="text-primary justify-content-center">Edit Product Details</h3></legend>
+							<table id="Table2" class="ml-lg-5">
+							<form action="{% url 'updateproduct' pid=p.id %}" id="updateproduct" method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+								<tbody>
+									<tr>
+										<td>
+											<label for="product_name"  class="font-weight-bold">Product Name :</label>
+											<input name="product_name" form="updateproduct" type="text" id="product_name" class="form-control" title="Product Name" value="{{p.product_name}} "  placeholder="Enter Product Name Here . . . " required=""> </td>
+										<td>
+											<label for="short_desc" class="font-weight-bold ml-4">Short Description : </label>
+											<textarea name="short_desc" rows="2" cols="20" form="updateproduct" id="short_desc" class="tmp form-control ml-4" style="width:510px;">{{p.product_short_description}}</textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table id="table3" class="ml-lg-5">
+								<tbody>
+									<tr>
+										<td>
+											<label for="size_footwear" class="font-weight-bold mt-2" id="sizeFootwear">Size</label>
+											<!--<input type="range"-->
+											<select name="size" id="size" form="updateproduct" class="mt-2 ml-2">
+											
+											{% for i in size %}
+												<option value={{i}}>{{i}}</option>
+											{% endfor %}
+											 </select>
+										
+											{% comment %} <input type="submit" name="SizeChart" value="View Size Chart" id="Button1" class="btn btn-outline-primary mt-4 ml-4"> </td> {% endcomment %}
+										<td>
+											<label for="brand_id" class="font-weight-bold mt-4" id="brand_id">Brand:</label>
+											<select name="DropDownList4" form="updateproduct" id="DropDownList4" class="mt-2 ml-2"> 
+											{% for i in brand %}
+													<option value="{{i}}">{{i}}</option>
+												{% endfor %}
+											</select>
+										</td>
+										<td>
+											<label for="ProductAddDate" class="font-weight-bold mt-4" id="ProductAddDate">Date:
+												<input type="date" form="updateproduct" class="mt-1" id="AddDate" placeholder="{{p.product_add_date|date:"Y-m-d"}}" value="{{p.product_add_date|date:"Y-m-d"}}" name="AddDate"> </td>
+									</tr>
+									<tr>
+										<td>
+											<label for="validationServer05" class="font-weight-bold mt-4">MRP : </label>
+											<input name="inputMRP" form="updateproduct" type="text" id="inputMRP" value="{{p.product_mrp}}" class="decimal form-control" placeholder="₹" required=""> </td>
+										<td>
+											<label for="validationServer05" class="ml-4 font-weight-bold mt-4">Selling Price : </label>
+											<input id="inputSellPrice" form="updateproduct" type="text" name="txtChar"value="{{p.product_selling_price}}" class="ml-4 decimal form-control" placeholder="₹" required=""> </td>
+										<td>
+											<label for="validationServer05" class="ml-5 font-weight-bold mt-4">Quantity (Stock) : </label>
+											<input id="inputQuantity" form="updateproduct" type="text" name="quantity" value="{{p.qty_product}}" class="ml-5 decimal form-control" placeholder="Enter Quantity In Numbers" required=""> </td>
+										<td class="float-right">
+											<label for="color_id" class="font-weight-bold mr-5 mt-4" id="colour_id">Color:</label>
+											<select name="colordropdown" form="updateproduct" id="colordropdown" class="mt-2 ml-2">
+												{% for i in color %}
+													<option value={{i}}>{{i}}</option>
+												{% endfor %}
+												
+											</select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table id="table4" class="ml-lg-5">
+								<tbody>
+									<tr>
+										<td>
+											<label for="validationServer05" class="font-weight-bold mt-4">Product Specifications : </label>
+											<textarea name="inputSpecs" form="updateproduct" rows="2" cols="20" id="inputSpecs" class="tmp form-control" style="width:750px;">{{p.product_specification}}</textarea>
+										</td>
+										<td>
+											<div class="d-flex mt-5 ml-4 align-items-center">
+						                     	<label class="font-weight-bold">Active Or InActive</label>
+												 {% if p.status is 1 %}
+												 
+						                        <input type="checkbox" id="switch1" class="checkbox" form="updateproduct" name = "active" checked/> 
+												{% else %}
+												<input type="checkbox" id="switch1" name = "active" form="updateproduct" class="checkbox" />
+						                        {% endif %}
+												<label for="switch1" class="toggle ml-3"></label>
+						                      </div>
+										</td>
+									</tr>
+
+									<tr>
+										<td>
+											
+											{% if p.try_and_buy is 1%}
+											
+												<input class="mt-4" type="checkbox" form="updateproduct" name="TryAndBuy" value="" checked>
+											
+											{% else %}
+											<input class="mt-4" type="checkbox" form="updateproduct" name="TryAndBuy" value=""> 
+											{% endif %}
+											
+											<label class="font-weight-bold">Put product for try & buy</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label class="font-weight-bold">Note:</label>
+										</td>
+									</tr>
+									<tr>
+										<td >
+											<label class="font-italic">If you put your product for try & buy then you need to give the product to the customer for trying purpose.</label>
+										</td>	
+									</tr>
+
+								</tbody>
+								{% comment %} onclick="location.href='{% url 'updateproduct' pid=p.id %}';" {% endcomment %}
+							</table>
+							</form>
+							<button type="submit" form="updateproduct"  class="btn btn-outline-primary p-3 ml-5" name="UpdateProduct" value="Update Product ">Update Product</button>
+							{% comment %} <input type="button" class="float-right btn btn-outline-primary p-3" name="AddFeature" value="Change Feature"> {% endcomment %}
+							{% comment %} <input type="button" class="float-right btn btn-outline-primary p-3 mr-2" name="AddOffer" value="Change Offer">  {% endcomment %}
+							</fieldset>
+							
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center mt-5">
+				<!--Row For 2 Tables-->
+				<div class="row-md-6">
+					<fieldset class="the-fieldset" style="display:block;">
+						<legend class="the-legend">
+							<h3 class="text-primary">Edit Feature Details</h3></legend>
+						<div class="container">
+							<table class="table table-bordered table-hover" id="tab_logic">
+								<thead>
+									<tr>
+										<th class="text-center"> No. </th>
+										<th class="text-center w-25"> Feature Name </th>
+										<th class="text-center"> Value </th>
+									</tr>
+								</thead>
+								<tbody>
+								<form action="{% url 'updatefeature' pid=p.id  %}" id="update" method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+								<input type="hidden" name="featurecount" value="0" id="number">
+									{% for i,j in feature  %}
+									<tr id='addr0'>
+										<td class="text-center"> {{j}} </td>
+											<form id = "update{{j}}" action="{% url 'updateFeature' fid=i.id pid=p.id loop=j %}">
+										<td>
+											<input type="text" name='name{{j}}' form = "update{{j}}" placeholder='Feature Name' value="{{i.feature_feature_id.feature_name}}"  class="form-control" /> </td>
+										<td>
+
+											<input type="text" name='mail{{j}}' form = "update{{j}}" placeholder='Value' value="{{i.feature_value}}"  class="form-control" />
+											
+											<input type="submit"  onclick = 'this.form.submit();' form="update{{j}}" value="Update" class="float-right btn btn-outline-primary m-2">
+											</form>
+											
+
+											<a href="{% url 'deleteFeature' fid=i.id pid=p.id %}">
+												<input type="button" id="delete_row" value="Delete" class="float-right btn btn-outline-primary m-2">
+											</a>
+											
+										</td>
+									</tr>
+									{% endfor %}
+									<tr id='addr1'></tr>
+
+								</tbody>
+							</table>
+							<table>
+							<tr>
+							<td>
+							<input type="button" id="add_row1" value="Add Row"  class="pull-left btn btn-outline-primary mr-2">
+							</td>
+							<td>
+							<input type="button" id="delete_row1"   value="Delete Row" class="btn btn-outline-primary mr-5"> </div>
+							</td>
+							<td>
+							<input type="submit" form="update" class="ml-5 btn btn-outline-primary" name="AddFeature" value="Change Feature">
+							</td>
+							</tr>
+							</form>
+							</table>
+					</fieldset>
+				</div>
+				<div class="flex-column ml-5">
+					<!-- 2nd Table -->
+					<!-------------------------- TO DO -------------------->
+					<fieldset class="the-fieldset ml-5" style="display:inline-block;">
+						<legend class="the-legend" align="center">
+							<h3 class="text-primary justify-content-center">Edit Offer Details</h3></legend>
+
+						<table id="Table2">
+						{% if offer.id %}
+						<form id="updateoffer" method="POST" enctype="multipart/form-data" action="{% url 'updateoffer' pid=p.id  oid=offer.id%}">
+						{% else %}
+						<form id="updateoffer" method="POST" enctype="multipart/form-data" action="{% url 'updateoffer' pid=p.id  oid="null"%}">
+						{% endif %}
+						{% csrf_token %}
+							<tbody>
+								<tr>
+									<td>
+										<label for="offer_date" class="font-weight-bold">Offer Start Date:</label>
+									</td>
+									<td>
+										<input type="date" id="OfferStartDate" form="updateoffer" title="OfferStartDate" name="OfferStartDate" value="{{offer.start_date|date:"Y-m-d"}}" placeholder="Enter Offer Start Date Here . . . "> </td>
+								</tr>
+								<tr>
+									<td>
+										<label for="offer_date"  class="font-weight-bold">Offer End Date:</label>
+									</td>
+									<td>
+										<input type="date"  name="offerenddate" form="updateoffer" value="{{offer.end_date|date:"Y-m-d"}}" > </td>
+								</tr>
+								<tr>
+									<td>
+										<label for="offer_date" class="font-weight-bold"> Offer Name:</label>
+									</td>
+									<td>
+										<input type="text" form="updateoffer" name="offername" value="{{offer.offer_name}}" > </td>
+								</tr>
+								<tr>
+									<td>
+										<label for="offer_date" class="font-weight-bold">Discount(%):</label>
+									</td>
+									<td>
+										<input type="text" name="discount" form="updateoffer" value="{{offer.discount}}" placeholder=""> </td>
+								</tr>
+							</tbody>
+							
+						</table>
+						<center>
+						<input type="submit" form="updateoffer" class="btn btn-outline-primary mt-2" name="AddOffer" value="Change Offer">
+						</center>
+					</fieldset>
+					</form>
+				</div>
+			</div>
+			<!-- Image Upload -->
+			<form id="imageupdate" method="POST" action = "{% url 'updateimg' pid=p.id %}" enctype="multipart/form-data" >
+			{% csrf_token %}
+			<div class="row justify-content-center mt-5">
+				<fieldset class="the-fieldset" style="display:inline-block;">
+					<legend class="the-legend" align="center">
+						<h3 class="text-primary justify-content-center">Edit Product Images</h3></legend>
+					<div class="mt-2" style="text-align: center;">
+						<h2 class="mb-4 text-primary">Image Upload Intructions</h2>
+						<ol class="text-center">
+							<div>
+								<li> Allowed only files with extension (jpg, png, gif) </li>
+								<li> Maximum number of allowed files 10 with 600 KB for each </li>
+								<li> You can select files from different folders </li>
+							</div>
+						</ol>
+						<fieldset class="the-fieldset ml-5" style="display:inline-block;">
+							<legend class="the-legend" align="center">
+								<h3 class="text-primary">Upload Images</h3></legend>
+							<output id="Filelist"></output>
+							<!--To give the control a modern look, I have applied a stylesheet in the parent span.-->
+							<ul class="thumb-Images" id="imgList">
+							{% for i in image %}
+							
+							<li>
+							<div class="img-wrap"> 
+							<span class="close" onclick="location.href='{% url 'removeimg' imgid=i.id pid=p.id %}'" >×</span>
+							<img class="thumb" src="/media/{{i.image}}">
+							</div>
+							<div class="FileNameCaptionStyle">imgname</div>
+							</li>
+							
+							{% comment %} <img class = "thumb" src="/media/{{i.image}}"></img> {% endcomment %}
+							{% endfor %}
+							<ul>
+							<span class="btn btn-outline-primary justify-content-center fileinput-button" style="font-size:25px; ">
+          						  <span>+</span>
+							
+							<input name="files" type="file" id="files" multiple=""  accept="image/*">
+							<br> </span>
+						</fieldset>
+						<div class="mt-3">
+							<input form="imageupdate" type="submit" name="submitbtn" value="Change" id="submitbtn" class="btn btn-outline-primary"> </div>
+						<div class="mt-3"> </div>
+					</div>
+				</fieldset>
+			</div>
+			</form>
+	
+		<!-- Add Product -->
+		
+	</form>
+	{% endblock body %}
+	{% block js %}
+	<!-- js plugin -->
+	<script src="{% static 'All/Seller Add Items/assets/js/imageUpload/Electronicsform.js' %} "></script>
+	<script src="{% static 'All/Seller Add Items/assets/js/vendor/modernizr-3.5.0.min.js' %} "></script>
+	<!--navbar Jquery, Popper, Bootstrap -->
+	<script src="{% static 'All/Seller Add Items/assets/js/vendor/jquery-1.12.4.min.js' %} "></script>
+	<script src="{% static 'All/Bootstrap/js/bootstrap.min.js' %} "></script>
+	<!-- Single product js drop plugin -->
+	<script type="text/javascript" src="{% static 'All/Seller Add Items/assets/js/category dropdown/tmprahul.js' %}"></script>
+	<!--</body>-->
+	</div>
+	<!--navbar JS here -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+	<!--navbar Jquery, Popper, Bootstrap -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/popper.min.js' %} "></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/bootstrap.min.js' %} "></script>
+	<!--navbar Jquery Mobile Menu -->
+	<!--navbar Jquery Plugins, main Jquery -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/plugins.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/main.js' %}"></script>
+	<!-- Jquery for adding dynamic row -->
+	<script src="{% static 'All/First Profile/js/jquery-2.0.0.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'All/Seller Add Items/newUi/addRow.js' %}"></script>
+	{% endblock js %}
+</body>
+
+</html>

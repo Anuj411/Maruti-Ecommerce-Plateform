@@ -1,0 +1,151 @@
+{% extends 'Salesperson-Header-Footer.html' %}
+
+{% load static %}
+
+{% block css %}
+
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'All/SP-Contact Us/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'All/SP-Contact Us/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'All/SP-Contact Us/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'All/SP-Contact Us/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'All/SP-Contact Us/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'All/SP-Contact Us/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'All/SP-Contact Us/vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'All/SP-Contact Us/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'All/SP-Contact Us/vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'All/SP-Contact Us/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'All/SP-Contact Us/css/main.css' %}">
+<!--===============================================================================================-->
+<script type="text/javascript">
+    function onlyNumberKey(evt) { 
+          
+        // Only ASCII charactar in that range allowed 
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode 
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) 
+            return false; 
+        return true; 
+    } 
+
+    function req(){
+         document.getElementsByName("name").innerHTML = "";
+        document.getElementsByName("email").innerHTML = "";
+        document.getElementsByName("phone").innerHTML = "";
+        document.getElementsByName("message").innerHTML = "";
+    }
+
+    function alertmsg(){
+    alert('Your response has been submitted');
+    }
+</script>
+  <title>Maruti E-Commerce Plateform - Delivery</title>
+{% endblock %}
+
+{% block content %}
+    <div class="header bg-purple">
+      <div class="container-fluid">
+        <div class="header-body pt-5">
+          
+ 
+        </div>
+      </div>
+    </div>
+    <div class="header bg-purple pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            
+            <div>
+
+
+	<div class="container-contact100 mb-5">
+
+		<div class="wrap-contact100">
+			<div class="contact100-form-title" style="background-image: url({% static 'All/SP-Contact Us/images/bg-01.jpg' %});">
+				<span class="contact100-form-title-1">
+					Contact Us
+				</span>
+			</div>
+
+			<form class="contact100-form validate-form" onsubmit="alertmsg();return req();">
+				<div class="wrap-input100 validate-input" data-validate="Name is required">
+					<span class="label-input100">Full Name:</span>
+					<input class="input100" type="text" name="name" placeholder="Enter full name" required>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+					<span class="label-input100">Email:</span>
+					<input class="input100" type="email" name="email" placeholder="Enter email addess" required>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate="Phone is required">
+					<span class="label-input100">Phone:</span>
+					<input class="input100" type="text" name="phone" placeholder="Enter phone number" maxlength="10" onkeypress="return onlyNumberKey(event)" required>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate = "Message is required">
+					<span class="label-input100">Message:</span>
+					<textarea class="input100" name="message" placeholder="Your Comment..." required></textarea>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="container-contact100-form-btn">
+					<button class="contact100-form-btn">
+						<span>Submit<i class="fa fa-arrow-right m-l-7" aria-hidden="true"></i></span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+            </div>
+                
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+{% endblock %}
+
+{% block js %}
+<!--===============================================================================================-->
+	<script src="{% static 'All/SP-Contact Us/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'All/SP-Contact Us/vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'All/SP-Contact Us/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'All/SP-Contact Us/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'All/SP-Contact Us/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'All/SP-Contact Us/vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'All/SP-Contact Us/vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'All/SP-Contact Us/vendor/countdowntime/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'All/SP-Contact Us/js/map-custom.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'All/SP-Contact Us/js/main.js' %}"></script>
+
+{% endblock %}

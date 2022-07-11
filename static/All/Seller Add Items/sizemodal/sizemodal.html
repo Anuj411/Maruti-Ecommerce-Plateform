@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>modals</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <style type="text/css">
+    /* The Modal (background) */
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        color: black;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn" class="btn btn-outline-primary">View Size Chart</button>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div>
+                <button type="button" class="close">Close</button>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <table class="table" >
+                        <thead class="thead-dark" >
+                            <tr style="text-align: center;">
+                                <th scope="col">&nbsp; # &nbsp;&nbsp;</th>
+                                <th scope="col">UK/India &nbsp;&nbsp;</th>
+                                <th scope="col">Length (in cm) &nbsp;&nbsp;&nbsp;</th>
+                                <th scope="col">Euro &nbsp;&nbsp;&nbsp;</th>
+                                <th scope="col">US</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>5</td>
+                                <td>24</td>
+                                <td>38.5</td>
+                                <td>6</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>5.5</td>
+                                <td>24.5</td>
+                                <td>39</td>
+                                <td>6.5</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>6</td>
+                                <td>25</td>
+                                <td>40</td>
+                                <td>7</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <td>6.5</td>
+                                <td>25.5</td>
+                                <td>40.5</td>
+                                <td>7.5</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">5</th>
+                                <td>7</td>
+                                <td>26</td>
+                                <td>41</td>
+                                <td>8</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">6</th>
+                                <td>7.5</td>
+                                <td>26.5</td>
+                                <td>42</td>
+                                <td>8.5</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">7</th>
+                                <td>8</td>
+                                <td>27</td>
+                                <td>42.5</td>
+                                <td>9</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">8</th>
+                                <td>8.5</td>
+                                <td>27.5</td>
+                                <td>43</td>
+                                <td>9.5</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">9</th>
+                                <td>9</td>
+                                <td>28</td>
+                                <td>43</td>
+                                <td>10</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">10</th>
+                                <td>9.5</td>
+                                <td>28.5</td>
+                                <td>44.5</td>
+                                <td>10.5</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">11</th>
+                                <td>10</td>
+                                <td>29</td>
+                                <td>45</td>
+                                <td>11</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">12</th>
+                                <td>10.5</td>
+                                <td>29.5</td>
+                                <td>45.5</td>
+                                <td>11.5</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">13</th>
+                                <td>11</td>
+                                <td>30</td>
+                                <td>46</td>
+                                <td>12</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">14</th>
+                                <td>11.5</td>
+                                <td>30.5</td>
+                                <td>47</td>
+                                <td>12.5</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">15</th>
+                                <td>12</td>
+                                <td>31</td>
+                                <td>47.5</td>
+                                <td>13</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">16</th>
+                                <td>12.5</td>
+                                <td>31.5</td>
+                                <td>48</td>
+                                <td>13.5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-4 mt-5 ml-5">
+                    <h4>Not sure about your shoe size? </h4>
+                    <p>Follow these simple steps to figure it out:</p>
+                    <ol>
+                    <li> Place your foot on a blank sheet of paper</li>
+                    <li> Make one marking at your longest toe and one marking at the backside of your heel</li>
+                    <li> Measure (in centimetres) the length of your foot between these two markings</li>
+                    <li> Compare the value to our measurement chart to know your shoe size</li>
+                  </ol>
+                  <center>
+                  <img src="assets/img/shoes-size.png" alt="shoe size" class="mt-5">
+                  </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="sizemodal.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,597 @@
+{% extends 'Navbar.html' %}
+<html>
+{% load static %}
+<head>
+
+{% block css %}
+	<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+	{% comment %} <meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge"> {% endcomment %}
+	<title> Add Products </title>
+	<!--navbar CSS here -->
+	{% comment %} <link rel="stylesheet" href="{% static 'All/Bootstrap/css/bootstrap.min.css' %}"> {% endcomment %}
+	{% comment %} <link rel="stylesheet" href="{% static 'All/Seller Dash Board/assets/css/flaticon.css' %}"> {% endcomment %}
+	{% comment %} <link rel="stylesheet" href="{% static 'All/Seller Dash Board/assets/css/style.css' %}"> {% endcomment %}
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Seller Add Items/assets/css/imageselect.css' %}">
+	<script type="text/javascript" src="{% static 'All/Seller Add Items/scripts/jquery-1.10.2.js' %}"></script>
+	<script type="text/javascript">     
+			function isNumber(evt) {
+					evt = (evt) ? evt : window.event;
+					var charCode = (evt.which) ? evt.which : evt.keyCode;
+					if ( (charCode > 31 && charCode < 48) || charCode > 57) {
+						return false;
+					}
+					return true;
+				}
+</script>
+{% if msg %}
+	<script>
+		alert('{{msg}}');
+	</script>
+{% endif %}
+{% comment %} <script>
+	function hideandshow(){
+		document.getElementById("Addbtn").visible= false;
+	}
+</script> {% endcomment %}
+	<style type="text/css">
+	.no_click {
+		pointer-events: none;
+	}
+	
+	.mrgninstr {
+		margin-left: 430px;
+	}
+	
+	.borderImage {
+		border: 1px solid #007bff;
+		height: 450px;
+		margin-left: 30px;
+		margin-right: 10px;
+	}
+	
+	.hrs {
+		border: 1px solid #007bff;
+		margin-left: 30px;
+		margin-right: 10px;
+	}
+	</style>
+	<script>
+function myFunction() {
+  var x = document.getElementById("offerdetails");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+function myFunction2() {
+  var x = document.getElementById("Featuredetails");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Seller Add Items/assets/css/progress.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Seller Add Items/Add Product Css/addproduct.css' %}">
+	<!--Single product Dropdown css file -->
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Seller Add Items/assets/css/tmp.css' %}">
+	<script type="text/javascript" src="{% static 'All/Seller Add Items/assets/js/category dropdown/tmprahul.js' %}"></script>
+	<style>
+	
+
+	#Featuredetails,#offerdetails,#CategoryAddPanel,#productimage,#Addbtn{
+		display:none;
+	}
+
+	.the-legend {
+		border-style: none;
+		border-width: 0;
+		font-size: 14px;
+		line-height: 20px;
+		margin-bottom: 0;
+		width: auto;
+		padding: 0 10px;
+		border: 1px solid #e0e0e0;
+	}
+	
+	.the-fieldset {
+		border: 1px solid #0e8ce4;
+		padding: 10px;
+	}
+	
+	.tmp {
+		resize: none;
+	}
+	</style>
+	<script>
+		 function show(divId) { 
+            $("#" + divId).show(); 
+        } 
+  
+        function showfeature() { 
+            show('Featuredetails'); 
+            
+        }
+		function showoffer() { 
+            show('offerdetails'); 
+            
+        } 
+		function showproduct() { 
+            show('CategoryAddPanel'); 
+			show('productimage');
+			show('Addbtn');
+
+            
+        } 
+		
+    function incrementValue() {
+        var i = document.getElementById('number').value;
+		document.getElementById('number').value = ++i;
+    }
+
+	function decrementValue() {
+        var i = document.getElementById('number').value;
+		document.getElementById('number').value = --i;
+    }
+
+	$(document).ready(function(){
+    var i=1;
+     $("#add_row").click(function(){
+      $('#addr'+i).html("<td class='text-center'>"+ (i+1) +"</td><td><input name='Fname"+i+"' type='text' placeholder='FeatureName' class='form-control input-md'  /> </td><td><input  name='value"+i+"' type='text' placeholder='Value'  class='form-control input-md'></td>");
+
+      $('#tab_logic').append('<tr class="text-center" id="addr'+(i+1)+'"></tr>');
+      i++; 
+  });
+     $("#delete_row").click(function(){
+       if(i>1){
+     $("#addr"+(i-1)).html('');
+     i--;
+     }
+   });
+
+});
+	
+	</script>
+
+	<script>
+	
+	$(document).ready(function(){
+
+		$("#subcategory").change(function () {
+      var username = $(this).val();
+		console.log(username);
+		document.getElementById("Button8").disabled = false;
+		var select = document.getElementById("DropDownList4");
+		var length = select.options.length;
+		for (i = length-1; i >= 0; i--) {
+		select.options[i] = null;
+		}
+
+
+
+      $.ajax({
+		type:"GET",
+        url: "{% url 'branddropdown' %}",
+        data: {
+          'username': username
+        },
+        dataType: 'json',
+        success: function (data) {
+			var value = data.is_taken 
+			value.forEach(function(val){
+				    var select = document.getElementById("DropDownList4");
+					var option = document.createElement('option');
+					 option.text = val;
+					 select.add(option, 0);
+
+				console.log(val)
+			})
+        
+          
+        }
+      });
+
+    });
+
+
+	$("#sub_subcategory").change(function () {
+      var username = $(this).val();
+		console.log(username);
+		document.getElementById("Button8").disabled = false;
+
+		var select = document.getElementById("size");
+		var length = select.options.length;
+		for (i = length-1; i >= 0; i--) {
+		select.options[i] = null;
+		}
+
+
+
+      $.ajax({
+		type:"GET",
+        url: "{% url 'sizedropdown' %}",
+        data: {
+          'username': username
+        },
+        dataType: 'json',
+        success: function (data) {
+			var value = data.is_taken 
+			value.forEach(function(val){
+				    var select = document.getElementById("size");
+
+					var option = document.createElement('option');
+					 option.text = val;
+					 select.add(option, 0);
+
+				console.log(val)
+			})
+        
+          
+        }
+      });
+
+    });
+
+	});
+    
+  </script>
+
+{% endblock css %}
+</head>
+
+<body>
+{% block body %}
+	{% comment %} <header>
+		<!-- Header Start -->
+		<div class="header-area">
+			<div class="main-header header-sticky">
+				<div class="container-fluid">
+					<div class="menu-wrapper">
+						<!-- Logo -->
+						<div class="logo">
+							<a href="{% url 'dashboard' %}"><img src="{% static 'All/Seller Dash Board/assets/img/logo/logo.png' %}" alt=""></a>
+						</div>
+						<!-- Main-menu -->
+						<div class="main-menu d-none d-lg-block">
+							<nav>
+								<ul id="navigation">
+									<li><a href="{% url 'dashboard' %}">Home</a></li>
+									<li><a href="#">Sell Product</a>
+										<ul class="submenu">
+											<li><a href="{% url 'addproduct' %}">Add New Product</a></li>
+											<li><a href="{% url 'sellermyproduct' %}">My Products</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Orders</a>
+										<ul class="submenu">
+											<li><a href="#">Active</a></li>
+											<li><a href="#">Return</a></li>
+											<li><a href="#">Cancellations</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Payments</a>
+										<ul class="submenu">
+											<li><a href="#">Transactions</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Reports</a> </li>
+									<li><a href="#">Help</a></li>
+								</ul>
+							</nav>
+						</div>
+						<!-- Header Right -->
+						<div class="header-right">
+							<ul>
+								<li><a href="#" class="flaticon-user text-body"><span class="mrglogin">Login / Sign Up</span> </a> </li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+	</header> {% endcomment %}
+	<div>
+		<!--<body>-->
+		<form method="post" action="{% url 'addproduct' %}" id="search_form"  enctype="multipart/form-data">
+		{% csrf_token %}
+		<input type="hidden" name="featurecount" value="1" id="number">
+			
+
+			<div id="ProductAddDetailPanel">
+				<center>
+					<div class="card-header bg-white">
+						<hr>
+						<h3 class="text-primary">Add Single Product</h3> </div>
+					<table id="Table1" class="table-bordered text-center" style="height:150px;width:567px;">
+						<tbody>
+							<tr>
+<td>
+
+            Select Category:</td>
+			<td>
+                <select name="category" class="mt-3 ml-3 mr-3" style="font-size:Large;" id="category" onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value);" required>
+                    <option value="">Select Category</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="tv">Tv & Appliances</option>
+                    <option value="men">Men</option>
+                    <option value="women">Women</option>
+                    <option value="baby">Baby & Kids</option>
+                    <option value="furniture">Home & Furniture</option>
+                    <option value="Books">Books</option>
+                    <option value="Food Essentials">Food Essentials</option>
+                    <option value="More Category">More Category</option>
+                </select>
+            
+			</td>
+
+			<td>
+            Select Mid Category:</td>
+			<td>
+                <script type="text/javascript" language="JavaScript">
+                document.write('<select class="mt-3 ml-3 mr-3" required style="font-size:Large;" name="subcategory" id="subcategory" onchange="javascript: dynamicdropdownone(this.options[this.selectedIndex].value);"><option value=""> Select Sub-Category</option></select>')
+                </script>
+                <noscript>
+                    <select class="mt-3 ml-3 mr-3" style="font-size:Large;" name="subcategory" id="subcategory" required>
+                        <option value="">Select Brand , product</option>
+                    </select>
+                </noscript>
+            
+			</td>
+
+			<td>
+            Select sub category</td><td>
+                <script type="text/javascript" language="JavaScript">
+                document.write('<select class="mt-4 ml-3 mr-3" required style="font-size:Large;" name="sub_subcategory" onchange="javascript: urlRedirectTo(this.options[this.selectedIndex].value);" id="sub_subcategory"><option value="">Select Brand , product</option></select>')
+                </script>
+                <noscript>
+                    <select class="mt-3 ml-3 mr-3" style="font-size:Large;" name="sub_subcategory" id="sub_subcategory" required>
+                        <option value="">Select Brand , product</option>
+                    </select>
+                </noscript>
+            
+		</td>
+
+						
+							</tr>
+						</tbody>
+					</table>
+					<input type="button" name="Button8" value="Submit" id="Button8" onclick="showproduct()" disabled=true class="mt-2 btn btn-outline-primary"> </center>
+				<br> </div>
+			<div id="CategoryAddPanel" >
+				<div class="container" id="productbody">
+					<div class="form-group">
+						<fieldset class="the-fieldset" style="display:block;">
+							<legend class="the-legend" align="center">
+								<h3 class="text-primary justify-content-center">Product Details</h3></legend>
+							<table id="Table2" class="ml-lg-5">
+								<tbody>
+									<tr>
+										<td>
+											<label for="product_name" class="font-weight-bold">Product Name : <font style="color:red">*</font></label>
+											<input name="product_name" type="text" id="product_name" class="form-control" title="Product Name" placeholder="Enter Product Name Here . . . " required=""> </td>
+										<td>
+											<label for="short_desc" class="font-weight-bold ml-4">Short Description : </label>
+											<textarea maxlength="250" name="short_desc" rows="2" cols="20" id="short_desc" class="tmp form-control ml-4" style="width:510px;" ></textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table id="table3" class="ml-lg-5">
+								<tbody>
+									<tr>
+										<td>
+											<label for="size_footwear" class="font-weight-bold mt-2" id="sizeFootwear">Size</label>
+											<!--<input type="range"-->
+											<select name="size" id="size" class="mt-2 ml-2"> </select>
+										{% comment %} <td>
+											<input type="submit" name="SizeChart" value="View Size Chart" id="Button1" class="btn btn-outline-primary mt-4 ml-4"> </td> {% endcomment %}
+										<td>
+											<label for="brand_id" class="font-weight-bold mt-4" id="brand_id">Brand:</label>
+											<select name="DropDownList4" id="DropDownList4" class="mt-2 ml-2"> </select>
+										</td>
+										<td>
+											{% comment %} <label for="ProductAddDate" class="font-weight-bold mt-4" id="ProductAddDate">Date:
+												<input type="date" step="0.5" class="mt-1" id="AddDate" name="AddDate"> </td> {% endcomment %}
+									</tr>
+									<tr>
+										<td>
+											<label for="validationServer05" class="font-weight-bold mt-4">MRP : <font style="color:red">*</font> </label>
+											<input name="inputMRP" type="text" id="inputMRP" class="decimal form-control" placeholder="₹" required="" onkeypress="return isNumber(event)" onpaste="return false;"> </td>
+										<td>
+											<label for="validationServer05" class="ml-4 font-weight-bold mt-4">Selling Price : <font style="color:red">*</font> </label>
+											<input id="inputSellPrice" type="text" name="txtChar" class="ml-4 decimal form-control" placeholder="₹" required="" onkeypress="return isNumber(event)" onpaste="return false;"> </td>
+										<td>
+											<label for="validationServer05" class="ml-5 font-weight-bold mt-4">Quantity (Stock) : <font style="color:red">*</font> </label>
+											<input id="inputQuantity" type="text" name="qty" class="ml-5 decimal form-control" placeholder="Enter Quantity In Numbers" required="" onkeypress="return isNumber(event)" onpaste="return false;"> </td>
+										<td class="float-right">
+											<label for="color_id" class="font-weight-bold mr-5 mt-4" id="colour_id">Color:</label>
+											<select name="colordropdown" id="colordropdown" class="mt-2 ml-2">
+												{% for i in color %}
+													<option value={{i}}>{{i}}</option>
+												{% endfor %}
+												
+											</select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table id="table4" class="ml-lg-5">
+								<tbody>
+									<tr>
+										<td>
+											<label for="validationServer05" class="font-weight-bold mt-4">Product Specifications : </label>
+											<textarea  rows="2" cols="20" id="inputSpecs" class="tmp form-control" form="search_form" maxlength="1000" style="width:750px;" name="prod_spec"></textarea>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<input class="mt-4" type="checkbox" name="TryAndBuy" >
+											<label class="font-weight-bold">Put product for try & buy</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label class="font-weight-bold">Note:</label>
+										</td>
+									</tr>
+									<tr>
+										<td >
+											<label class="font-italic">If you put your product for try & buy then you need to give the product to the customer for trying purpose.</label>
+										</td>	
+									</tr>
+								</tbody>
+							</table>
+							
+							
+							<input type="button" class="float-right btn btn-outline-primary p-3 mr-2" name="AddOffer" onclick='myFunction()' value="+ Add Offer">
+
+
+							<input type="button" class="float-right btn btn-outline-primary p-3" name="AddFeature" onclick='myFunction2()' value="+ Add Feature">
+						    </fieldset>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center mt-5">
+				<!--Row For 2 Tables-->
+
+				<div class="row-md-6" id="Featuredetails" style="display:none;">
+					<fieldset class="the-fieldset" >
+						<legend class="the-legend">
+							<h3 class="text-primary">Feature Details</h3></legend>
+						<div class="container">
+							<table class="table table-bordered table-hover" id="tab_logic">
+								<thead>
+									<tr>
+										<th class="text-center"> No. </th>
+										<th class="text-center w-25"> Feature Name </th>
+										<th class="text-center"> Value </th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr id='addr0'>
+										<td class="text-center"> 1 </td>
+										<td>
+											<input type="text" name='name0' placeholder='Feature Name' class="form-control" /> </td>
+										<td>
+											<input type="text" name='mail0' placeholder='Value' class="form-control" /> </td>
+									</tr>
+									<tr id='addr1'></tr>
+								</tbody>
+							</table>
+							<input type="button" onclick="incrementValue()" id="add_row" value="Add Row" class="pull-left btn btn-outline-primary">
+							<input type="button" onclick="decrementValue()" id="delete_row" value="Delete Row" class="float-right btn btn-outline-primary"> </div>
+					</fieldset>
+				</div>
+				<div class="flex-column ml-5" id="offerdetails" style="display:none;">
+					<!-- 2nd Table -->
+					<!-------------------------- TO DO -------------------->
+					<fieldset class="the-fieldset ml-5" >
+						<legend class="the-legend" align="center">
+							<h3 class="text-primary justify-content-center">Offer Details</h3></legend>
+						<table id="Table2">
+							<tbody>
+								<tr>
+									<td>
+										<label for="offer_date" class="font-weight-bold">Offer Start Date:</label>
+									</td>
+									<td>
+										<input type="date" id="OfferStartDate" title="OfferStartDate" name="OfferStartDate" value="" placeholder="Enter Offer Start Date Here . . . "> </td>
+								</tr>
+								<tr>
+									<td>
+										<label for="offer_date" class="font-weight-bold">Offer End Date:</label>
+									</td>
+									<td>
+										<input type="date" name="OfferEndDate" value="" placeholder=""> </td>
+								</tr>
+								<tr>
+									<td>
+										<label for="offer_date" class="font-weight-bold">Offer Name:</label>
+									</td>
+									<td>
+										<input type="text" name="offer_name" value="" placeholder=""> </td>
+								</tr>
+								<tr>
+									<td>
+										<label for="offer_date" class="font-weight-bold">Discount(%):</label>
+									</td>
+									<td>
+										<input type="text" name="discount" value="" placeholder=""> </td>
+								</tr>
+							</tbody>
+						</table>
+					</fieldset>
+				</div>
+			</div>
+			<!-- Image Upload -->
+			
+			<div class="row justify-content-center mt-5" id="productimage">
+				<fieldset class="the-fieldset" style="display:inline-block;">
+					<legend class="the-legend" align="center">
+						<h3 class="text-primary justify-content-center">Product Images</h3></legend>
+					<div class="mt-2" style="text-align: center;">
+						<h2 class="mb-4 text-primary">Image Upload Intructions</h2>
+						<ol class="text-center">
+							<div>
+								<li> Allowed only files with extension (jpg, png, gif) </li>
+								<li> Maximum number of allowed files 10 with 600 KB for each </li>
+								<li> You can select files from different folders </li>
+							</div>
+						</ol>
+						<fieldset class="the-fieldset ml-5" style="display:inline-block;">
+							<legend class="the-legend" align="center">
+								<h3 class="text-primary">Upload Images <font style="color:red">*</font></h3></legend>
+							<output id="Filelist"></output>
+							<!--To give the control a modern look, I have applied a stylesheet in the parent span.-->
+							<span class="btn btn-outline-primary justify-content-center fileinput-button" style="font-size:25px; ">
+          						  <span>+</span>
+							<input name="files" type="file" id="files" multiple="" required accept="image/*">
+							<br> </span>
+						</fieldset>
+						{% comment %} <div class="mt-3">
+							<input type="submit" name="submitbtn" value="Submit" id="submitbtn" class="btn btn-outline-primary"> </div>
+						<div class="mt-3"> </div> {% endcomment %}
+					</div>
+				</fieldset>
+			</div>
+			 
+	
+		<!-- Add Product -->
+		<div class="row justify-content-center mt-5">
+			<input type="submit" name="Addbtn" value="Add Your Product" id="Addbtn" class="p-3 btn btn-primary">
+		</div>
+	</form>
+	{% endblock body %}
+	{% block js %}
+	<!-- js plugin -->
+	<script src="{% static 'All/Seller Add Items/assets/js/imageUpload/Electronicsform.js' %}"></script>
+	<script src="{% static 'All/Seller Add Items/assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+	<!--navbar Jquery, Popper, Bootstrap -->
+	<script src="{% static 'All/Seller Add Items/assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+	<script src="{% static 'All/Bootstrap/js/bootstrap.min.js' %}"></script>
+	<!-- Single product js drop plugin -->
+	<script type="text/javascript" src="{% static 'All/Seller Add Items/assets/js/category dropdown/tmprahul.js' %}"></script>
+	<!--</body>-->
+	</div>
+	<!--navbar JS here -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+	<!--navbar Jquery, Popper, Bootstrap -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/popper.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/bootstrap.min.js' %}"></script>
+	<!--navbar Jquery Mobile Menu -->
+	<!--navbar Jquery Plugins, main Jquery -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/plugins.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/main.js' %}"></script>
+	<!-- Jquery for adding dynamic row -->
+	<script src="{% static 'All/First Profile/js/jquery-2.0.0.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'All/Seller Add Items/newUi/addRow.js' %}"></script>
+	{% endblock js %}
+</body>
+
+</html>

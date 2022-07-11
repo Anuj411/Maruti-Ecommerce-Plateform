@@ -1,0 +1,155 @@
+{% extends 'Salesperson-Header-Footer.html' %}
+
+{% block css %}
+  <title>Maruti E-Commerce Plateform - Salesperson Salary</title>
+{% endblock %}
+
+{% block content %}
+    <div class="header bg-purple pb-6">
+      <div class="container-fluid">
+        <div class="header-body pt-5">
+          
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                
+              </div>
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h1 class="mb-0 text-primary" style="text-align: center;">Salary</h1>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="id">Id</th>
+                    <th scope="col" class="sort" data-sort="deldate">Date</th>
+                    <th scope="col" class="sort" data-sort="workingdays">Working Days</th>
+                    <th scope="col" class="sort" data-sort="absentdays">Absent Days</th>
+                    <th scope="col" class="sort" data-sort="paymentmethod">Payment Method</th>
+                    <th scope="col" class="sort" data-sort="ammount">Ammount (&#8377;)</th>
+                  </tr>
+                </thead>
+                <tbody class="list txt1">
+                  {% for sal,work_day,abs_day in salary %}
+                  <tr>
+                    <th scope="row">
+                        {{sal.id}}
+                    </th>
+                    <td>
+                        {{sal.transaction_date}}
+                    </td>
+                    <td>
+                        {% if work_day %}
+                          {{ work_day }}
+                        {% else %}
+                          0
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if abs_day %}
+                          {{ abs_day }}
+                        {% else %}
+                          0
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{sal.payment_method_payment_method_id.payment_method_name}}
+                    </td>
+                    <td>
+                        {{sal.amount}}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+              {% if deliveries.has_other_pages %}
+              <nav aria-label="...">
+                <ul class="pagination justify-content-end mb-0">
+                {% if deliveries.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ deliveries.previous_page_number }}" tabindex="-1">
+                      <i class="fas fa-angle-left"></i>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                        <i class="fas fa-angle-left"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% for i in deliveries.paginator.page_range %}
+                  {% if deliveries.number == i %}
+                  <li class="page-item active">
+                    <a class="page-link" href="#">{{ i }}<span class="sr-only">(current)</span></a>
+                  </li>
+                  {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                  </li>
+                  {% endif %}
+                {% endfor %}
+                {% if deliveries.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ deliveries.next_page_number }}">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% endif %}
+                </ul>
+              </nav>
+            {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+{% endblock %}
+
+{% block js%}
+{% endblock %}

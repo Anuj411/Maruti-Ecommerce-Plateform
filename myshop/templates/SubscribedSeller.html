@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+{% extends 'Navbar.html' %}
+<html> {% load static %}
+
+<head>
+{% block css %}
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Subscribed Seller</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Seller Profile Page/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'All/Bootstrap/css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'All/Seller Dash Board/assets/css/flaticon.css' %}">
+	<link rel="stylesheet" href="{% static 'All/Seller Dash Board/assets/css/style.css' %}">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="{% static 'All/SellerNewDash/css/style.css' %}">
+	<script src="{% static 'All/First Profile/js/jquery-2.0.0.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/bootstrap.min.js' %}"></script>
+	<style type="text/css">
+	html,
+	body {
+		height: 100%;
+	}
+	
+	.wrap {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.button {
+		min-width: 300px;
+		min-height: 60px;
+		font-family: 'Nunito', sans-serif;
+		font-size: 18px;
+		text-transform: uppercase;
+		letter-spacing: 1.3px;
+		font-weight: 700;
+		color: white;
+		background: #0e8ce4;
+		background: #0e8ce4;
+		border: none;
+		border-radius: 1000px;
+		box-shadow: 12px 12px 24px rgba(79, 209, 197, .64);
+		transition: all 0.3s ease-in-out 0s;
+		cursor: pointer;
+		outline: none;
+		position: relative;
+		padding: 10px;
+	}
+	
+	button::before {
+		content: '';
+		border-radius: 1000px;
+		min-width: calc(300px + 12px);
+		min-height: calc(60px + 12px);
+		border: 6px solid #0e8ce4;
+		box-shadow: 0 0 60px rgba(0, 255, 203, .64);
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		opacity: 0;
+		transition: all .3s ease-in-out 0s;
+	}
+	
+	.button:hover,
+	.button:focus {
+		color: white;
+		transform: translateY(-6px);
+	}
+	
+	button:hover::before,
+	button:focus::before {
+		opacity: 1;
+	}
+	
+	button::after {
+		content: '';
+		width: 30px;
+		height: 30px;
+		border-radius: 100%;
+		border: 6px solid #0e8ce4;
+		position: absolute;
+		z-index: -1;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		animation: ring 1.5s infinite;
+	}
+	
+	button:hover::after,
+	button:focus::after {
+		animation: none;
+		display: none;
+	}
+	
+	@keyframes ring {
+		0% {
+			width: 30px;
+			height: 30px;
+			opacity: 1;
+		}
+		100% {
+			width: 300px;
+			height: 300px;
+			opacity: 0;
+		}
+	}
+	</style>
+	{% endblock css %}
+</head>
+
+<body>
+{% block body %}
+	
+	<hr>
+	<div class="row ml-1 mt-3 pt-2">
+		<div class="col-sm-2">
+			<div> 
+			<div id="wrapper">
+				<nav class="navbar" id="sidebar">
+					<ul class="nav sidebar-nav">
+						<div class="sidebar-header">
+							<div class=""> 
+								<div class="text-center">
+									<img src="/media/{{user.seller.profile_image}}" class="rounded" alt="..." height="80px" width="80px">
+									<p>{{user.first_name}}  {{user.last_name}}</p>
+								</div>
+							</div>
+						</div>
+						<li class="mt-2"><a name="#dashboard" href="{% url 'dashboard' %}">Dashboard</a></li>
+						<li class="mt-2"><a name="#myproducts" href="{% url 'sellermyproduct' typep=0 %}">My Products</a></li>
+						<li class="mt-2"><a name="#myorders" href="{% url 'sellerorder' ord=0 %}">My Orders</a></li>
+						<li class="mt-2"><a name="#mypayments" href="{% url 'sellertransaction' cred=0 %}">My Payments</a></li>
+						<li class="mt-2"><a name="#myprofile" href="{% url 'subscribed' %}">Subscription</a></li>
+						<li class="mt-2"><a name="#subscription" href="{% url 'sellerprofile' %}">My Profile</a></li>
+						<li class="mt-2"><a name="#reports" href="Report.html">Reports</a></li>
+						<li class="mt-2"><a name="#help" href="Help.html">Help</a></li>
+						<li class="mt-2"><a name="#contact" href="Contact.html">Contact Us</a></li>
+					</ul>
+				</nav>
+				<!-- /#sidebar-wrapper -->
+			</div>
+	</div>
+		</div>
+		<div class="col ">
+			<div class="container">
+				<form method="post" id="sellersubscription"> {% csrf_token %}
+					<div>
+							<div class="alert alert-primary" role="alert">
+								<center>Subscription Details</center>
+							</div>
+							<div class="container mb-4" style="border-left: 1px solid lightgrey;">
+								<center>
+								<table class="table table-bordered w-50 mt-5 text-center">
+									<tbody>
+										<tr>
+											<th scope="row" class="mr-5">Seller ID</th>
+											<th>{{sellersub.seller_id.id}}</th>
+										</tr>
+										<tr>
+											<th scope="row">Subscribed Date</th>
+											<th>{{sellersub.start_date}}</th>
+										</tr>
+										<tr>
+											<th scope="row">Subscription End</th>
+											<th>{{sellersub.end_date}}</th>
+										</tr>
+										<tr>
+											<th scope="row">Plan Name</th>
+											<th>{{sellersub.subscription_id.subscription_type}}</th>
+										</tr> 
+										<tr>
+											<th scope="row">Validity</th>
+											<th>{{sellersub.end_date}}</th>
+										</tr>
+									</tbody>
+								</table>
+									
+								<div class="wrap ">
+								{% if sellersub is not Null  %}
+								{% else %}
+  									<button class="button mt-5" type="button" onclick="location.href='{% url 'subscriptionplan' %}'">Get Subscription
+  									</button>
+								{% endif %}		  
+								</div>
+
+								</center>
+							</div>
+						</div>
+				</form>
+			</div>
+		</div>
+		{% endblock body %}
+		{% block js %}
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="{% static 'All/Seller Dash Board/assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+		<!--navbar Jquery, Popper, Bootstrap -->
+		<script src="{% static 'All/Seller Dash Board/assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+		<script src="{% static 'All/Seller Dash Board/assets/js/popper.min.js' %}"></script>
+		<script src="{% static 'All/Seller Dash Board/assets/js/bootstrap.min.js' %}"></script>
+		<!--navbar Jquery Mobile Menu -->
+		<!--navbar Jquery Plugins, main Jquery -->
+		<script src="{% static 'All/Seller Dash Board/assets/js/plugins.js' %}"></script>
+		<script src="{% static 'All/Seller Dash Board/assets/js/main.js' %}"></script>
+{% endblock js %}
+</body>
+
+</html>

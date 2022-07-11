@@ -1,0 +1,196 @@
+{% extends 'Admin-Header-Footer.html' %}
+
+{% load static %}
+{% block css %}
+	<title> View Salesperson </title>
+    <script type="text/javascript" src="{% static 'All/Admin Panel/assets/js/jquery-1.10.2.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <!-- Header -->
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body pt-5">
+          
+        </div>
+      </div>
+    </div>
+     <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-1">
+              <h1 class="mb-0 text-primary" style="text-align: center;">User Details</h1>
+            </div>
+            <div class="container-fluid">
+            <div class="row my-4">
+                <div class="col-5">
+                    <div class="text-center mt-6">
+                        <img style="border:9px solid black" src="/media/{{salesperson.profile_image}}" class="rounded" height="300px" width="300px">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="my-3 text-center"><h2>User Information</h2></div>
+                    <!-- Light table -->
+                    <div class="table-responsive">
+                    <table class="table align-items-center table-stripped table-bordered">
+                        <tbody class="list">
+                        <tr>
+                            <th style="width:40%">
+                                <div class="media align-items-center">
+                                    ID
+                                </div>
+                            </th>
+                            <td>
+                                {{salesperson.id}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="media align-items-center">
+                                    Joined Date
+                                </div>
+                            </th>
+                            <td>
+                                {{salesperson.user_user_id.date_joined}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="media align-items-center">
+                                    PAN No.
+                                </div>
+                            </th>
+                            <td>
+                                {{salesperson.pan}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Name
+                            </div>
+                            </th>
+                            <td>
+                                <span class="text-capitalize">{{salesperson.user_user_id.first_name}} {{salesperson.user_user_id.last_name}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Address
+                            </div>
+                            </th>
+                            <td style="white-space:pre-wrap; word-wrap:break-word; height:20px">
+                                <div class="text-left">{{salesperson.salesperson_address}}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Email Address
+                            </div>
+                            </th>
+                            <td>
+                                {{salesperson.user_user_id.email}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Mobile No
+                            </div>
+                            </th>
+                            <td>
+                                {{salesperson.salesperson_mobile_num}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                City
+                            </div>
+                            </th>
+                            <td>
+                                {{salesperson.city_city_id.city_name}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Attendance
+                            </div>
+                            </th>
+                            <td>
+                                {{ att }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Total Deliveries
+                            </div>
+                            </th>
+                            <td>
+                                {{total_del}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Security Amount
+                            </div>
+                            </th>
+                            <td>
+                                {% if salesperson.security_amt_paid %}
+                                    Paid
+                                {% else %}
+                                    Unpaid
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Salary
+                            </div>
+                            </th>
+                            <td>
+                                {{salesperson.salary}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                            <div class="media align-items-center">
+                                Active
+                            </div>
+                            </th>
+                            <td>
+                                {% if salesperson.user_user_id.is_active %}
+                                    Yes
+                                {% else %}
+                                    No
+                                {% endif %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            </div>
+                <div class="text-center my-5"><input onclick="window.history.back();" type="button" value="Back" class="btn btn-info" /></div>
+                </div>
+            </div>            
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+{% endblock %}
+{% block js %}
+{% endblock js %}

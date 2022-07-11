@@ -1,0 +1,320 @@
+{% extends 'Admin-Header-Footer.html' %}
+{% load static %}
+{% block css %}
+
+  <title>Maruti E-Commerce Plateform - Seller</title>
+  <script type="text/javascript" src="{% static 'All/Admin Panel/assets/js/jquery-1.10.2.js' %}"></script>
+  
+  <script type="text/javascript">
+    function alertmsg(){
+        {% if msg %}
+          alert('{{msg}}');
+        {% endif %}
+      }
+
+      $(function() {
+          $("#myTable").tablesorter();
+      });
+
+      $(document).ready(function(){
+        // for isactive
+        var switchid;
+
+        {% for seller,amt,total_ord,comm in sellers %}
+          switchid = "#switch"+{{forloop.counter}};
+          $(switchid).change(function() {
+            $.ajax({
+            type:"GET",
+                url: "{% url 'active' %}",
+                data: {
+                  'id': {{seller.user_user_id.id}},
+                  'isactive': this.checked
+                },
+                dataType: 'json',
+                success: function (data) {
+              }
+            });
+          });
+        {% endfor %}
+      });
+
+    </script>
+{% endblock  %}
+
+{% block content %}
+  <!-- Sidenav -->
+  <body onload="alertmsg()">
+  <!-- Main content -->
+  
+    <!-- Header -->
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body pt-5">
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Total Sellers</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ total_Seller }}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                        <i class="fa fa-users"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Subscribed</h5>
+                      <span class="h2 font-weight-bold mb-0">
+                        {{sub}}
+                      </span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                        <i class="far fa-check-square"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Unsubscribed</h5>
+                      <span class="h2 font-weight-bold mb-0">{{unsub}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                        <i class="far fa-window-close"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h1 class="mb-0 text-primary" style="text-align: center;">Seller</h1>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+              <table id="myTable" class="table align-items-center table-flush tablesorter">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="id">Id</th>
+                    <th scope="col" class="sort" data-sort="date">Join Date</th>
+                    <th scope="col" class="sort" data-sort="name">Name</th>
+                    <th scope="col" class="sort" data-sort="gstin">GSTIN</th>
+                    <th scope="col" class="sort" data-sort="status">Verification status</th>
+                    <th scope="col" class="sort" data-sort="subscription">Subscription</th>
+                    <th scope="col" class="sort" data-sort="totalorders">Total Orders</th>
+                    {% comment %} <th scope="col" class="sort" data-sort="Payment">Payment( &#8377; )</th>
+                    <th scope="col" class="sort" data-sort="Commision">Commision( &#8377; )</th> {% endcomment %}
+                    <th scope="col" class="sort" data-sort="view">View Details</th>
+                    <th scope="col" class="sort" data-sort="active">Active</th>
+                    <th scope="col" class="sort" data-sort="action">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="list txt1">
+
+                {% for seller,amt,total_ord,comm in sellers %}
+
+                {% with y=forloop.counter|stringformat:"s" %}
+                {% with rowid="row"|add:y %}
+                  <tr id={{ rowid }}>
+                {% endwith %}
+                    <th scope="row">
+                      <div class="media align-items-center">
+                      {{ seller.id }}
+                      </div>
+                    </th>
+                    <td>
+                      <div class="avatar-group">
+                        {{ seller.user_user_id.date_joined }}
+                      </div>
+                    </td>
+                    <td>
+                      {{ seller.user_user_id.first_name }} {{ seller.user_user_id.last_name }}
+                    </td>
+                    <td class="budget">
+                        {% if seller.gstin %}
+                        {{ seller.gstin }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>
+                      {% if seller.is_verified %}
+                      Verified
+                      {% else %}
+                      Pending
+                      {% endif %}
+                    </td>
+                    <td>
+                      <span class="badge badge-dot mr-4">
+                        {% if seller.seller_subscription %}
+                        <i class="bg-success"></i>
+                        <span class="status">Subscribed</span>
+                        {% else %}
+                        <i class="bg-warning"></i>
+                        <span class="status">Unsubscribed</span>
+                        {% endif %}
+                      </span>
+                    </td>
+                    <td>
+                      {% if total_ord %}
+                        {{ total_ord }}
+                      {% else %}
+                        -
+                      {% endif %}
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-info" onclick="location.href='{% url 'adminviewseller' sid=seller.id %}'">View</button>
+                    </td>
+                    {% comment %} <td>
+                      {% if amt.amount__sum %}
+                        {{ amt.amount__sum }}
+                      {% else %}
+                        -
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if comm.amount__sum %}
+                        {{ comm.amount__sum }}
+                      {% else %}
+                        -
+                      {% endif %}
+                    </td> {% endcomment %}
+                    <td>
+                      {% with switchid="switch"|add:y %}
+                      <div class="d-flex align-items-center">
+                        {% if seller.user_user_id.is_active %}
+                        <input type="checkbox" id={{ switchid }} class="checkbox" checked/>
+                        <label for={{ switchid }} class="toggle">
+                        {% else %}
+                        <input type="checkbox" id={{ switchid }} class="checkbox" />
+                        <label for={{ switchid }} class="toggle">
+                        {% endif %}
+                      </div>
+                      {% endwith %}
+                      
+                    </td>
+                    <td class="text-right">
+                    {% with removeid="remove"|add:y %}
+                        <button type="button" onclick="myFunction({{seller.user_user_id.id}})" id={{ removeid }} class="btn btn-danger">Remove</button>
+                    {% endwith %}
+                    </td>
+                  </tr>
+
+                  {% endwith %}
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+              {% if sellers.has_other_pages %}
+              <nav aria-label="...">
+                <ul class="pagination justify-content-end mb-0">
+                {% if sellers.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ sellers.previous_page_number }}" tabindex="-1">
+                      <i class="fas fa-angle-left"></i>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                        <i class="fas fa-angle-left"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% for i in sellers.paginator.page_range %}
+                  {% if sellers.number == i %}
+                  <li class="page-item active">
+                    <a class="page-link" href="#">{{ i }}<span class="sr-only">(current)</span></a>
+                  </li>
+                  {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                  </li>
+                  {% endif %}
+                {% endfor %}
+                {% if sellers.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ sellers.next_page_number }}">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% endif %}
+                </ul>
+              </nav>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+</body>
+{% endblock  %}
+
+{% block js %}
+<script>
+function myFunction(id)
+      {
+        alert('This seller cannot be remove because product of the seller is in order !');
+          if (confirm("Are you sure want to remove?")) {
+            var x = "/adminside/removeseller/"+id;
+            location.href=x;
+          } else {
+          }
+      }
+</script>
+{% endblock  %}

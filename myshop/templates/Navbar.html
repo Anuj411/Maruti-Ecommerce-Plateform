@@ -1,0 +1,109 @@
+<html class="no-js" lang="zxx">
+{% load static %}
+
+<head>
+{% block css %}
+{% endblock css %}
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	
+	<!--navbar CSS here -->
+	
+	
+	<script src="{% static 'All/Seller Dash Board/assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+	<script src="{% static 'All/First Profile/js/jquery-2.0.0.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/bootstrap.min.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'All/Bootstrap/css/bootstrap.css' %} ">
+	<link rel="stylesheet" href="{% static 'All/Seller Dash Board/assets/css/flaticon.css' %} ">
+	<link rel="stylesheet" href="{% static 'All/Seller Dash Board/assets/css/style.css' %} "> </head>
+
+<body onload="getstate();brand();">
+	<header>
+		<!-- Header Start -->
+		<div class="header-area">
+			<div class="main-header header-sticky">
+				<div class="container-fluid">
+					<div class="menu-wrapper">
+						<!-- Logo -->
+						<div class="logo">
+							<a href="{% url 'dashboard' %}"><img src="{% static 'All/Seller Dash Board/assets/img/logo/logo.png' %}" alt=""></a>
+						</div>
+						<!-- Main-menu -->
+						<div class="main-menu d-none d-lg-block">
+							<nav>
+								<ul id="navigation">
+									<li><a href="{% url 'dashboard' %}">Home</a></li>
+									<li><a href="{% url 'sellerprofile' %}">My Profile</a></li>
+									<li><a href="#">Sell Product</a>
+										<ul class="submenu">
+											<li><a href="{% url 'addproduct' %}">Add New Product</a></li>
+											<li><a href="{% url 'sellermyproduct' typep=0 %}">My Products</a></li>
+										</ul>
+									</li>
+									<li><a href="{% url 'sellerorder' ord=0 %}">Orders</a>
+										<ul class="submenu">
+											<li><a href="{% url 'sellerorder' ord=6 %}">Active</a></li>
+											<li><a href="{% url 'sellerorder' ord=3 %}">Return</a></li>
+											<li><a href="{% url 'sellerorder' ord=4 %}">Cancellations</a></li>
+										</ul>
+									</li>
+									<li><a href="{% url 'sellertransaction' cred=0 %}">Payments</a>
+										<ul class="submenu">
+											<li><a href="{% url 'sellertransaction' cred=0 %}">Transactions</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Reports</a> </li>
+									<li><a href="{% url 'help' %}">Help</a></li>
+									
+								</ul>
+							</nav>
+						</div>
+						<!-- Header Right -->
+						{% if user.is_authenticated %}
+										
+							{% if user.seller.seller_mobile_num %}
+								<div class="header-right">
+									<ul>
+										<li><a href="{% url 'logout' %}" class="flaticon-user text-body"><span class="mrglogin">Logout</span> </a> </li>
+									</ul>
+								</div>
+							{% else %}
+								<div class="header-right">
+									<ul>
+										<li><a href="{% url 'sellersignin' %}" class="flaticon-user text-body"><span class="mrglogin">Login / Sign Up</span> </a> </li>
+									</ul>
+								</div>
+							{% endif %}
+						{% else %}
+							<div class="header-right">
+									<ul>
+										<li><a href="{% url 'sellersignin' %}" class="flaticon-user text-body"><span class="mrglogin">Login / Sign Up</span> </a> </li>
+									</ul>
+								</div>
+						{% endif %}		
+					</div>
+					<!-- Mobile Menu -->
+					<div class="col-12">
+						<div class="mobile_menu d-block d-lg-none"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+	</header>
+	{% block body %}{% endblock body %}
+	<!--navbar JS here -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/vendor/modernizr-3.5.0.min.js' %} "></script>
+	<!--navbar Jquery, Popper, Bootstrap -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/vendor/jquery-1.12.4.min.js' %} "></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/popper.min.js' %} "></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/bootstrap.min.js' %} "></script>
+	<!--navbar Jquery Mobile Menu -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/jquery.slicknav.min.js' %} "></script>
+	<!--navbar Jquery Plugins, main Jquery -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/plugins.js' %} "></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/main.js' %} "></script>
+	{% block js %}{% endblock js %}
+</body>
+
+</html>

@@ -1,0 +1,208 @@
+{% extends 'Admin-Header-Footer.html' %}
+
+{% load static %}
+
+{% block css %}
+  <title>Maruti E-Commerce Plateform - Manage Offers</title>
+  <script type="text/javascript" src="{% static 'All/Admin Panel/assets/js/jquery-1.10.2.js' %}"></script>
+
+  <script>
+    $(function() {
+      $(".table").tablesorter();
+    });
+  </script>
+
+  {% if msg %}
+  <script>
+  function alertmsg(){
+    alert('{{msg}}');
+  }
+  </script>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <!-- Sidenav -->
+  <body onload="alertmsg()">
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body pt-5">
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">New Offers</h5>
+                      <span class="h2 font-weight-bold mb-0">{{today_offers}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                        <i class="fas fa-percent"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Total Products in Offer</h5>
+                      <span class="h2 font-weight-bold mb-0">{{total_prod}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-xl-3 col-md-6">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h1 class="mb-0 text-primary" style="text-align: center;">Manage Offers</h1>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="offerid">Offer Id</th>
+                    <th scope="col" class="sort" data-sort="offername">Offer Name</th>
+                    <th scope="col" class="sort" data-sort="startdate">Start Date</th>
+                    <th scope="col" class="sort" data-sort="enddate">End Date</th>
+                    <th scope="col" class="sort" data-sort="discount">Discount( % )</th>
+                    <th scope="col" class="sort" data-sort="proname">Product Name</th>
+                    <th scope="col" class="sort" data-sort="action">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="list txt1">
+                  {% for offer in offers %}
+                  <tr>
+                    <th scope="row">
+                        {{ offer.id }}
+                    </th>
+                    <td>
+                      <div class="avatar-group">
+                        {{offer.offer_name}}
+                      </div>
+                    </td>
+                    <td>
+                      {{offer.start_date}}
+                    </td>
+                    <td>
+                      {{offer.end_date}}
+                    </td>
+                    <td>
+                      {{offer.discount}} 
+                    </td>
+                    <td>
+                      {{offer.product_product_id.product_name}}
+                    </td>
+                    <td class="text-right">
+                        <button type="button" onclick="removeoffer({{offer.id}})" class="btn btn-danger">Remove</button>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+              {% if offers.has_other_pages %}
+              <nav aria-label="...">
+                <ul class="pagination justify-content-end mb-0">
+                {% if offers.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ offers.previous_page_number }}" tabindex="-1">
+                      <i class="fas fa-angle-left"></i>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                        <i class="fas fa-angle-left"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% for i in offers.paginator.page_range %}
+                  {% if offers.number == i %}
+                  <li class="page-item active">
+                    <a class="page-link" href="#">{{ i }}<span class="sr-only">(current)</span></a>
+                  </li>
+                  {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                  </li>
+                  {% endif %}
+                {% endfor %}
+                {% if offers.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ offers.next_page_number }}">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% endif %}
+                </ul>
+              </nav>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+</body>
+{% endblock %}
+
+{% block js %}
+<script>
+  function removeoffer(id)
+      {
+        alert('This offer cannot be remove because offer is currently active.');
+        if (confirm("Are you sure want to remove?")) {
+          var x = "/adminside/removeoffer/"+id;
+          location.href=x;
+        } else {
+        }
+      }
+</script>
+{% endblock %}

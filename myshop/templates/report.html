@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Report</title>
+    <style>
+        td{
+            color:blue;
+            align:center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- All sales table -->
+      <div id="allsales">
+        <div>
+          <div>
+            <!-- Card header -->
+            <div>
+              <h1 style="text-align: center;">Sales Report</h1>
+            </div>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col" data-sort="orderid">Order Id</th>
+                    <th scope="col" data-sort="orderdate">Order Date</th>
+                    <th scope="col" data-sort="totalproduct">Total Products</th>
+                    <th scope="col" data-sort="trybuy">Try & Buy</th>
+                    <th scope="col" data-sort="city">City</th>
+                    <th scope="col" data-sort="orderstatus">Order Status</th>
+                    <th scope="col" data-sort="totalamt">Total Amount</th>
+                    <th scope="col" data-sort="customerid">Customer Id</th>
+                  </tr>
+                </thead>
+                <hr>
+                <tbody>
+                  {% for order,try_buy,city,prod in orders %}
+                  <tr>
+                    <th scope="row">
+                        {{ order.id }}
+                    </th>
+                    <td>
+                        {{ order.order_date }}
+                    </td>
+                    <td>
+                      {{ prod }}
+                    </td>
+                    <td>
+                      {% if try_buy %}
+                      YES
+                      {% else %}
+                      NO
+                      {% endif %}
+                    </td>
+                    <td>
+                      {{ city }}
+                    </td>
+                    <td>
+                        {% if order.order_status == "completed" %}
+                          <i class="bg-success"></i>
+                        {% elif order.order_status == "pending" %}
+                          <i class="bg-info"></i>
+                        {% elif order.order_status == "returned" %}
+                          <i class="bg-yellow"></i>
+                        {% else %}
+                          <i class="bg-danger"></i>
+                        {% endif %}
+                        <span>{{ order.order_status }}</span>
+                    </td>
+                    <td>
+                      {{ order.total_amount }}
+                    </td>
+                    <td>
+                        {{ order.customer_customer_id.id }}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+</body>
+</html>

@@ -1,0 +1,222 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Subscription</title>
+  <!-- <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="{% static 'All/Bootstrap/css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'All/SellerSubscriptionPlan/css/subscription.css' %}">
+  <script type="text/javascript" src="{% static 'All/Validation/Validations.js' %}"></script>
+</head>
+<body>
+  <form method="POST" action="{% url 'getsubscription' plan=plan %}">
+  {% csrf_token %}
+  <div class="row">
+  
+  <div class="col-md-4"> 
+    <div class="container">
+      <center>
+      
+      <div class="card">
+        <div class="card-body">
+        
+          <div class="card-header" style="background-color: #0e8ce4">
+          {% comment %} {{plan}} {% endcomment %}
+          {% if plan == "ea" %}
+                  <h5 class="pricing-plan-title" style="color: #fff">Enterprise</h5>
+                  <h3 class="pricing-plan-cost" style="color: #fff">₹2700.00/Year</h3>
+                  
+                </div>
+                <div class="mt-3 col-md-12">
+                  <ul class="pricing-plan-features">
+                    <li>Annual Plan fee</li>
+                    <li>Monthly plan fee</li>
+                    <li>Seat Minimum</li>
+                    <li>Phone support</li>
+                    <li>Group messaging</li>
+                    <li>Chat</li>
+                  </ul>
+                </div>
+                
+                {% elif plan == "bua" %}
+                 <h5 class="pricing-plan-title" style="color: #fff">Business</h5>
+                  <h3 class="pricing-plan-cost" style="color: #fff">₹1800.00/Year</h3>
+                  
+                </div>
+                <div class="mt-3 col-md-12">
+                  <ul class="pricing-plan-features">
+                    <li>Annual Plan fee</li>
+                    <li>Monthly plan fee</li>
+                    <li>Seat Minimum</li>
+                    <li>Phone support</li>
+                    <li>Group messaging</li>
+                    <li>Chat</li>
+                  </ul>
+                </div>
+                {% elif plan == "ba" %}
+                 <h5 class="pricing-plan-title" style="color: #fff">Basic</h5>
+                  <h3 class="pricing-plan-cost" style="color: #fff">₹900.00/Year</h3>
+                  
+                </div>
+                <div class="mt-3 col-md-12">
+                  <ul class="pricing-plan-features">
+                    <li>Annual Plan fee</li>
+                    <li>Monthly plan fee</li>
+                    <li>Seat Minimum</li>
+                    <li>Phone support</li>
+                    <li>Group messaging</li>
+                    <li>Chat</li>
+                  </ul>
+                </div>
+
+                {% elif plan == "em" %}  
+                 <h5 class="pricing-plan-title" style="color: #fff">Enterprise</h5>
+                  <h3 class="pricing-plan-cost" style="color: #fff">₹900.00/Month</h3>
+                  
+                </div>
+                <div class="mt-3 col-md-12">
+                  <ul class="pricing-plan-features">
+                    <li>Annual Plan fee</li>
+                    <li>Monthly plan fee</li>
+                    <li>Seat Minimum</li>
+                    <li>Phone support</li>
+                    <li>Group messaging</li>
+                    <li>Chat</li>
+                  </ul>
+                </div>
+
+                {% elif plan == "bum" %}
+                 <h5 class="pricing-plan-title" style="color: #fff">Business</h5>
+                  <h3 class="pricing-plan-cost" style="color: #fff">₹600.00/Month</h3>
+                  
+                </div>
+                <div class="mt-3 col-md-12">
+                  <ul class="pricing-plan-features">
+                    <li>Annual Plan fee</li>
+                    <li>Monthly plan fee</li>
+                    <li>Seat Minimum</li>
+                    <li>Phone support</li>
+                    <li>Group messaging</li>
+                    <li>Chat</li>
+                  </ul>
+                </div>
+
+                {% elif plan == "bm" %}
+                 <h5 class="pricing-plan-title" style="color: #fff">Basic</h5>
+                  <h3 class="pricing-plan-cost" style="color: #fff">₹300.00/Month</h3>
+                  
+                </div>
+                <div class="mt-3 col-md-12">
+                  <ul class="pricing-plan-features">
+                    <li>Annual Plan fee</li>
+                    <li>Monthly plan fee</li>
+                    <li>Seat Minimum</li>
+                    <li>Phone support</li>
+                    <li>Group messaging</li>
+                    <li>Chat</li>
+                  </ul>
+                </div>
+                {% endif %}
+                
+        </div>
+      </div>
+      </center>
+    </div>
+</div>
+
+
+
+  <div class="col-md-7">
+
+                  <div class="mt-5 card border-primary">
+                  <div class="card-horizontal">
+                    <div class="card-body">
+                      <h5 class="card-title text-primary">Payment</h5>
+                          <div>
+                            <input type="radio" name="orderpay" id='paytmBtn' value="paytm" onclick="PaymentViaPaytm()"> Paytm
+                          </div>
+                          <div class="container ml-3 mt-2" style="display: none;" id="paytmDiv">
+                          <div class="row">
+                            <div class="col-9">
+                              <input type="text" class="form-text" name="paymob" id="mobNum" value="" placeholder="Enter Your Paytm Mobile Number" maxlength="10" onkeypress="return isNumber(event)">
+                            </div>
+                            <div class="col-3 mt-2">
+                              <button type="button" class="btn btn-outline-primary btn-sm" onclick="isEntered()"> Send OTP</button>  
+                            </div>
+                          </div>
+                          <div class="row" id="otpDiv" style="display: none;">
+                            <div class="col-4">
+                              <input type="text" class="form-text" name="otp" value="" placeholder="Enter OTP" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-3 mt-1">
+                              <button type="button" class="btn btn-outline-primary btn-sm"> Validate </button>  
+                            </div>
+                          </div>
+                            </div>
+                          <div>
+                            <input type="radio" name="orderpay" value="cc" id='cCardBtn' onclick="PaymentViaCCard()"> Credit Card
+                             <span>
+                                <img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt="" width="50">
+                            </span>
+                            <div class="container ml-3 mt-2 p-2" style="display: none;" id="cCardDiv">
+                          <div class="row">
+                            <div class="col-9">
+                              <input type="text" class="form-text" name="ccdetails" id="cDetails" value="" placeholder="Enter Your Card Details" maxlength="16" onkeypress="return isNumber(event)">
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-5">
+                              <input type="month" class="form-text" name="ccdate" value="" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-4">
+                              <input type="text" class="form-text" maxlength="3" id='ccvv' name="crecvv" value="" placeholder="Enter CVV" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-3 mt-1">
+                              <button type="button" class="btn btn-outline-primary btn-sm"> Send OTP </button>  
+                            </div>
+                          </div>
+                            </div> 
+                          </div>
+                          <div>
+                            <input type="radio" name="orderpay" value="dbcard" id='dCardBtn' onclick="PaymentViaDCard()"> Debit Card
+                             <span>
+                                <img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt="" width="50">
+                            </span>
+                            <div class="container ml-3 mt-2 p-2" style="display: none;" id="dCardDiv">
+                          <div class="row">
+                            <div class="col-9">
+                              <input type="text" class="form-text" name="dbdetais" id="dDetails" value="" placeholder="Enter Your Card Details" maxlength="16" onkeypress="return isNumber(event)">
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-5">
+                              <input type="month" class="form-text" name="dbdate" value="" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-4">
+                              <input type="text" class="form-text" maxlength="3" id='dcvv' name="dbcvv" value="" placeholder="Enter CVV" onkeypress="return isNumber(event)" >
+                            </div>
+                            <div class="col-3 mt-1">
+                              <button type="button" class="btn btn-outline-primary btn-sm"> Send OTP </button>  
+                            </div>
+                          </div>
+                            </div> 
+                          </div>
+                          <center>
+                          <button type="submit" class="mt-4 pl-4 pr-4 btn btn-outline-primary">Pay</button> 
+                          </center>     
+                        </div>
+                      </div>
+                    </div>
+                    </div>                  
+ 
+</div>
+</form>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="{% static 'All/Seller Dash Board/assets/js/popper.min.js' %}"></script>
+  <script src="{% static 'All/Seller Dash Board/assets/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

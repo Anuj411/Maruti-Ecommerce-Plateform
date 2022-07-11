@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add New Product</title>
+    <link rel="stylesheet" href="All/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="All/Seller Add Items/assets/css/flaticon.css">
+    <link rel="stylesheet" href="All/Seller Add Items/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="All/Seller Add Items/assets/css/progress.css">
+    
+    <!--Single product Dropdown css file -->
+    <link rel="stylesheet" type="text/css" href="All/Seller Add Items/assets/css/tmp.css">
+    <script type="text/javascript" src="All/Seller Add Items/assets/js/category dropdown/tmprahul.js"></script> 
+    <script>
+        function showDiv(){
+                  document.getElementById('div1').style.display = "block";
+            }
+      </script>
+</head>
+
+<body>
+    <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="navbar.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a href="navbar.html">Home</a></li>
+                                    <li><a href="#">Sell Product</a>
+                                        <ul class="submenu">
+                                            <li><a href="#">Add New Product</a></li>
+                                            <li><a href="#">Remove Current Product</a></li>
+                                            <li><a href="#">My Products</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Orders</a>
+                                        <ul class="submenu">
+                                            <li><a href="#">Active</a></li>
+                                            <li><a href="#">Return</a></li>
+                                            <li><a href="#">Cancellations</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Payments</a>
+                                        <ul class="submenu">
+                                            <li><a href="#">Transactions</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Reports</a>
+                                    </li>
+                                    <li><a href="#">Help</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Header Right -->
+                        <div class="header-right">
+                            <ul class="uls">
+                                <li><a href="#" class="flaticon-user text-body"><span class="mrglogin">Logout</span> </a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
+    <section>
+        <center>
+            <div class="card-header bg-white mt-3">
+                <hr />
+                <h3 class="text-primary"> Add New Product</h3>
+            </div>
+        </center>
+        <div class="cardg">
+            <div class="row">
+                <div class="card text-center col-lg-5">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            How Many Products You Want Add ?
+                        </h5>
+                        <a href="#" class="btn btn-outline-primary mr-3" onclick="showDiv()">Add Single Product</a>
+                        <a href="#" class="btn btn-outline-primary">Add Products In Bulk</a>
+                    </div>
+                </div>
+                <div class="card text-center col-lg-5">
+                    <div class="card-body">
+                        <h5>Is Product Is Already Listed On Slica ? </h5>
+                        <center>
+                            <form class="form-inline my-2 my-lg-0 searchs">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search Product By Name , Brand " aria-label="Search" size="25px">
+                                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- <input type="button" value="click" onclick="showDiv()" /> -->
+
+
+    <div id="div1" class="mt-4" style="display: none;">
+        <center>
+            <div class="card-header bg-white mt-3">
+                <hr />
+                <h3 class="text-primary"> Add Single Product</h3>
+            </div>
+        </center>
+        <div class="row mrgnBox mt-5">
+            <div class="col-lg-auto category_div" id="category_div">Select Category:
+                <select name="category" class="required-entry txtalign" id="category" onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value);">
+                    <option value="">Select Category</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="tv">Tv & Appliances</option>
+                    <option value="men">Men</option>
+                    <option value="women">Women</option>
+                    <option value="baby">Baby & Kids</option>
+                    <option value="furniture">Home & Furniture</option>
+                    <option value="Books">Books</option>
+                    <option value="Food Essentials">Food Essentials</option>
+                    <option value="More Category">More Category</option>
+                </select>
+            </div>
+            <div class="col-lg-auto sub_category_div" id="sub_category_div">Select Sub-Category:
+                <script type="text/javascript" language="JavaScript">
+                document.write('<select class="txtalign" name="subcategory" id="subcategory" onchange="javascript: dynamicdropdownone(this.options[this.selectedIndex].value);"><option value=""> Select Sub-Category</option></select>')
+                </script>
+                <noscript>
+                    <select class="txtalign" name="subcategory" id="subcategory">
+                        <option value="">Select Brand , product</option>
+                    </select>
+                </noscript>
+            </div>
+            <div class="col-lg-auto sub_subcategory_div" id="sub_subcategory_div">Select Brand , Product:
+                <script type="text/javascript" language="JavaScript">
+                document.write('<select class="txtalign" name="sub_subcategory" onchange="javascript: urlRedirectTo(this.options[this.selectedIndex].value);" id="sub_subcategory"><option value="">Select Brand , product</option></select>')
+                </script>
+                <noscript>
+                    <select class="txtalign" name="sub_subcategory" id="sub_subcategory">
+                        <option value="">Select Brand , product</option>
+                    </select>
+                </noscript>
+            </div>
+        </div>
+    </div>
+    <script src="All/Seller Add Items/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!--navbar Jquery, Popper, Bootstrap -->
+    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="All/Bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Single product js drop plugin -->
+   <script type="text/javascript" src="All/Seller Add Items/assets/js/category dropdown/tmprahul.js"></script>
+</body>
+
+</html>

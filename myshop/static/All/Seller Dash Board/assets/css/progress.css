@@ -1,0 +1,34 @@
+    /*Progress of verification classes*/
+        @import url("https://fonts.googleapis.com/css?family=Josefin+Sans:200,300,400,500,600,700|Roboto:100,300,400,500,700&display=swap");
+            .fonts
+            {
+                  font-family: "Josefin Sans",sans-serif; 
+                  font-size: 18px;
+            }
+
+            ul ul{
+                  list-style-image : url('../img/right.png');
+            }
+
+            .uls{
+              list-style-type: none;
+            }
+            .boldfonts{
+                  font-weight:bold;
+            }
+
+            .verification{
+                  border: 1px solid lightblue;
+                  background-color: lightcyan;
+                  border-radius: 10px;
+                  margin-top:50px;
+                  margin-left:5px;  
+                  margin-right:50px;
+                  padding: 20px;
+            }
+
+            .progress{
+                  height:25px;
+            }
+
+  

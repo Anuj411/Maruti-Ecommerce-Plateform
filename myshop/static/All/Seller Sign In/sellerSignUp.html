@@ -1,0 +1,168 @@
+﻿<!-- {%extends '../footer.html'%} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form by Slica</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="All/Seller Sign In/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="All/Bootstrap/css/bootstrap.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="All/Seller Sign In/css/style.css">
+
+    <link href="All/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+      <!-- Custom fonts for this template -->
+      <link href="All/Seller Sign In/desc/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+      <link href="All/Seller Sign In/desc/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+      <!-- Custom styles for this template -->
+      <link href="All/Seller Sign In/desc/css/landing-page.min.css" rel="stylesheet">
+
+</head>
+<body> 
+
+    <div class="main">
+
+        <!-- Sign up form -->
+        <section class="signup bg-light">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">SIGN UP</h2>
+                        <form method="POST" class="register-form" id="register-form">
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="name" id="name" placeholder="User Name"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="email" id="email" placeholder="Your Email"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="pass" id="pass" placeholder="Password"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="mob"><i class="zmdi zmdi-phone"></i></label>
+                                <input type="tel" name="mob" id="mob" placeholder="Your Mobile Number"/>
+                            </div>  
+                            <!-- Select city State -->
+                            <div class="form-group">
+                                <label for="mob"><i class=" icon-location-pin"></i></label>
+                                <div class="row">
+                                <select id="Country" required class="form-control col-lg-2 dropg2">
+                                       <option value="India" selected>India</option>
+                                </select>
+                               <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt" class="form-control col-lg-4 dropg" required></select>
+                                <select id ="state" class="form-control col-lg-3 dropg" required></select>
+                                <script language="javascript">print_state("sts");</script>
+
+                                </div>
+                            </div> 
+                            <hr class="new2" />                         
+                            <div class="form-group">
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="terms.html" class="term-service">Terms of service</a></label>
+                            </div>
+                            <hr class="new2" /> 
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                                <br/>
+                                <br/>
+                                <hr/>
+                                <a href="sellersignin.html" class="signup-image-link">I am already member</a>
+                                <hr/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="vlSignUp">
+                        
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="All/Seller Sign In/images/signinimage.jpg"  alt="sing up image"></figure>
+                    <hr/>    
+                        <a href="{% url 'signin' %}" class="signup-image-link">Switch To Customer</a>
+                    <hr/>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+    
+<div>
+    <section class="features-icons bg-light text-center ">
+    <div class="containers ">
+        <h3 class="mb-5">Sell to crores of customers on Slica , right from your doorstep!</h3>
+        <hr class="new1" />
+        <h3 class="subtext">All you need to sell on Slica is</h3>
+      <div class="row mb-5">
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-organization m-auto text-primary"></i>
+            </div>
+            <h4>BANK ACCOUNT</h4>
+            <p class="lead mb-0">Simply Link Your Bank Account In Slica</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-docs m-auto text-primary"></i>
+            </div>
+            <h4>GSTIN*</h4>
+            <p class="lead mb-0">*GSTIN is not required for sellers who only sell books</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-bag m-auto text-primary"></i>
+            </div>
+            <h4>PRODUCTS TO SELL</h4>
+            <p class="lead mb-0">Start Selling Your Products On Slica </p>
+          </div>
+        </div>
+      </div>
+      <div>
+          <div class="mx-auto mb-0 mb-lg-3">
+            <p class="lead mb-0"></p>
+          </div>
+        </div>
+        <hr class="new1" />
+        <h3 class="mb-5">How will this information be used?</h3>
+        <hr class="new1" />
+        <div class="container bg-light">
+        <p class="subtext last">You can use your email address or mobile number as 'Username' to login to your SLICA Seller Account.</p>
+
+        <p class="subtext last">Please note, the 'Username' and 'Password' used here are only to access your SLICA Seller Account and can’t be used on Slica.com shopping destination.</p>
+        <br/>
+    </div>
+    </div>
+  </section>
+
+
+
+</div>
+
+    <!-- {%block footer%}
+    {%endblock%}
+         -->
+
+    <!-- JS -->
+    <script src="All/Seller Sign In/js/main.js"></script>
+    <script src="All/Seller Sign In/desc/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

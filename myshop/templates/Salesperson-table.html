@@ -1,0 +1,570 @@
+{% extends 'Admin-Header-Footer.html' %}
+
+{% load static %}
+
+{% block css %}
+  <script type="text/javascript" src="{% static 'All/Admin Panel/assets/js/jquery-1.10.2.js' %}"></script>
+  <title>Maruti E-Commerce Plateform - Salesperson</title>
+  <script type="text/javascript">
+      function alertmsg(){
+        {% if msg %}
+          alert('{{msg}}');
+        {% endif %}
+      }
+
+      $(function() {
+        $(".table").tablesorter();
+      });
+
+      $(document).ready(function(){
+
+        // for isactive
+        var switchid;
+
+        {% for salesperson in salespersons %}
+          switchid = "#switch"+{{forloop.counter}};
+          $(switchid).change(function() {
+            console.log("click");
+            $.ajax({
+            type:"GET",
+                url: "{% url 'active' %}",
+                data: {
+                  'id': {{salesperson.user_user_id.id}},
+                  'isactive': this.checked
+                },
+                dataType: 'json',
+                success: function (data) {
+                  console.log(data)
+              }
+            });
+          });
+        {% endfor %}
+      });
+      
+      function assignduty(){
+        document.getElementById('notassigndutytable').style.display="none";
+        document.getElementById('assigndutytable').style.display="block";
+        document.getElementById('all').style.display="none";
+      }
+      function notassignduty(){
+        document.getElementById('assigndutytable').style.display="none";
+        document.getElementById('notassigndutytable').style.display="block";
+        document.getElementById('all').style.display="none";
+      }
+      function allsp(){
+        document.getElementById('assigndutytable').style.display="none";
+        document.getElementById('notassigndutytable').style.display="none";
+        document.getElementById('all').style.display="block";
+      }
+
+    </script>
+{% endblock %}
+
+{% block content%}
+  <body onload="allsp();alertmsg();">
+  
+  
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body pt-5">
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <a href="#" onclick="allsp()">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Total Salespersons</h5>
+                      <span class="h2 font-weight-bold mb-0">{{total_salesperson}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                        <i class="fa fa-users"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+                </a>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Total Deliveries</h5>
+                      <span class="h2 font-weight-bold mb-0">{{del.count}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                        <i class="fas fa-shipping-fast"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Present Salesperson</h5>
+                      <span class="h2 font-weight-bold mb-0">{{present_sal.count}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                        <i class="fas fa-check-double"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <a href="#" onclick="assignduty()">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Assigned Duty</h5>
+                      <span class="h2 font-weight-bold mb-0">{{total_assign_sp}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                        <i class="fas fa-edit"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    
+                  </p>
+                </div>
+                </a>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats">
+                <!-- Card body -->
+                <a href="#" onclick="notassignduty()">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0"> Not Assigned Duty</h5>
+                      <span class="h2 font-weight-bold mb-0">{{total_notassign_sp}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                        <i class="fas fa-edit"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                  </p>
+                </div>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+
+    <!-- All SP -->
+    <div class="row" id="all">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h1 class="mb-0 text-primary" style="text-align: center;">Salesperson</h1>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="id">Id</th>
+                    <th scope="col" class="sort" data-sort="joindate">Join Date</th>
+                    <th scope="col" class="sort" data-sort="name">Name</th>
+                    <th scope="col" class="sort" data-sort="panno">PAN No</th>
+                    <th scope="col" class="sort" data-sort="mobileno">Mobile No</th>
+                    <th scope="col" class="sort" data-sort="secamt">Security Amount</th>
+                    <th scope="col" class="sort" data-sort="salary">Salary( &#8377; )</th>
+                    <th scope="col" class="sort" data-sort="view">View Details</th>
+                    <th scope="col" class="sort" data-sort="active">Active</th>
+                    <th scope="col" class="sort" data-sort="action">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="list txt1">
+                  {% for salesperson in salespersons %}
+                  {% with y=forloop.counter|stringformat:"s" %}
+                  <tr>
+                    <th scope="row">
+                      <div>
+                        {{salesperson.id}}
+                      </div>
+                    </th>
+                    <td>
+                        {{salesperson.user_user_id.date_joined}}
+                    </td>
+                    <td>
+                        {{salesperson.user_user_id.first_name}} {{salesperson.user_user_id.last_name}}
+                    </td>
+                    <td>
+                        {{salesperson.pan}}
+                    </td>
+                    <td>
+                      {{salesperson.salesperson_mobile_num}}
+                    </td>
+                    <td>
+                      {% if salesperson.security_amt_paid %}
+                        <span class="badge badge-dot mr-4">
+                          <i class="bg-success"></i>
+                          <span class="status">Paid</span>
+                        </span>
+                      {% else %}
+                        <span class="badge badge-dot mr-4">
+                          <i class="bg-warning"></i>
+                          <span class="status">Unpaid</span>
+                        </span>
+                      {% endif %}
+                      </td>
+                      <td>
+                        {{salesperson.salary}}
+                      </td>
+                    <td>
+                        <button type="button" class="btn btn-info" onclick="location.href='{% url 'adminviewsp' spid=salesperson.id %}'">View</button>
+                    </td>
+                    <td>
+                      {% with switchid="switch"|add:y %}
+                      <div class="d-flex align-items-center">
+                        {% if salesperson.user_user_id.is_active %}
+                        <input type="checkbox" id={{ switchid }} class="checkbox" checked/>
+                        <label for={{ switchid }} class="toggle">
+                        {% else %}
+                        <input type="checkbox" id={{ switchid }} class="checkbox" />
+                        <label for={{ switchid }} class="toggle">
+                        {% endif %}
+                      </div>
+                      {% endwith %}
+                    </td>
+                    <td>
+                      {% with removeid="remove"|add:y %}
+                        <button type="button" onclick="myFunction({{salesperson.user_user_id.id}})" id={{ removeid }} class="btn btn-danger">Remove</button>
+                      {% endwith %}
+                    </td>
+                  </tr>
+                  {% endwith %}
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+              {% if salespersons.has_other_pages %}
+              <nav aria-label="...">
+                <ul class="pagination justify-content-end mb-0">
+                {% if salespersons.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ salespersons.previous_page_number }}" tabindex="-1">
+                      <i class="fas fa-angle-left"></i>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                        <i class="fas fa-angle-left"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% for i in salespersons.paginator.page_range %}
+                  {% if salespersons.number == i %}
+                  <li class="page-item active">
+                    <a class="page-link" href="#">{{ i }}<span class="sr-only">(current)</span></a>
+                  </li>
+                  {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                  </li>
+                  {% endif %}
+                {% endfor %}
+                {% if salespersons.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ salespersons.next_page_number }}">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% endif %}
+                </ul>
+              </nav>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Assigned SP -->
+      <div class="row" id="assigndutytable">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h1 class="mb-0 text-primary" style="text-align: center;">Salesperson</h1>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="id">Id</th>
+                    <th scope="col" class="sort" data-sort="name">Name</th>
+                    <th scope="col" class="sort" data-sort="mobileno">Mobile No</th>
+                    <th scope="col" class="sort" data-sort="attendence">Total assigned duty</th>
+                    <th scope="col" class="sort" data-sort="address">Normal</th>
+                    <th scope="col" class="sort" data-sort="secamt">Try & Buy</th>
+                  </tr>
+                </thead>
+                <tbody class="list txt1">
+                  {% for salesperson,total_duty,try_buy,normal in assign_duty_sp %}
+                  <tr>
+                    <th scope="row">
+                      <div>
+                        {{salesperson.id}}
+                      </div>
+                    </th>
+                    <td>
+                        {{salesperson.user_user_id.first_name}} {{salesperson.user_user_id.last_name}}
+                    </td>
+                    <td>
+                      {{salesperson.salesperson_mobile_num}}
+                    </td>
+                    <td>
+                      {{total_duty}}
+                    </td>
+                    <td>
+                      <div class="avatar-group">
+                        {{try_buy}}
+                      </div>
+                    </td>
+                    <td>
+                      {{normal}}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+              {% if assign_duty_sp.has_other_pages %}
+              <nav aria-label="...">
+                <ul class="pagination justify-content-end mb-0">
+                {% if assign_duty_sp.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ assign_duty_sp.previous_page_number }}" tabindex="-1">
+                      <i class="fas fa-angle-left"></i>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                        <i class="fas fa-angle-left"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% for i in assign_duty_sp.paginator.page_range %}
+                  {% if assign_duty_sp.number == i %}
+                  <li class="page-item active">
+                    <a class="page-link" href="#">{{ i }}<span class="sr-only">(current)</span></a>
+                  </li>
+                  {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                  </li>
+                  {% endif %}
+                {% endfor %}
+                {% if assign_duty_sp.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ assign_duty_sp.next_page_number }}">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% endif %}
+                </ul>
+              </nav>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Not Assigned SP -->
+      <div class="row" id="notassigndutytable">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h1 class="mb-0 text-primary" style="text-align: center;">Salesperson</h1>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="id"></th>
+                    <th scope="col" class="sort" data-sort="id">Id</th>
+                    <th scope="col" class="sort" data-sort="name">Name</th>
+                    <th scope="col" class="sort" data-sort="mobileno">Mobile No</th>
+                    <th scope="col" class="sort" data-sort="attendence">Total assigned duty</th>
+                    <th scope="col" class="sort" data-sort="address">Normal</th>
+                    <th scope="col" class="sort" data-sort="secamt">Try & Buy</th>
+                  </tr>
+                </thead>
+                <tbody class="list txt1">
+                  {% for salesperson,total_duty,try_buy,normal in notassign_duty_sp %}
+                  <tr>
+                    <td>
+                      <button type="button" class="btn btn-info" onclick="location.href='{% url 'assignduty' spid=salesperson.id %}'">Assign Duty</button>
+                    </td>
+                    <th scope="row">
+                      <div>
+                        {{salesperson.id}}
+                      </div>
+                    </th>
+                    <td>
+                        {{salesperson.user_user_id.first_name}} {{salesperson.user_user_id.last_name}}
+                    </td>
+                    <td>
+                      {{salesperson.salesperson_mobile_num}}
+                    </td>
+                    <td>
+                        {{total_duty}}
+                    </td>
+                    <td>
+                      <div class="avatar-group">
+                        {{try_buy}}
+                      </div>
+                    </td>
+                    <td>
+                      {{normal}}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+
+          <!-- Card footer -->
+            <div class="card-footer py-4">
+              {% if notassign_duty_sp.has_other_pages %}
+              <nav aria-label="...">
+                <ul class="pagination justify-content-end mb-0">
+                {% if notassign_duty_sp.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ notassign_duty_sp.previous_page_number }}" tabindex="-1">
+                      <i class="fas fa-angle-left"></i>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                        <i class="fas fa-angle-left"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% for i in notassign_duty_sp.paginator.page_range %}
+                  {% if notassign_duty_sp.number == i %}
+                  <li class="page-item active">
+                    <a class="page-link" href="#">{{ i }}<span class="sr-only">(current)</span></a>
+                  </li>
+                  {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                  </li>
+                  {% endif %}
+                {% endfor %}
+                {% if notassign_duty_sp.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ notassign_duty_sp.next_page_number }}">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                {% endif %}
+                </ul>
+              </nav>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block js%}
+
+<script>
+  function myFunction(id)
+      {
+        alert('This salesperson cannot be remove because his deliveries are pending !');
+        if (confirm("Are you sure want to remove?")) {
+          var x = "/adminside/removesalesperson/"+id;
+          location.href=x;
+        } else {
+        }
+      }
+</script>
+</body>
+
+{% endblock %}

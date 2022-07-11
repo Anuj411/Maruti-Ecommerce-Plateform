@@ -1,0 +1,545 @@
+
+{% load static %} 
+<!DOCTYPE html>
+
+<head>
+	<title> Welcome Seller Into Slica </title>
+	<style>
+	.savebtn {
+		border: 0;
+		padding: 10px 32px;
+		color: #0880e8;
+		transition: 0.4s;
+		border-radius: 50px !important;
+		border: 2px solid #0880e8;
+		background: #fff;
+	}
+	
+	.savebtn:hover {
+		color: white;
+		background-color: #0880e8;
+	}
+	</style>
+	<!--navbar CSS here -->
+	<link rel="stylesheet" href="{% static 'All/Bootstrap/css/bootstrap.css' %}">
+	<link rel="stylesheet" href=" {% static 'All/Seller Dash Board/assets/css/flaticon.css' %} ">
+	<link rel="stylesheet" href="{% static 'All/Seller Dash Board/assets/css/style.css' %} ">
+	<!--welcome Custom fonts for this template -->
+	<link href=" {% static 'All/Seller Dash Board/desc/vendor/fontawesome-free/css/all.min.css' %} " rel="stylesheet">
+	<link href="{% static 'All/Seller Dash Board/desc/vendor/simple-line-icons/css/simple-line-icons.css' %} " rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+	<!--welcome Custom styles for this template -->
+	<link href="{% static 'All/Seller Dash Board/desc/css/landing-page.min.css' %} " rel="stylesheet">
+	<!--form Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+	<!--form Template Main CSS File -->
+	<link href=" {% static 'All/Seller Dash Board/login/assets/css/style.css' %} " rel="stylesheet">
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<!-- progress css -->
+	<link rel="stylesheet" type="text/css" href=" {% static 'All/Seller Dash Board/assets/css/progress.css' %} ">
+	<script>
+    function verifyGSTno(){
+      var g = document.getElementById('gstno').value;
+	  document.getElementById("save_gst1").disabled = false;
+      
+      let regTest = /\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}/.test(g);
+      if(regTest){
+        let a=65,b=55,c=36;
+        //document.getElementById("errorgst").innerHTML = ""
+        return Array['from'](g).reduce((i,j,k,g)=>{
+           p=(p=(j.charCodeAt(0)<a?parseInt(j):j.charCodeAt(0)-b)*(k%2+1))>c?1+(p-c):p;
+           return k<14?i+p:j==((c=(c-(i%c)))<10?c:String.fromCharCode(c+b));
+        },0); 
+        
+      }
+      if(regTest == false)
+      {
+        alert("please enter correct gstn ");
+      }
+    }
+
+    function verifyIFSC() {
+            var ifsc = document.getElementById('IfscCode').value;
+            var reg = /[A-Z|a-z]{4}[0][a-zA-Z0-9]{6}$/;
+			document.getElementById("save_ifsc").disabled = false;
+
+            if (ifsc.match(reg)) {
+                document.getElementById('IfscError').innerHTML = "";
+            }
+            else {
+                document.getElementById('IfscError').innerHTML = "Enter valid IFSC code";
+                document.getElementById("IfscCode").focus();
+            }
+
+        }
+  </script>
+
+	<style>
+	{% if e %}
+		#emailverify{
+			list-style-image :url("{% static 'All/Seller Dash Board/assets/img/tick.png' %}")
+		}
+	{% endif %}
+
+	{% if bankverify %}
+		#bankver{
+			list-style-image :url("{% static 'All/Seller Dash Board/assets/img/tick.png' %}")
+		}
+	{% endif %}
+
+	{% if gst %}
+		#gstcert{
+			list-style-image :url("{% static 'All/Seller Dash Board/assets/img/tick.png' %}")
+		}
+		#gstin{
+			list-style-image :url("{% static 'All/Seller Dash Board/assets/img/tick.png' %}")
+		}
+	{% endif %}
+
+	{% if cancelcheck %}
+		#canchq{
+			list-style-image :url("{% static 'All/Seller Dash Board/assets/img/tick.png' %}")
+		}
+	{% endif %}
+
+	{% if store %}
+		#sname{
+			list-style-image :url("{% static 'All/Seller Dash Board/assets/img/tick.png' %}")
+		}
+		#sadd{
+			list-style-image :url("{% static 'All/Seller Dash Board/assets/img/tick.png' %}")
+		}
+	{% endif %}
+
+	</style>
+</head>
+
+<body style="overflow: visible;">
+	<header>
+		<!-- Header Start -->
+		<div class="header-area">
+			<div class="main-header header-sticky">
+				<div class="container-fluid">
+					<div class="menu-wrapper">
+						<!-- Logo -->
+						<div class="logo">
+							<a href="{% url 'welcome' %}"><img src=" {% static 'All/Seller Dash Board/assets/img/logo/logo.png' %} " alt=""></a>
+						</div>
+						<!-- Main-menu -->
+						<div class="main-menu d-none d-lg-block">
+							<nav>
+								<ul id="navigation">
+									<li><a href="{% url 'dashboard' %}">Home</a></li>
+									<li><a href="{% url 'sellerprofile' %}">My Profile</a></li>
+									<li><a href="#">Sell Product</a>
+										<ul class="submenu">
+											<li><a href="{% url 'addproduct' %}">Add New Product</a></li>
+											<li><a href="{% url 'sellermyproduct' typep=0 %}">My Products</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Orders</a>
+										<ul class="submenu">
+											<li><a href="#">Active</a></li>
+											<li><a href="#">Return</a></li>
+											<li><a href="#">Cancellations</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Payments</a>
+										<ul class="submenu">
+											<li><a href="#">Transactions</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Reports</a> </li>
+									<li><a href="#">Help</a></li>
+									
+								</ul>
+							</nav>
+						</div>
+						<!-- Header Right -->
+						<div class="header-right">
+							<ul class="uls">
+								<li><a href="{% url 'logout' %}" class="flaticon-user text-body"><span class="mrglogin">Logout</span> </a> </li>
+							</ul>
+						</div>
+					</div>
+					<!-- Mobile Menu -->
+					<div class="col-12">
+						<div class="mobile_menu d-block d-lg-none">
+							<div class="slicknav_menu"><a href="#" aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_collapsed"><span class="slicknav_menutxt">MENU</span><span class="slicknav_icon"><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span></a>
+								<ul class="slicknav_nav slicknav_hidden" aria-hidden="true" role="menu" style="display: none;">
+									<li><a href="Welcome.html" role="menuitem" tabindex="-1">Home</a></li>
+									<li class="slicknav_collapsed slicknav_parent"><a href="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row"><a href="#" tabindex="-1">Sell Product</a> <span class="slicknav_arrow">+</span></a>
+										<ul class="submenu slicknav_hidden" role="menu" aria-hidden="true" style="display: none;">
+											<li><a href="AddNewProduct.html" role="menuitem" tabindex="-1">Add New Product</a></li>
+											<li><a href="#" role="menuitem" tabindex="-1">Remove Current Product</a></li>
+											<li><a href="#" role="menuitem" tabindex="-1">My Products</a></li>
+										</ul>
+									</li>
+									<li class="slicknav_collapsed slicknav_parent"><a href="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row"><a href="#" tabindex="-1">Orders</a> <span class="slicknav_arrow">+</span></a>
+										<ul class="submenu slicknav_hidden" role="menu" aria-hidden="true" style="display: none;">
+											<li><a href="#" role="menuitem" tabindex="-1">Active</a></li>
+											<li><a href="#" role="menuitem" tabindex="-1">Return</a></li>
+											<li><a href="#" role="menuitem" tabindex="-1">Cancellations</a></li>
+										</ul>
+									</li>
+									<li class="slicknav_collapsed slicknav_parent"><a href="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row"><a href="#" tabindex="-1">Payments</a> <span class="slicknav_arrow">+</span></a>
+										<ul class="submenu slicknav_hidden" role="menu" aria-hidden="true" style="display: none;">
+											<li><a href="#" role="menuitem" tabindex="-1">Transactions</a></li>
+										</ul>
+									</li>
+									<li><a href="#" role="menuitem" tabindex="-1">Reports</a> </li>
+									<li><a href="#" role="menuitem" tabindex="-1">Help</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+	</header>
+	<!-- Progress Of Verification -->
+	{% comment %} <form method="post" id="ctl01" enctype="multipart/form-data">
+	{% csrf_token %} {% endcomment %}
+		<section id="contact" class="contact">
+			<div class="alert alert-primary" role="alert">
+				<center>Welcome To Maruti !</center>
+			</div>
+			<div class="container" data-aos="fade-up">
+				<div class="row mt-1 d-flex justify-content-end" data-aos="fade-right" data-aos-delay="100">
+					<div class="col-lg-4">
+						<div class="verification fonts">
+							<h4>Your status</h4>
+							<div class="progress">
+							
+								<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {{progress}}%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{progress}}%</div>
+							
+							</div>
+							<p class="mt-2">Your Account is {{progress}}% complete</p>
+							<ul type="disc">
+								<li class="boldfonts mt-3">Account Details</li>
+								<ul>
+									<li class="mt-2" id="emailverify">Email Verification</li>
+								</ul>
+								<li class="boldfonts mt-3">Business Details</li>
+								<ul>
+									<li class="mt-2" id="gstin">GSTIN</li>
+									<li class="mt-2" id="gstcert">GST Certificate</li>
+									<!-- <li>Signature Verification</li> -->
+								</ul>
+								<li class="boldfonts mt-3">Bank Account Details</li>
+								<ul>
+									<li class="mt-2" id="bankver">Bank a/c Verification</li>
+									<li id="canchq">Cancelled Cheque</li>
+								</ul>
+								{% comment %} <li class="boldfonts mt-3">Product Details</li>
+								<ul>
+									<li class="mt-2">Listing Created</li>
+									<li>Stock Added</li>
+								</ul> {% endcomment %}
+								<li class="boldfonts mt-3">Store Details</li>
+										<ul>
+											<li class="mt-2" id='sname'>Store Name</li>
+											<li id='sadd'>Store Address</li>
+										</ul>
+										
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-8 mt-5 mt-lg-3" data-aos="fade-left" data-aos-delay="100">
+						<section class="features-icons text-center ">
+							<div class="containers">
+								<h3 class="mb-3">You are almost ready to start selling!</h3>
+								<h4 class="mb-3">Please complete all the steps below</h4>
+								<div class="row mb-5">
+									<div class="col-lg-4">
+											{% if e %}
+											<div class="fa fa-check fa-5x text-primary mx-auto mb-5 mb-lg-0 mb-lg-3"> </div>
+											<h6>Email Verification Done</h6>
+											<p> Your Email Address Has Been Verified </p>
+											{% else %}
+											<div class="features-icons-item mx-auto mb-0 mb-lg-3">
+											<div class="features-icons-icon d-flex"> <i class="icon-exclamation m-auto text-primary"></i> </div>
+											<h6>Email Verification Pending</h6>
+											<p>Please Verify Your Email Address , Your Verification Is Pending</p>
+											<hr>
+											</div>
+											{% endif %}
+										{% if e %}
+												
+											{% else %} 
+										<a href="{% url 'verifyEmail' %}">
+											<input type="button" name="know_more" value="Verify Email" id="know_more" class="btn btn-outline-primary">
+										</a>
+											{% endif %}
+									</div>
+									
+									<div class="col-lg-4">
+								
+										{% if gst %}
+										<div class="fa fa-check fa-5x text-primary mx-auto mb-5 mb-lg-0 mb-lg-3">
+											 {% comment %} <div class="d-flex"> <i class="icon-docs m-auto text-primary"></i> </div>  {% endcomment %}
+											<h6>GSTIN*</h6>
+											<p>You have already uploaded your gstin details</p>
+											<hr> </div>
+										<a onclick="updatebtn()">
+											<input type="submit" name="update_gstin" value="Update GSTIN" id="update_gstin" class="btn btn-outline-primary">
+										</a>
+									
+									{% else %}
+
+										
+										<div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+											<div class="features-icons-icon d-flex"> <i class="icon-docs m-auto text-primary"></i> </div>
+											<h6>GSTIN*</h6>
+											<p>*GSTIN is not required for sellers who only sell books</p>
+											<hr> </div>
+										<a onclick="updatebtn()">
+											<input type="submit" name="update_gstin" value="Update GSTIN" id="update_gstin" class="btn btn-outline-primary">
+										</a>
+									
+
+
+									{% endif %}
+									</div>
+
+									{% if bankverify %}
+									<div class="col-lg-4">
+										<div class="fa fa-check fa-5x text-primary mx-auto mb-5 mb-lg-0 mb-lg-3">
+											{% comment %} <div class="features-icons-icon d-flex"> <i class="icon-organization m-auto text-primary"></i> </div> {% endcomment %}
+											<h6>BANK ACCOUNT</h6>
+											<p>You have already uploaded your bank details </p>
+											<hr> </div>
+										<a onclick="linkbtn()">
+											<input type="submit" name="link_account" value="Link Account" id="link_account" class="btn btn-outline-primary">
+										</a>
+									</div>
+
+									
+
+									{% else %}
+									<div class="col-lg-4">
+										<div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+											<div class="features-icons-icon d-flex"> <i class="icon-organization m-auto text-primary"></i> </div>
+											<h6>BANK ACCOUNT</h6>
+											<p>Simply Link Your Bank Account In Slica </p>
+											<hr> </div>
+										<a onclick="linkbtn()">
+											<input type="submit" name="link_account" value="Link Account" id="link_account" class="btn btn-outline-primary">
+										</a>
+									</div>
+
+
+									{% endif %}
+								</div>	
+								
+								
+
+								<div class="row">
+									{% if cancelcheck %}
+									
+									<div class="col-lg-6">
+										<div class="fa fa-check fa-5x text-primary mx-auto mb-0 mb-lg-3">
+											{% comment %} <div class="features-icons-icon d-flex"> <i class="icon-tag m-auto text-primary"></i> </div> {% endcomment %}
+											<h6>Upload Cancelled Cheque</h6>
+											<p>You have already uploaded your cancel check image</p>
+											<hr> 
+										</div>
+									</div>
+									{% else %}
+
+								<form action="{% url 'cancelchq' %}" method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+
+									<div class="col-lg-6">
+										<div class="features-icons-item mx-auto mb-0 mb-lg-3">
+											<div class="features-icons-icon d-flex"> <i class="icon-tag m-auto text-primary"></i> </div>
+											<h6>Upload Cancelled Cheque</h6>
+											<p>Please read the instructions and upload your document by clicking below:</p>
+											<hr> </div>
+					
+										<div class="file-loading ml-4">
+											<input id="cancel_cheque" name="cancel_cheque" type="file" class="file ml-5"> 
+											
+											<input type="submit" name="submit" class="mt-4 btn btn-outline-primary" value="Upload">
+											
+										</div>
+									</div>
+									</form>
+									
+									<div class="col-lg-6 mt-3">
+										<div class="features-icons-item mx-auto ml-5 mb-0 mb-lg-3">
+											<div class="features-icons-icon d-flex ml-4"> <img src="All/Seller Dash Board/assets/img/cancelled-cheque.png"> </div>
+											<br>
+											<h6>Upload Instructions</h6>
+											<p>1) Make sure that the image is clearly visible, and on a white background</p>
+											<p> 2) Allowed file formats : png, jpg, jpeg, pdf</p>
+											<p>3) Image should not be larger than 20 MB</p>
+										</div>
+									</div>
+									{% endif %}
+								</div>
+
+								
+								
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+	{% comment %} </form> {% endcomment %}
+	<!-- End GSTIN Section -->
+	<!-- ======= GSTIN Section ======= -->
+
+	{% if gst  %}
+
+	{% else %}
+	<section id="contact" class="contact">
+		<div class="container" data-aos="fade-up">
+			<div class="section-title">
+				<h2 id="gstbtn">Business Details</h2> </div>
+			<div class="row mt-1 d-flex" data-aos="fade-right" data-aos-delay="100">
+				<div class="col-lg-5">
+					<div class="info">
+						<div class="address">
+							<h4>Need to update your business details?</h4>
+							<p>Your business details displayed here are fetched from your GSTIN. If you think something is wrong, please visit government portal and update the details.</p>
+						</div>
+						<div class="email">
+							<h4>Where will this information be used?</h4>
+							<p>Your GSTIN and signature will be used to issue invoices to the buyer.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 mt-5 mt-lg-0 ml-5" data-aos="fade-left" data-aos-delay="100">
+					<form action="{% url 'verifygst' %}" method="post" role="form" enctype="multipart/form-data" class="php-email-form">
+					{% csrf_token %}
+						<div class="form-row">
+							<div class="col-md-6 form-group mrgnform">
+								<input name="gstno" type="text" id="gstno" class="form-control" required placeholder="Enter GSTIN" data-rule="minlen:4" data-msg="Please enter Valid GSTIN">
+								{% comment %} <span id="errorgst"></span> {% endcomment %}
+								<div class="validate"></div>
+								<input name="storename" type="text" id="gstno" class="mt-2 form-control" required placeholder="Enter Store Name" data-rule="minlen:4" data-msg="Please enter Valid GSTIN">
+								<div class="validate"></div>
+								<input name="storeadd" type="text" id="gstno" style="height: 70px;" required class="mt-2 form-control" placeholder="Enter Store Address" data-rule="minlen:4" data-msg="Please enter Valid GSTIN">
+								<div class="validate"></div>
+							</div> <a href="#" onclick="verifyGSTno()" class="mrgnverify">VERIFY</a>
+							<div class="col-md-6 form-group mrgnform">
+								<div class="validate"></div>
+							</div>
+						</div>
+						<!-- <div class="row">
+						 <div class="col-lg-5 mt-3 ml-5"> -->
+										<div class="row features-icons-item mx-auto mb-0 mb-lg-3">
+											<div class="col-md-5 justify-content-center features-icons-icon d-flex"> <img src="{% static 'assets/images/GST Certificate.png' %} "> </div>
+											<br>
+											<div class="col-md-7">
+											<h5>Upload Instructions</h5>
+											<p>1) Make sure that the image is clearly visible, and on a white background.</p>
+											<p> 2) Allowed file formats : png, jpg, jpeg, pdf.</p>
+											<p>3) Image should not be larger than 20 MB.</p>	
+											<input id="cancel_cheque" name="gstInImg" type="file" class="file ml-5" required> 
+											</div>
+											
+										</div>
+									
+							<div class="file-loading ml-5">
+								
+							</div>
+						<div class="text-center">
+							<input type="submit" name="save_gst1" value="Save" id="save_gst1" class="savebtn" disabled>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	{% endif %}
+	<!-- End GSTIN Section
+	<hr>
+	======= Bank Account Section ======= -->
+
+	{% if bankverify  %}
+	
+	{% else %}
+
+	
+	<section id="contact " class="contact">
+		<div class="container" data-aos="fade-up">
+			<div class="section-title">
+				<h2 id="linkac">Bank Details</h2> </div>
+			<div class="row mt-1 d-flex justify-content-end" data-aos="fade-right" data-aos-delay="100">
+				<div class="col-lg-5">
+					<div class="info">
+						<div class="address">
+							<h4>Don't have a bank account in the name of your business?</h4>
+							<p>We can only transfer payments to accounts which are in the registered business name. Please open a new bank account with any bank in your registered business name</p>
+						</div>
+						<div class="email">
+							<h4>Don't have a verification document?</h4>
+							<p>You can get a cheque book, or the statement of your account from your bank. If neither of these are available, you can also ask the bank to issue a letter with your account number, IFSC code and name mentioned on it. </p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 mt-5 mt-lg-0" data-aos="fade-left" data-aos-delay="100">
+					<form action="{% url 'verifybank' %}" method="post" role="form" class="php-email-form">
+					{% csrf_token %}
+						<div class="form-row">
+							<div class="col-md-6 form-group mrgnform">
+								<input name="acnm" type="text" id="acnm" required class="form-control" placeholder="Enter Account Holder Name" data-rule="minlen:4" data-msg="Please enter Valid Name">
+								<div class="validate"></div>
+							</div>
+							<div class="col-md-6 form-group mrgnform">
+								<input name="acno" type="text" id="acno" required class="form-control" placeholder="Enter Account Number" data-rule="minlen:4" data-msg="Please enter Valid Account number">
+								<br>
+								<h6 class="fntsize">Please make sure the bank account is in the same name as the GSTIN</h6>
+								<div class="validate"></div>
+							</div>
+							<div class="col-md-6 form-group mrgnform">
+								<input name="name" type="text" id="IfscCode" required class="form-control" placeholder="Enter IFSC" data-rule="minlen:4" data-msg="Please enter Valid IFSC Code">
+								<span id="IfscError"></span>
+								<div class="validate"></div>
+							</div> <a href="#" onclick="verifyIFSC()" class="mrgnverify">VERIFY</a>
+							<div class="col-md-6 form-group mrgnform">
+								<div class="validate"></div>
+							</div>
+						</div>
+						<div class="text-center">
+							<input type="submit" name="save_ifsc" value="Save" id="save_ifsc" class="savebtn" disabled>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	{% endif %}
+
+	<!-- End Bank Account Section -->
+	<!--navbar JS here -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/vendor/modernizr-3.5.0.min.js' %} "></script>
+	<!--navbar Jquery, Popper, Bootstrap -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/popper.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/bootstrap.min.js' %}"></script>
+	<!--navbar Jquery Mobile Menu -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/jquery.slicknav.min.js' %}"></script>
+	<!--navbar Jquery Plugins, main Jquery -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/plugins.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/assets/js/main.js' %}"></script>
+	<!--welcome JS -->
+	<script src="{% static 'All/Seller Dash Board/desc/vendor/jquery/jquery.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/desc/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+	<!--Form Vendor JS Files -->
+	<script src="{% static 'All/Seller Dash Board/login/assets/vendor/jquery/jquery.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/login/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'All/Seller Dash Board/login/assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+	<!-- focus js plugin -->
+	<script src="{% static 'All/Seller Dash Board/assets/js/focus.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+{% load static %}
+<html>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>
+	Sign In Into Slica
+</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'All/User SignIn/fonts/material-icon/css/material-design-iconic-font.min.css' %} ">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'All/User SignIn/css/style.css' %}"><link rel="stylesheet" type="text/css" href="{% static 'All/Bootstrap/css/bootstrap.css' %} ">
+    {% if msg %}
+<script>
+    alert('{{msg}}');
+</script>
+{% endif %}
+</head>
+<body>
+ <!-- Sign in  Form -->
+ 
+
+
+<div class="main">
+<section class="sign-in">
+            <div class="containers">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="{% static 'All/User SignIn/images/signin-image.jpg' %} " alt="sign up image"></figure>
+                        <hr>
+                        <a href="{% url 'sellersignin' %}" class="signup-image-link text-primary" style=" font-size: 20px;">Switch To Seller</a>
+                        <hr>
+                    </div>
+                    <div class="vlSignIn">
+                        
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Sign In</h2>
+                        <form method="POST" action="{% url 'postsignin' %}" id="login_form" class="register-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="your_email"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input name="your_email" type="email" id="your_email" placeholder="Your Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input name="your_pass" type="password" id="your_pass" placeholder="Password">
+                            </div>
+                           <div class="form-group">
+                                <div class="row">
+                                <div class="col">
+                                <input name="remember_me" type="checkbox" id="remember_me" class="agree-term">
+                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                                </div>
+                                <div class="col mt-2 ml-4">
+                                      <a href="{% url 'forgetpassword' by='customer' stat='toSend' %}" class="signup-image-link create-ac text-left" style="color:blue;font-size: 14px;">Forgot Password</a>    
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-button">
+                                <center>
+                                    <input type="submit" name="signin" value="Log in" id="signin" class="form-submit btn-primary">
+                                </center>
+                            </div>
+
+                            <hr style=" margin-top: 55px;">
+                            <a href="{% url 'signup' %}" class="signup-image-link text-primary" style=" font-size: 20px;">Create an Account</a>
+                            <hr>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+
+ 	<script src="{% static 'All/User SignIn/vendor/jquery/jquery.min.js' %} "></script>
+    <script src="{% static 'All/User SignIn/js/main.js' %} "></script>
+
+
+
+
+</body></html>

@@ -1,0 +1,273 @@
+{% extends 'Navbar.html' %}
+<html>
+{% load static %}
+<head>
+{% block css %}
+	<link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+	{% comment %} <meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge"> {% endcomment %}
+	<title> My Products </title>
+	<!--navbar CSS here -->
+	{% comment %} <link rel="stylesheet" href="{% static 'All/Bootstrap/css/bootstrap.css' %}"> {% endcomment %}
+	{% comment %} <link rel="stylesheet" href="{% static 'All/Seller Dash Board/assets/css/flaticon.css' %}"> {% endcomment %}
+	{% comment %} <link rel="stylesheet" href="{% static 'All/Seller Dash Board/assets/css/style.css' %}"> {% endcomment %}
+	<link rel="stylesheet" href="{% static 'All/SellerNewDash/css/style.css' %}">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+	{% endblock css %}
+	 </head>
+
+<body>
+{% block body %}
+	{% comment %} <header>
+		<!-- Header Start -->
+		<div class="header-area">
+			<div class="main-header header-sticky">
+				<div class="container-fluid">
+					<div class="menu-wrapper">
+						<!-- Logo -->
+						<div class="logo">
+							<a href="Welcome.html"><img src="{% static 'All/Seller Dash Board/assets/img/logo/logo.png' %}" alt=""></a>
+						</div>
+						<!-- Main-menu -->
+						<div class="main-menu d-none d-lg-block">
+							<nav>
+								<ul id="navigation">
+									<li><a href="Welcome.html">Home</a></li>
+									<li><a href="#">Sell Product</a>
+										<ul class="submenu">
+											<li><a href="AddNewProduct.html">Add New Product</a></li>
+											<li><a href="MyProducts.html">My Products</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Orders</a>
+										<ul class="submenu">
+											<li><a href="#">Active</a></li>
+											<li><a href="#">Return</a></li>
+											<li><a href="#">Cancellations</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Payments</a>
+										<ul class="submenu">
+											<li><a href="#">Transactions</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Reports</a> </li>
+									<li><a href="#">Help</a></li>
+								</ul>
+							</nav>
+						</div>
+						<!-- Header Right -->
+						<div class="header-right">
+							<ul>
+								<li><a href="#" class="flaticon-user text-body"><span class="mrglogin">Logout</span> </a> </li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+	</header> {% endcomment %}
+<hr>
+<div class="row ml-1">
+
+	<div class="col-sm-2">
+		
+	
+	<div>
+			<div id="wrapper">
+				<nav class="navbar" id="sidebar">
+					<ul class="nav sidebar-nav">
+						<div class="sidebar-header">
+							<div class=""> 
+								<div class="text-center">
+									<img src="/media/{{user.seller.profile_image}}" class="rounded" alt="..." height="80px" width="80px">
+									<p>{{user.first_name}}  {{user.last_name}}</p>
+								</div>
+							</div>
+						</div>
+						<li class="mt-2"><a name="#dashboard" href="{% url 'dashboard' %}">Dashboard</a></li>
+						<li class="mt-2"><a name="#myproducts" href="{% url 'sellermyproduct' typep=0 %}">My Products</a></li>
+						<li class="mt-2"><a name="#myorders" href="{% url 'sellerorder' ord=0 %}">My Orders</a></li>
+						<li class="mt-2"><a name="#mypayments" href="{% url 'sellertransaction' cred=0 %}">My Payments</a></li>
+						<li class="mt-2"><a name="#myprofile" href="{% url 'subscribed' %}">Subscription</a></li>
+						<li class="mt-2"><a name="#subscription" href="{% url 'sellerprofile' %}">My Profile</a></li>
+						<li class="mt-2"><a name="#reports" href="Report.html">Reports</a></li>
+						<li class="mt-2"><a name="#help" href="{% url 'help' %}">Help</a></li>
+						<li class="mt-2"><a name="#contact" href="{% url 'contactus' %}">Contact Us</a></li>
+					</ul>
+				</nav>
+				<!-- /#sidebar-wrapper -->
+			</div>
+	</div>
+	</div>
+</fieldset>
+
+
+				<div class="col">				
+				<div class="container">
+					<form method="post" id="ctl00">
+						<div>
+							<div class="container" style="border-left: 1px solid lightgrey;">
+								
+								<hr>
+								
+<!-------------------------Products-------------------------------- -->
+
+							<div class="row ml-5">
+									<div>
+										<h4><a class="text-primary" href="{% url 'sellermyproduct' typep=0 %}">Products</a></h4>
+									</div>
+							</div>
+							
+								<hr>
+								<center>
+								<div class="row ml-5">
+									<a href="{% url 'sellermyproduct' typep=2 %}">
+										<div class="card mb-4 " style="width: 10rem;">
+											<div class="card-body ">
+												<h5 class="card-title text-success">{{status}}</h5>
+						 						<h6 class="card-subtitle mb-2 text-muted">Active Products</h6>
+											</div>
+										</div>
+									</a>
+									<a href="{% url 'sellermyproduct' typep=1 %}">
+										<div class="card ml-4 mb-4" style="width: 12rem;">
+											<div class="card-body">
+												<h5 class="card-title text-danger">{{active}}</h5>
+												<h6 class="card-subtitle mb-2 text-muted">Try & Buy Products</h6>
+											</div>
+										</div>
+									</a>
+									<a href="{% url 'sellermyproduct' typep=5 %}">
+										<div class="card ml-4 mb-4" style="width: 12rem;">
+											<div class="card-body">
+												<h5 class="card-title text-primary">{{normal}}</h5>
+												<h6 class="card-subtitle mb-2 text-muted">Normal Products</h6> 
+											</div>
+										</div>
+									</a>
+									<a href="{% url 'sellermyproduct' typep=6 %}">
+										<div class="card ml-4 mb-4" style="width: 10rem;">
+											<div class="card-body">
+												<h5 class="card-title text-primary">{{block2}}</h5>
+												<h6 class="card-subtitle mb-2 text-muted">Block Products</h6> 
+											</div>
+										</div>
+									</a>
+									<div class="ml-4 mb-4 mt-lg-3" style="width: 14rem;">
+										<input type="button" onclick="location.href='{% url 'addproduct' %}'" name="Add New Product" value="Add New Product" id="addnewproduct" class="btn btn-outline-primary mb-2 p-3"> 
+									</div>
+								</div>
+							</center>
+
+
+<!-------------------------------------------Orders---------------------------------- -->
+
+						<hr>
+						<div class="row ml-5">
+									<div>
+										<h4><a class="text-primary" href="{% url 'sellerorder' ord=0 %}">Orders</a></h4>
+									</div>
+						</div>
+						
+						<hr>
+
+						<center>
+								<div class="row ml-5">
+									<a href="{% url 'sellerorder' ord=0 %}">
+										<div class="card mb-4 " style="width: 10rem;">
+											<div class="card-body ">
+												<h5 class="card-title text-success">{{totalorder}}</h5>
+												<h6 class="card-subtitle mb-2 text-muted">Total Orders</h6>
+											</div>
+										</div>
+									</a>
+									<a href="{% url 'sellerorder' ord=1 %}">
+										<div class="card ml-4 mb-4" style="width: 12rem;">
+											<div class="card-body">
+												<h5 class="card-title text-danger">{{tAborder}}</h5>
+												<h6 class="card-subtitle mb-2 text-muted">Try & Buy Orders</h6>
+											</div>
+										</div>
+									</a>
+									<a href="{% url 'sellerorder' ord=2 %}">
+										<div class="card ml-4 mb-4" style="width: 10rem;">
+											<div class="card-body">
+												<h5 class="card-title text-primary">{{normalorder}}</h5>
+												<h6 class="card-subtitle mb-2 text-muted">Normal Orders</h6> 
+											</div>
+										</div>
+									</a>
+									<a href="{% url 'sellerorder' ord=3 %}">
+										<div class="card ml-4 mb-4" style="width: 10rem;">
+											<div class="card-body">
+												<h5 class="card-title text-primary">{{returnorder}}</h5>
+												<h6 class="card-subtitle mb-2 text-muted">Return Orders</h6> 
+											</div>
+										</div>
+									</a>
+									<a href="{% url 'sellerorder' ord=4 %}">
+										<div class="card ml-4 mb-4" style="width: 10rem;">
+											<div class="card-body">
+												<h5 class="card-title text-primary">{{cacelord}}</h5>
+												<h6 class="card-subtitle mb-2 text-muted">Cancel Orders</h6> 
+											</div>
+										</div>
+									</a>
+								</div>
+							</center>
+
+<!-----------------------------Transaction-------------------------------------------->
+
+								<hr>
+							<div class="row ml-5">
+									<div>
+										<h4><a class="text-primary" href="{% url 'sellertransaction' cred=0 %}">Payments</a></h4>
+									</div>
+							</div>
+							
+								<hr>
+								<center>
+								<div class="row ml-5">
+									<a href="{% url 'sellertransaction' cred=1 %}">
+										<div class="card mb-4 " style="width: 15rem;">
+											<div class="card-body ">
+												<h5 class="card-title text-success">{{credit}}</h5>
+												<h6 class="card-subtitle mb-2 text-muted">Credited</h6>
+											</div>
+										</div>
+									</a>
+									<a href="{% url 'sellertransaction' cred=2 %}">
+										<div class="card ml-4 mb-4" style="width: 15rem;">
+											<div class="card-body">
+												<h5 class="card-title text-danger">{{debit}}</h5>
+												<h6 class="card-subtitle mb-2 text-muted">Debited</h6>
+											</div>
+										</div>
+									</a>
+									<a href="{% url 'sellertransaction' cred=3 %}">
+										<div class="card ml-4 mb-4" style="width: 15rem;">
+											<div class="card-body">
+												<h5 class="card-title text-primary">{{pending}}</h5>
+												<h6 class="card-subtitle mb-2 text-muted">Pending</h6> 
+											</div>
+										</div>
+									</a>
+								</div>
+							</center>
+
+							</div>
+						</div>
+					</form>
+				</div>
+				</div>
+</div>
+
+
+{% endblock body %}
+	<!--navbar JS here -->
+	{% block js %}{% endblock js %}
+</body>
+
+</html>

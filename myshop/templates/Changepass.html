@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+{% load static %}
+<head>
+	<script>
+        function checkSeller() {
+            if(document.getElementById('pass').value == document.getElementById('re_pass').value){
+              document.getElementById("register-form").submit();
+            }
+            else
+            {
+              document.getElementById("check_pass").innerHTML="Password must be same";
+              return false;
+            }
+          }
+      </script>
+	<title> Change Password </title>
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Forgot Password/css/ForgotPassDesign.css' %} ">
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Bootstrap/css/bootstrap.css' %} ">
+</head>
+
+<body>
+	<form method="post" action="{% url 'forgetpassword' by=by stat='change' %}" method="POST" id="form1">
+	{% csrf_token %}
+		<center>
+			<div class="container mt-5">
+				<div class="row justify-content-center">
+					<div class="col-lg-5 col-md-10">
+						<div class="forgot">
+							<div>
+								<h4 class="text-uppercase text-center">Change Password</h4>
+								<hr> </div>
+								<input type='text' name='email' value={{user}} hidden>
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label>New Password</label>
+										<input name="pass" type="password" class="form-control" style="width: 200px;" placeholder="••••••"> </div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label>Confirm <span class="d-none d-xl-inline">Password</span></label>
+										<input name="re_pass" type="password" class="form-control" style="width: 200px;" placeholder="••••••">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<input type="submit" onclick="return checkSeller()" name="hideshow" value="Reset Password" id="hideshow" class="btn btn-primary"> </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</center>
+	</form>
+</body>
+
+</html>

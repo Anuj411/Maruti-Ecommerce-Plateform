@@ -1,0 +1,66 @@
+{% load static %}
+<html>
+ 
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title> Sign In Into Slica </title>
+	<!-- Font Icon -->
+	<link rel="stylesheet" href="{% static 'All/Seller Sign In/fonts/material-icon/css/material-design-iconic-font.min.css' %} ">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="{% static 'All/Bootstrap/css/bootstrap.css' %} ">
+	<!-- Main css -->
+	<link rel="stylesheet" href="{% static 'All/Seller Sign In/css/style.css' %} ">
+{% if msg %}
+<script>
+    alert('{{msg}}');
+</script>
+{% endif %}
+</head>
+
+<body>
+	<!-- Sing in  Form --> 
+	<div class="main">
+		<section class="sign-in">
+			<div class="container">
+				<div class="signin-content">
+					<div class="signin-image">
+						<figure><img src="{% static 'All/Seller Sign In/images/ssigninimage.jpg' %} " alt="sing up image"></figure>
+						<hr class="new3"> <a href="{% url 'signin' %}" class="signup-image-link" style="color:blue;">Switch To Customer</a>
+						<hr class="new5"> </div>
+					<div class="vlSignIn"> </div>
+					<div class="signin-form">
+						<h2 class="form-title title">SIGN IN</h2>
+						<form method="POST" action="{% url 'sellerpostsignin' %}" id="login_form" class="register-form">
+			{% csrf_token %}
+							<div class="form-group">
+								<label for="your_email"><i class="zmdi zmdi-account material-icons-name"></i></label>
+								<input name="your_email" type="email" id="your_email" placeholder="Your Email"> </div>
+							<div class="form-group">
+								<label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+								<input name="your_pass" type="password" id="your_pass" placeholder="Password"> </div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col ml-3">
+										<input name="remember_me" type="checkbox" id="remember_me" class="agree-term">
+										<label for="remember_me" class="label-agree-term"><span><span></span></span>Remember me</label>
+									</div>
+									<div class="col-md-5.5"> <a href="{% url 'forgetpassword' by='seller' stat='toSend' %}" class="signup-image-link create-ac text-left" style="color:blue;font-size: 14px;">Forgot Password</a> </div>
+								</div>
+							</div>
+							<div class="form-group form-button">
+								<input type="submit" name="signin" value="Log in" id="signin" class="form-submit-signin">
+								<hr class="new3"> <a href="{% url 'sellersignup' %}" class="signup-image-link create-ac" style="color:blue;">Create an account</a>
+								<hr class="new5"> </div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<script src="{% static 'All/Seller Sign In/vendor/jquery/jquery.min.js' %} "></script>
+	<script src="{% static 'All/Seller Sign In/js/main.js' %} "></script>
+</body>
+
+</html>
