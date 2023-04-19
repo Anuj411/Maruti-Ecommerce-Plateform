@@ -28,7 +28,7 @@ def brandropdown(request):
     for i in categorybrand:
 
         brandn = dataBase.Brand.objects.get(id=i.brand_brand_id.id)
-        brandname.append(brandn.brand_name)
+        brandname.append(brand.brand_name)
     print(brandname)
 
     data = {
